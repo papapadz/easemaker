@@ -1,0 +1,192 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ease Maker</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- All Plugin Css -->
+    <link rel="stylesheet" href="css/plugins.css">
+
+    <!-- Style & Common Css -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family:'Roboto', sans-serif;
+        }
+        .box {
+            box-shadow: 0 0 10px grey;
+            padding:0 15px 0 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Start  -->
+    <nav class="navbar navbar-default navbar-sticky bootsnav">
+
+        <div class="container">
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="defaultadmin.aspx">
+                    <img src="img/logo.png" class="logo" width="100" /></a>
+            </div>
+            <!-- End Header Navigation -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li><a href="defaultadmin.aspx">Home</a></li>
+
+<%--                    							<li><a href="companies.html">Admin List</a></li> 
+                        <li><a href="companies.html">Jobs</a></li> 
+                      <li><a href="login.html">Login</a></li>--%>
+                 <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">File Maintenance</a>
+                        <ul class="dropdown-menu" style="display: none; opacity: 1;">
+                            <li runat="server" id="liadmin" class="nav-item"><a href="adminlist.aspx">System Admin</a></li>
+                            <li class="nav-item"><a href="Employers.aspx">Employer List</a></li>
+                            <li class="nav-item"><a href="accountmanagement.aspx">Account Management</a></li>
+                            <li class="nav-item"><a href="categorylist.aspx">Category List</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transactions</a>
+                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+
+                        <li runat="server" id="li1" class="nav-item"><a href="joblistadmin.aspx">Project List</a></li>
+                            <li runat="server" id="li2" class="nav-item"><a href="billinglist.aspx">Billing List</a></li>
+                                <li runat="server" id="li4" class="nav-item"><a href="SubscriptionlistAdmin.aspx">Subscription List</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports</a>
+                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                     <li runat="server" id="li3" class="nav-item"><a href="logs.aspx">Logs</a></li>
+                        </ul>
+                    </li>
+                    
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi, <asp:Label runat="server" ID="lblname"></asp:Label></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="myprofileadmin.aspx">My Profile</li>
+                            <li><a href="logout.aspx">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    
+    <!-- Navigation End  -->
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <section class="jobs">
+        <div class="container">
+
+            <form runat="server" class="form-horizontal">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        
+                    </asp:ContentPlaceHolder>
+                   
+                </form>
+
+        </div>
+    </section>
+
+
+
+    <!-- footer start -->
+   <%-- <footer>--%>
+        <%--	<div class="container">
+				<div class="col-md-3 col-sm-6">
+					<h4>Featured Job</h4>
+					<ul>
+						<li><a href="#">Browse Jobs</a></li>
+						<li><a href="#">Premium MBA Jobs</a></li>
+						<li><a href="#">Access Database</a></li>
+						<li><a href="#">Manage Responses</a></li>
+						<li><a href="#">Report a Problem</a></li>
+						<li><a href="#">Mobile Site</a></li>
+						<li><a href="#">Jobs by Skill</a></li>
+					</ul>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+					<h4>Latest Job</h4>
+					<ul>
+						<li><a href="#">Browse Jobs</a></li>
+						<li><a href="#">Premium MBA Jobs</a></li>
+						<li><a href="#">Access Database</a></li>
+						<li><a href="#">Manage Responses</a></li>
+						<li><a href="#">Report a Problem</a></li>
+						<li><a href="#">Mobile Site</a></li>
+						<li><a href="#">Jobs by Skill</a></li>
+					</ul>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+					<h4>Reach Us</h4>
+					<address>
+					<ul>
+					<li>1201, Murakeu Market, QUCH07<br>
+					United Kingdon</li>
+					<li>Email: Support@job.com</li>
+					<li>Call: 044 123 458 65879</li>
+					<li>Skype: job@skype</li>
+					<li>FAX: 123 456 85</li>
+					</ul>
+					</address>
+				</div>
+				
+				<div class="col-md-3 col-sm-6">
+					<h4>Drop A Mail</h4>
+					<form>
+						<input type="text" class="form-control input-lg" placeholder="Your Name">
+						<input type="text" class="form-control input-lg" placeholder="Email...">
+						<textarea class="form-control" placeholder="Message"></textarea>
+						<button type="submit" class="btn btn-primary">Login</button>
+					</form>
+				</div>
+				
+				
+			</div>--%>
+        <%--<div class="copy-right">
+            <p>&copy;Copyright 2021 Al Refedain <a href="https://themezhub.com/">ThemezHub</a></p>
+        </div>
+    </footer>--%>
+
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script src="js/bootsnav.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
+
+
