@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,6 +11,7 @@ using System.Web.UI.WebControls;
 public partial class ProjectManagement : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+    private String statusReq;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["userid"] == null)
@@ -23,12 +25,20 @@ public partial class ProjectManagement : System.Web.UI.Page
 
         if (!IsPostBack)
         {
+            this.statusReq = Request.QueryString["status"].ToString();
             getjobs();
-           
         }
     }
-   
-        
+
+    private void ShowPopUpMsg(string msg)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("alert('");
+        sb.Append(msg.Replace("\n", "\\n").Replace("\r", "").Replace("'", "\\'"));
+        sb.Append("');");
+        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "showalert", sb.ToString(), true);
+    }
+
     public string GetClassName(string amount)
     {
         if (Convert.ToDecimal(amount) <= 0)
@@ -47,10 +57,12 @@ public partial class ProjectManagement : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_projects where employerid=" + Session["userid"].ToString();
+        cmd.CommandText = "SELECT * FROM joblistview where userid=@userid AND status=@status";
+        cmd.Parameters.AddWithValue("@userid", Session["userid"].ToString());
+        cmd.Parameters.AddWithValue("@status", this.statusReq);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
-        da.Fill(ds, "vw_projects");
+        da.Fill(ds, "joblistview");
         lvjobs.DataSource = ds;
         lvjobs.DataBind();
         con.Close();
@@ -111,19 +123,19 @@ public partial class ProjectManagement : System.Web.UI.Page
         cmd.Connection = con;
         if (ddltimecat.SelectedValue == "On-Going")
         {
-            cmd.CommandText = "SELECT * FROM vw_projects where status!='Done' and Status!='Pending' and employerid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT * FROM joblistview where status!='Done' and Status!='Pending' and userid=" + Session["userid"].ToString();
         }
         else if (ddltimecat.SelectedValue == "Completed")
         {
-            cmd.CommandText = "SELECT * FROM vw_projects where status='Done' and employerid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT * FROM joblistview where status='Done' and userid=" + Session["userid"].ToString();
         }
          else
         {
-            cmd.CommandText = "SELECT * FROM vw_projects where employerid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT * FROM joblistview where userid=" + Session["userid"].ToString();
         }
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
-        da.Fill(ds, "vw_projects");
+        da.Fill(ds, "joblistview");
         lvjobs.DataSource = ds;
         lvjobs.DataBind();
         con.Close();
@@ -137,19 +149,19 @@ public partial class ProjectManagement : System.Web.UI.Page
         cmd.Connection = con;
         if (ddltimecat.SelectedValue == "On-Going")
         {
-            cmd.CommandText = "SELECT * FROM vw_projects where jobtitle LIKE '%" + txtSearch.Text + "%' and status!='Completed' and Status!='Pending' and employerid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and status!='Completed' and Status!='Pending' and userid=" + Session["userid"].ToString();
         }
         else if (ddltimecat.SelectedValue == "Completed")
         {
-            cmd.CommandText = "SELECT * FROM vw_projects where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Completed' and employerid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Completed' and userid=" + Session["userid"].ToString();
         }
         else
         {
-            cmd.CommandText = "SELECT * FROM vw_projects where jobtitle LIKE '%" + txtSearch.Text + "%' and employerid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString();
         }
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
-        da.Fill(ds, "vw_projects");
+        da.Fill(ds, "joblistview");
         lvjobs.DataSource = ds;
         lvjobs.DataBind();
         con.Close();

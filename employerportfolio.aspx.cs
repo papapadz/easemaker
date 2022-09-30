@@ -65,7 +65,7 @@ public partial class employerportfolio : System.Web.UI.Page
     }
     protected void lvInventory_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {
-        dpInventory.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+        //dpInventory.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
         Getclients();
     }
     void GetInfo(int userID)

@@ -3,18 +3,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
 
-        <h2>Freelancer List</h2>
-        <p>
-         
-                        <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
+    <div class="container">
+        <h2 class="text-primary"><b>Freelancer List</b></h2>
+        <div class="row form-inline">
+            <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
                       
                   
-         <asp:Button ID="Button1" Text="Search" runat="server"
-                            class="btn btn-default" OnClick="Button1_Click1" />
-            </p>
-   
-
-    <div class="table-responsive">
+            <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" OnClick="Button1_Click1" />
+        </div>
         <asp:UpdatePanel ID="upInv" runat="server">
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="lvaccounts" EventName="PagePropertiesChanging" />
@@ -22,54 +18,49 @@
             <ContentTemplate>
                 <%--<table class="table table-bordered cart_summary" overflow: hidden>--%>
                 <%--  <div class="table-responsive-sm">--%>
-                <table class="display table" width="100%">
-
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Full Name</th>
-                        <%--    <th>Address</th>
-                            <th>Contact Number</th>--%>
-                            <th>Uploaded Photo</th>
-                           <%-- <th>Edit</th>--%>
-
-                            <%-- <th>Deactivate</th>
-                                                <th>Activate</th>--%>
-                            <th>View Portfolio</th>
-                           <%-- <th>View more</th>--%>
-                        </tr>
-                    </thead>
+                
                     <tbody>
                         <asp:ListView ID="lvaccounts" runat="server" OnPagePropertiesChanging="lvaccounts_PagePropertiesChanging">
                             <ItemTemplate>
-                                <tr>
-                                    <td><%# Eval("Email")%></td>
-                                    <td><%# Eval("PersonName")%></td>
-                               <%--     <td><%# Eval("Address")%></td>
-                                    <td><%# Eval("ContactNo")%></td>--%>
-                                   
-                                     <td>
-                                        <img id="Img3" runat="server" src='<%# string.Concat("img/", Eval("image")) %>'
-                                            class="img-responsive" width="100" /></td>
-                                  
-                         
-                                    <td>
-                                        <a href='employerportfolio.aspx?ID=<%# Eval("userid") %>' onclick="javascript:return confirm('Are you sure you want to view?');">View</a>
-                                    </td>
-                                    
-                                
-                                </tr>
+							    <div class="row">
+								    <div class="col-md-12" style="padding:10px">
+									    <div class="panel panel-default box">
+									      <div class="panel-body">
+										      <div class="row text-primary">
+											      <div class="col-md-6 text-left">
+													      <h3><b><%# Eval("PersonName") %></b></h3>
+												      </div>
+												      <div class="col-md-6 text-right">
+													      <h3><b><%# Eval("amt", "{0:c}") %></b></h3>
+												      </div>			
+										      </div>
+										      <div class="row">
+											      <div class="col-md-12">
+												       <i class="fa fa-envelope"></i> <asp:Label ID="Label3" runat="server" Text='<%# Eval("Email") %>'></asp:Label>
+												       <i class="fa fa-phone"></i> <asp:Label ID="Label1" runat="server" Text='<%# Eval("ContactNo") %>'></asp:Label>
+											      </div>
+										      </div>
+										      <div class="row">
+											      <div class="col-md-12">
+												      <h4 class="text-primary"><%# Eval("jobdescription") %></h4>
+											      </div>
+										      </div>
+                                              <div class="row">
+                                                   <div class="col-md-12 form-inline text-right">
+                                                      <asp:Button runat="server" class="btn btn-success" Text="Accept" OnClick="btnAccept_Click" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
+                                                 
+                                                      <a class="btn btn-primary" href='employerportfolio.aspx?ID=<%# Eval("userid") %>'>View Profile</a>
+                                                  </div>
+                                              </div>
+										    </div>
+									    </div>
+								    </div>
+							    </div>
                             </ItemTemplate>
                             <EmptyDataTemplate>
-                                <tr>
-                                    <td colspan="9">
-                                        <center><h2>No records found!</h2></center>
-                                    </td>
-                                </tr>
+                                <h3>No Record</h3>
                             </EmptyDataTemplate>
                         </asp:ListView>
-                    </tbody>
-                </table>
                 <asp:DataPager ID="dpAccounts" runat="server" PageSize="20" PagedControlID="lvaccounts">
                     <Fields>
                         <asp:NextPreviousPagerField FirstPageText="<<" PreviousPageText="<" ShowFirstPageButton="True" ShowNextPageButton="false" ButtonType="Button" ButtonCssClass="btn" />
@@ -80,6 +71,5 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
 </asp:Content>
 

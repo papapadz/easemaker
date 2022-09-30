@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -66,6 +67,7 @@ public partial class MyProfileEmployer : System.Web.UI.Page
                 txtAddress.Text = data["address"].ToString();
                 txtContactNo.Text = data["contactno"].ToString();
                 txtPassword.Text = Helper.CreateHashTag(data["password"].ToString());
+                Image1.ImageUrl = string.Concat("img/", data["id1"].ToString());
 
             }
         }
@@ -87,17 +89,22 @@ public partial class MyProfileEmployer : System.Web.UI.Page
         cmd.Connection = con;
 
 
-        if (fuImage.HasFile) //uploading a new image
+        if (fuImage.HasFile || fuImage2.HasFile) //uploading a new image
         {
       
 
             cmd.CommandText = "UPDATE users SET Companyname=@Companyname, PersonName=@PersonName, " +
-       " Email=@Email,ContactNo=@ContactNo,Address=@Address,password=@password, Image=@Image,status=@status WHERE " +
+       " Email=@Email,ContactNo=@ContactNo,Address=@Address,password=@password, Image=@Image, id1=@Image1, status=@status WHERE " +
        "userid=@userid";
             string fileExt = Path.GetExtension(fuImage.FileName);
             string id = Guid.NewGuid().ToString();
             cmd.Parameters.AddWithValue("@Image", id + fileExt);
             fuImage.SaveAs(Server.MapPath("~/img/" + id + fileExt));
+
+            string fileExt2 = Path.GetExtension(fuImage2.FileName);
+            string id2 = Guid.NewGuid().ToString();
+            cmd.Parameters.AddWithValue("@Image1", id2 + fileExt2);
+            fuImage2.SaveAs(Server.MapPath("~/img/" + id2 + fileExt2));
         }
         else
         {
@@ -118,6 +125,7 @@ public partial class MyProfileEmployer : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         con.Close();
         ShowPopUpMsg("Update Succesful!");
+        Response.Redirect("myprofileemployer.aspx");
     }
 
     protected void btnReg_Click(object sender, EventArgs e)
@@ -127,7 +135,7 @@ public partial class MyProfileEmployer : System.Web.UI.Page
         cmd.Connection = con;
 
 
-        if (fuImage.HasFile) //uploading a new image
+        if (fuImage.HasFile || fuImage2.HasFile) //uploading a new image
         {
            
 
@@ -135,14 +143,14 @@ public partial class MyProfileEmployer : System.Web.UI.Page
                 {
 
                 cmd.CommandText = "UPDATE users SET Companyname=@Companyname, PersonName=@PersonName, " +
-           " Email=@Email,ContactNo=@ContactNo,Address=@Address,password=@password, Image=@Image,status=@status WHERE " +
+           " Email=@Email,ContactNo=@ContactNo,Address=@Address,password=@password, Image=@Image, id1=@Image1,status=@status WHERE " +
            "userid=@userid";
 
             }
             else
             {
                 cmd.CommandText = "UPDATE users SET Companyname=@Companyname, PersonName=@PersonName, " +
-         " Email=@Email,ContactNo=@ContactNo,Address=@Address, Image=@Image,status=@status WHERE " +
+         " Email=@Email,ContactNo=@ContactNo,Address=@Address, Image=@Image, id1=@Image1, status=@status WHERE " +
          "userid=@userid";
             }
            
@@ -167,6 +175,12 @@ public partial class MyProfileEmployer : System.Web.UI.Page
         string id = Guid.NewGuid().ToString();
         cmd.Parameters.AddWithValue("@Image", id + fileExt);
         fuImage.SaveAs(Server.MapPath("~/img/" + id + fileExt));
+
+        string fileExt2 = Path.GetExtension(fuImage2.FileName);
+        string id2 = Guid.NewGuid().ToString();
+        cmd.Parameters.AddWithValue("@Image1", id2 + fileExt2);
+        fuImage2.SaveAs(Server.MapPath("~/img/" + id2 + fileExt2));
+
         cmd.Parameters.AddWithValue("@PersonName", txtContactPerson.Text);
         cmd.Parameters.AddWithValue("@Companyname", txtFN.Text);
         cmd.Parameters.AddWithValue("@Password", Helper.CreateHashTag(txtPassword.Text));
@@ -179,5 +193,6 @@ public partial class MyProfileEmployer : System.Web.UI.Page
         con.Close();
         Helper.AddLog(Session["userid"].ToString(), "My Profile", "Client Profile Updated!");
         ShowPopUpMsg("Update Succesful!");
+        Response.Redirect("myprofileemployer.aspx");
     }
 }

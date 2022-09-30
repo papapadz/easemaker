@@ -42,7 +42,7 @@ public partial class DefaultEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT Count(jobid) as counter1 FROM joblist where status='Posted' and userid=" + Session["userid"].ToString();
+        cmd.CommandText = "SELECT Count(jobid) as counter1 FROM joblist where userid=" + Session["userid"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
@@ -88,7 +88,7 @@ public partial class DefaultEmployer : System.Web.UI.Page
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
-            Label1.Text = data["usercount"].ToString();
+            Label2.Text = data["usercount"].ToString();
 
         }
         con.Close();
@@ -102,7 +102,7 @@ public partial class DefaultEmployer : System.Web.UI.Page
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
-            Label2.Text = data["counter1"].ToString();
+            Label1.Text = data["counter1"].ToString();
 
         }
         con.Close();

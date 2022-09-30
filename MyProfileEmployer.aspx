@@ -53,10 +53,20 @@
     <div class="row">
         <div class="col-md-6">
             <label>Logo</label>
-            <asp:FileUpload ID="fuImage" runat="server" class="form-control" />
+            <asp:FileUpload ID="fuImage" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg"/>
         </div>
         <div class="col-md-6 text-left">
             <asp:Image ID="imgApplicant" runat="server" Width="150" Height="150" />
+        </div>
+    </div>
+
+     <div class="row">
+        <div class="col-md-6">
+            <label>Logo</label>
+            <asp:FileUpload ID="fuImage2" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg"/>
+        </div>
+        <div class="col-md-6 text-left">
+            <asp:Image ID="Image1" runat="server" Width="150" Height="150" />
         </div>
     </div>
     <hr />

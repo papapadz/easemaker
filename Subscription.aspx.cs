@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,19 @@ using System.Web.UI.WebControls;
 public partial class Subscription : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+
+    void Page_PreInit(Object sender, EventArgs e)
+    {
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+       
+            SetMasterPage(Session["userid"].ToString());
+        
+
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -114,4 +128,31 @@ public partial class Subscription : System.Web.UI.Page
             lblPrice.Text = "1,200.00";
         }
         }
+
+    void SetMasterPage(String userID)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM Users WHERE UserID=@userid";
+        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = userID;
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            if (data["UserType"].ToString() == "Admin")
+            {
+                this.MasterPageFile = "~/MasterPage.master";
+            } else if (data["UserType"].ToString() == "Employer")
+            {
+                
+                this.MasterPageFile = "~/MasterPageEmployer.master";
+            }
+            else
+            {
+                this.MasterPageFile = "~/MasterPageUser.master";
+            }
+
+        }
+        con.Close();
+    }
 }

@@ -2,12 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="row heading">
-        <h2>Dashboard</h2>
-        <p></p>
+        <h2 class="text-primary"><b>Dashboard</b></h2>
     </div>
-    <div>
+    <hr />
+    <div class="row">
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="billinglist.aspx">
@@ -21,7 +22,8 @@
             </div>
          </div>
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="subscriptionlist.aspx">
@@ -32,7 +34,8 @@
             </div>
          </div>
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="accountmanagement.aspx">
@@ -43,7 +46,8 @@
             </div>
          </div>
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="employers.aspx">
@@ -54,7 +58,8 @@
             </div>
          </div>
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="joblistadmin.aspx">
@@ -65,7 +70,8 @@
             </div>
          </div>
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="joblistadmin.aspx">
@@ -76,7 +82,8 @@
             </div>
          </div>
         <div class="col-md-3">
-            <div class="panel panel-default text-center">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"></div>
               <div class="panel-body">
                 <div class="statistic__item statistic__item--orange">
                         <h2 class="number"><a href="joblistadmin.aspx">

@@ -1,24 +1,26 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUser.master" AutoEventWireup="true" CodeFile="ProjectManagementViewfreelancer.aspx.cs" Inherits="ProjectManagementViewfreelancer" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <section class="jobs">
+    
+    <section>
         <div class="container">
-
-            <div class="companies">
-                <div class="row">
-                    <h2>Project Management </h2>
-                    <h4>Project #
-                        <asp:Label ID="Label2" runat="server" /></h4>
-                    <h4>
-                        <asp:Label ID="lblPrjname" runat="server" /></h4>
-                    <div class="basic-information">
-                        <%--	<div class="col-md-3 col-sm-3">
-						
-                                  <asp:Image ID="Image2" runat="server" alt="" class="img-responsive"/>
-						</div>--%>
-                          <div class="col-md-3 col-sm-4">
-                            <div class="profile-content">
-                                <h2>Contract</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-primary"><b>Project Management </b></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Project # <asp:Label ID="Label2" runat="server" /></h4> 
+                    <h4><asp:Label ID="lblPrjname" runat="server" /></h4>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-primary box">
+                        <div class="panel-body">
+                            <h2>Contract</h2>
                                 <h1></h1>
                                 <%--   <p>Offer: Php <asp:Label ID="lblBudget" runat="server" /></p>
                                 <p>Time Frame: <asp:Label ID="lbltl" runat="server" /></p>--%>
@@ -31,44 +33,49 @@
                                     </li>
                                     <%--	<li><span>From:</span>1998</li>--%>
                                 </ul>
-                            </div>
                         </div>
-                        <div class="col-md-3 col-sm-4">
-                            <div class="profile-content">
-                                <h2>Files</h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-primary box">
+                        <div class="panel-body">
+                            <h2>Files</h2>
                                 <h1></h1>
                                 <%--   <p>Offer: Php <asp:Label ID="lblBudget" runat="server" /></p>
                                 <p>Time Frame: <asp:Label ID="lbltl" runat="server" /></p>--%>
                                 <ul class="information">
                                     <%--	<li><span>Address:</span><asp:Label ID="lblAddress" runat="server" /></li>--%>
 
-                                    <li>
+                                    <%--<li> <asp:Button ID="Button3" runat="server" class="btn btn-primary"  Text="Generate Contract" /> </li>--%>
+                                    <li><%--<asp:Button ID="Button1" runat="server" class="btn btn-primary"  Text="View More"  /> --%>
                                         <asp:LinkButton ID="LinkButton3" runat="server" CssClass="btn" OnClick="LinkButton3_Click">View</asp:LinkButton></li>
+                                    </li>
                                     <%--	<li><span>From:</span>1998</li>--%>
                                 </ul>
-                            </div>
                         </div>
-                      
-                        <div class="col-md-3 col-sm-4">
-                            <div class="profile-content">
-                                <h2>Invoices</h2>
-                                <h1>
-                                    <asp:Label ID="Label8" runat="server" /></h1>
-                                <%--	<p>Description:<asp:Label ID="Label9" runat="server" /></p>--%>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-primary box">
+                        <div class="panel-body">
+                            <h2>Invoices</h2>
+                                <h1></h1>
                                 <%--   <p>Offer: Php <asp:Label ID="lblBudget" runat="server" /></p>
                                 <p>Time Frame: <asp:Label ID="lbltl" runat="server" /></p>--%>
                                 <ul class="information">
                                     <%--	<li><span>Address:</span><asp:Label ID="lblAddress" runat="server" /></li>--%>
-                                    <%--<li>Offer: Php <asp:Label ID="Label10" runat="server" /></li>
-										<li>Time Frame: <asp:Label ID="Label11" runat="server" /></li>--%>
-                                    <li>
+
+                                    <%--<li> <asp:Button ID="Button3" runat="server" class="btn btn-primary"  Text="Generate Contract" /> </li>--%>
+                                    <li><%--<asp:Button ID="Button1" runat="server" class="btn btn-primary"  Text="View More"  /> --%>
                                         <asp:LinkButton ID="LinkButton2" runat="server" CssClass="btn" OnClick="LinkButton2_Click">View</asp:LinkButton>
                                     </li>
                                     <%--	<li><span>From:</span>1998</li>--%>
                                 </ul>
-                            </div>
                         </div>
-                          <div class="col-md-3 col-sm-4" id ="divrate" runat="server">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-3 col-sm-4" id ="divrate" runat="server">
                             <div class="profile-content">
                                 <h2>Rate & Comment</h2>
                                 <h1>
@@ -87,87 +94,59 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                       <div style="padding-top:75px;">
-            <div class="col-md-6 col-sm-4">
-                <div class="profile-content">
-                      <h1>Hours Logged: <asp:Label ID="lbltotalhrs" runat="server"></asp:Label></h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="panel panel-primary box">
+                          <h3>Hours Logged: <asp:Label ID="lbltotalhrs" runat="server"></asp:Label></h3>
                   
-                    <%--	<p>Description:<asp:Label ID="Label9" runat="server" /></p>--%>
-                    <div id="divtime" runat="server">
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <%--	<p>Description:<asp:Label ID="Label9" runat="server" /></p>--%>
+                        <div id="divtime" runat="server" class="text-center">
+                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         
-                        <ContentTemplate>
+                            <ContentTemplate>
 
-                            <asp:Label ID="Label1" runat="server" Font-Size="XX-Large"></asp:Label>
-                            <asp:Timer ID="tm1" Interval="1000" runat="server" OnTick="tm1_Tick" />
-                            <asp:Button ID="btnStart" Text="Start" runat="server" OnClick="Start" />
-                            <asp:Button ID="btnStop" Text="Stop" runat="server" OnClick="Stop" />
-                        </ContentTemplate>
+                                <asp:Label ID="Label1" runat="server" Font-Size="XX-Large"></asp:Label>
+                                <asp:Timer ID="tm1" Interval="1000" runat="server" OnTick="tm1_Tick" />
+                                <br />
+                                <asp:Button ID="btnStart" class="btn btn-success" Text="Start" runat="server" OnClick="Start" />
+                                <asp:Button ID="btnStop"  class="btn btn-danger" Text="Stop" runat="server" OnClick="Stop" />
+                            </ContentTemplate>
                         
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="tm1" EventName="Tick" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                        </div>
-                    <ul class="information">
-                        <%--	<li><span>Address:</span><asp:Timer runat="server"></asp:Timer><asp:Label ID="lblAddress" runat="server" /></li>--%>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="tm1" EventName="Tick" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                            </div>
+                        <ul class="information">
+                            <%--	<li><span>Address:</span><asp:Timer runat="server"></asp:Timer><asp:Label ID="lblAddress" runat="server" /></li>--%>
 
 
-                        <li>
+                            <li>
                       
-                        </li>
-                        <%--	<li><span>From:</span>1998</li>--%>
-                    </ul>
-                </div>
-            </div>
-              <div class="col-md-6 col-sm-4">
-                <div class="profile-content">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-leaf fa-fw"></i>Deadline: <asp:Label ID="lblETA" runat="server"></asp:Label>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            
-
-	
-        <div class="span5">
-            <asp:Calendar ID="Calendar1" runat="server" ></asp:Calendar>
-    		
-        </div>
-	
-
-                        </div>
+                            </li>
+                            <%--	<li><span>From:</span>1998</li>--%>
+                        </ul>
                     </div>
                 </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="panel panel-primary box">
+                            <div class="panel-heading">
+                                <i class="fa fa-leaf fa-fw"></i>Deadline: <asp:Label ID="lblETA" runat="server"></asp:Label>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                    <asp:Calendar ID="Calendar1" runat="server" ></asp:Calendar>
+                            </div>
+                        </div>    
+                </div>
             </div>
-        </div>
-                    <%--	<ul class="social">
-							<li><a href="" class="facebook"><i class="fa fa-facebook"></i>Facebook</a></li>
-							<li><a href="" class="google"><i class="fa fa-google-plus"></i>Google Plus</a></li>
-							<li><a href="" class="twitter"><i class="fa fa-twitter"></i>Twitter</a></li>
-							<li><a href="" class="linkedin"><i class="fa fa-linkedin"></i>Linked In</a></li>
-							<li><a href="" class="instagram"><i class="fa fa-instagram"></i>Instagram</a></li>
-						</ul>--%>
-                    <%--<div class="panel panel-default">
-							<div class="panel-heading">
-								<i class="fa fa-user fa-fw"></i> About Microsoft
-							</div>
-												<!-- /.panel-heading -->
-							<div class="panel-body">
-							<p>The front end is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend. It is the visual bit that the user interacts with.</p>	
-							</div>
-						</div>--%>
-                    <div>
-                        <%--	<div class="col-md-3 col-sm-3">
-						
-                                  <asp:Image ID="Image2" runat="server" alt="" class="img-responsive"/>
-						</div>--%>
-                        
-                        <div class="col-md-6 col-sm-5">
-                <div class="profile-content">
-                    <div class="panel panel-default">
+            
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="panel panel-primary box">
                         <div class="panel-heading">
                             <i class="fa fa-leaf fa-fw"></i>Time Log:
                         </div>
@@ -185,7 +164,7 @@
                                                 <li>
                                                     Start:<asp:Label ID="Label3" runat="server" Text='<%# Eval("timestart") %>'></asp:Label>
                                                     <b>End: 
-                                                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("timeend") %>'></asp:Label> Date: <asp:Label ID="Label4" runat="server" Text='<%# Eval("datetime","{0:dd/MM/yyyy}") %>'></asp:Label> </b></li>
+                                                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("timeend") %>'></asp:Label> Date: <asp:Label ID="Label5" runat="server" Text='<%# Eval("datetime","{0:dd/MM/yyyy}") %>'></asp:Label> </b></li>
                                             </ul>
                                             <%--	<li>Software Test Plans from Business Requirement Specifications for test engineering group.</li>
 								<li>Software testing in a Web Applications environment.</li>
@@ -222,7 +201,6 @@
                             </asp:UpdatePanel>
 
                         </div>
-                    </div>
 
                     <%--	<div class="panel panel-default">
 							<div class="panel-heading">
@@ -267,10 +245,8 @@
 							</div>
 						</div>--%>
                 </div>
-            </div>
-                        <div class="col-md-6 col-sm-5 ">
-                            <div class="profile-content">
-                                <div class="panel panel-default">
+                <div class="col-md-6 col-sm-12">
+                    <div class="panel panel-primary box">
                                     <div class="panel-heading">
                                         <i class="fa fa-leaf fa-fw"></i>Deliverable Tracker:
                                     </div>
@@ -286,9 +262,9 @@
                                                         <%--<p>Rapid growth since incorporation has triggered a chain of products, acquisitions and partnerships beyond Google's core search engine (Google Search).</p>	--%>
                                                         <ul>
                                                             <li>
-                                                                <asp:Label ID="Label3" runat="server" Text='<%# Eval("description") %>'></asp:Label>
+                                                                <asp:Label ID="Label6" runat="server" Text='<%# Eval("description") %>'></asp:Label>
                                                                 <b>[Status: 
-                                                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("status") %>'></asp:Label>]</b></li>
+                                                                    <asp:Label ID="Label7" runat="server" Text='<%# Eval("status") %>'></asp:Label>]</b></li>
                                                         </ul>
                                                         <%--	<li>Software Test Plans from Business Requirement Specifications for test engineering group.</li>
 								<li>Software testing in a Web Applications environment.</li>
@@ -325,7 +301,6 @@
                                         </asp:UpdatePanel>
 
                                     </div>
-                                </div>
 
                                 <%--	<div class="panel panel-default">
 							<div class="panel-heading">
@@ -370,15 +345,9 @@
 							</div>
 						</div>--%>
                             </div>
-                        </div>   
-                        
-                    </div>
-
-                    <%--	</div>--%>
-                </div>
             </div>
         </div>
     </section>
-
+   
 </asp:Content>
 

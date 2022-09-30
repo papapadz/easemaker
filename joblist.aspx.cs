@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class joblist : System.Web.UI.Page
+public partial class Joblist : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
@@ -23,6 +23,7 @@ public partial class joblist : System.Web.UI.Page
 
         if (!IsPostBack)
         {
+            getcategory();
             getjobs();
         }
     }
@@ -39,12 +40,28 @@ public partial class joblist : System.Web.UI.Page
         }
 
     }
+    void getcategory()
+    {
+        //change select statement rawmats only
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT categoryid,categoryname FROM category";
+
+        SqlDataReader data = cmd.ExecuteReader();
+        ddlCategory.DataSource = data;
+        ddlCategory.DataTextField = "categoryname";
+        ddlCategory.DataValueField = "categoryid";
+        ddlCategory.DataBind();
+        con.Close();
+    }
+
     void getjobs()
     {
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM joblistview where userid=" + Session["userid"].ToString();
+        cmd.CommandText = "SELECT * FROM joblistview where userid=" + Session["userid"].ToString() + " ORDER BY jobid";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "joblistview");
@@ -54,7 +71,7 @@ public partial class joblist : System.Web.UI.Page
     }
     protected void lvjobs_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {
-        dpjobs.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+        //dpjobs.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
         getjobs();
     }
     protected void btnAdd_Click(object sender, EventArgs e)
@@ -105,7 +122,7 @@ public partial class joblist : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString();
+        cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString() + " ORDER BY jobid";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "joblistview");

@@ -3,17 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
 
-        <h2>Account Management List</h2>
+        <h2 class="text-primary"><b>Account Management List</b></h2>
            <p>
          
                         <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
                       
                   
          <asp:Button ID="Button1" Text="Search" runat="server"
-                            class="btn btn-default" OnClick="Button1_Click1" />
+                            class="btn btn-primary" OnClick="Button1_Click1" />
             </p>
    
-
+    <hr />
     <div class="table-responsive" style="font-family: Roboto;">
         <asp:UpdatePanel ID="upInv" runat="server">
             <Triggers>
@@ -39,7 +39,7 @@
 
                             <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
-                            <th>View Portfolio</th>
+                            <th>View Profile</th>
                             <th>Verify</th>
                         </tr>
                     </thead>
@@ -73,7 +73,7 @@
                             </ItemTemplate>
                             <EmptyDataTemplate>
                                 <tr>
-                                    <td colspan="9">
+                                    <td colspan="8">
                                         <center><h2>No records found!</h2></center>
                                     </td>
                                 </tr>

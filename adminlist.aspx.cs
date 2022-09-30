@@ -13,12 +13,20 @@ public partial class adminlist : System.Web.UI.Page
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if (Session["usertype"].ToString() != "Admin")
+        if (Session["userid"] == null)
         {
-          
-            Response.Redirect("DefaultAdmin.aspx");
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        } else
+        {
+            if (Session["usertype"].ToString() != "Admin")
+            {
+
+                Response.Redirect("DefaultAdmin.aspx");
+            }
         }
+
+        
 
         if (!IsPostBack)
         {

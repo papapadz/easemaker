@@ -10,6 +10,37 @@ using System.Web.UI.WebControls;
 public partial class ProjectView : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+
+    protected void Page_PreInit(object sender, EventArgs e)
+    {
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        } else
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT TOP(1) UserType FROM users WHERE userid=" + Session["userid"];
+            SqlDataReader data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+                {
+                    if (data["UserType"].ToString() == "Employer")
+                    {
+                        this.MasterPageFile = "~/MasterPageEmployer.master";
+                    }
+                    else
+                    {
+                        this.MasterPageFile = "~/MasterPageUser.master";
+                    }
+                }
+            }
+            con.Close();
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         GetInfo();

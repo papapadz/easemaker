@@ -45,13 +45,7 @@
                     <li><a href="joblistdefault.aspx?ST=&yrs=&cat=">Project List</a></li>
                     <li><a href="aboutus.aspx">About Us</a></li>
                     <li><a href="login.aspx">Login</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="register.aspx">Register as Freelancer</a></li>
-                            <li><a href="registeremployer.aspx">Register as Employer</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="register.aspx">Register</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

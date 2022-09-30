@@ -80,27 +80,26 @@ public partial class ProjectViewApplicant : System.Web.UI.Page
 
             //Response.Redirect("joblistfreelancer.aspx?ST=");
 
+        } else
+        {
+            con.Close();
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "INSERT INTO apply (userid,jobid,date,status) VALUES (@userid,@jobid,@date,@status)";
+            cmd.Parameters.AddWithValue("@userid", Session["userid"].ToString());
+            cmd.Parameters.AddWithValue("@jobid", Request.QueryString["ID"].ToString());
+            cmd.Parameters.AddWithValue("@status", "Pending");
+            cmd.Parameters.AddWithValue("@date", DateTime.Now);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            ShowPopUpMsg("Application sent! Thank you for applying!");
         }
-        con.Close();
 
 
-        //max and critical
-
-
-        con.Open();
-        SqlCommand cmd = new SqlCommand();
-        cmd.Connection = con;
-        cmd.CommandText = "INSERT INTO apply (userid,jobid,date,status) VALUES (@userid,@jobid,@date,@status)";
-        cmd.Parameters.AddWithValue("@userid", Session["userid"].ToString());
-        cmd.Parameters.AddWithValue("@jobid", Request.QueryString["ID"].ToString());
-        cmd.Parameters.AddWithValue("@status", "Pending");
-        cmd.Parameters.AddWithValue("@date", DateTime.Now);
-        cmd.ExecuteNonQuery();
-        con.Close();
-
-
-
-        ShowPopUpMsg("Application sent! Thank you for applying!");
+        
         //Response.Redirect("myapplication.aspx");
     }
     private void ShowPopUpMsg(string msg)

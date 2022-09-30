@@ -3,8 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
   
-        <h2>Employer List</h2>
-         <div class="form-inline">
+        <h2 class="text-primary"><b>Employer List</b></h2>
+         <div>
              <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Employer Name here..." />
              <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" OnClick="Button1_Click1" />
          </div><hr />

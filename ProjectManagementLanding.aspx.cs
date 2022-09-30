@@ -69,14 +69,14 @@ public partial class ProjectManagementLanding : System.Web.UI.Page
         {
             if (data["UserType"].ToString() == "Employer")
             {
-                this.hlink1 = "ProjectManagement.aspx";
-                this.hlink2 = "ProjectManagement.aspx";
+                this.hlink1 = "ProjectManagement.aspx?status=On-Going";
+                this.hlink2 = "ProjectManagement.aspx?status=Completed";
                 this.MasterPageFile = "~/MasterPageEmployer.master";
             }
             else
             {
-                this.hlink1 = "ProjectManagementFreelancer.aspx";
-                this.hlink2 = "ProjectManagementFreelancer.aspx";
+                this.hlink1 = "ProjectManagementFreelancer.aspx?status=On-Going";
+                this.hlink2 = "ProjectManagementFreelancer.aspx?status=Completed";
                 this.MasterPageFile = "~/MasterPageUser.master";
             }
 

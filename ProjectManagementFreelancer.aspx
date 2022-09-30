@@ -3,34 +3,35 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <section class="jobs">
+    <section>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-primary"><b>Project Management</b></h2>
+                </div>
+            </div>
+            <div class="row form-inline">
+            <div class="col-md-6 text-left">
+                                <div class="form-inline">
+                                    <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..." />
+                                    <asp:Button ID="Button1" Text="Search" runat="server"
+                                        class="btn btn-primary" OnClick="Button1_Click1" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <span><b>Status:</b></span>
+                                <asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" Width="200" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
 
-            <div class="companies">
-               
-                    <h2>Project Management</h2>
-                    <div>
-                        <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..." />
-                        <asp:Button ID="Button1" Text="Search" runat="server"
-                            class="btn btn-default" OnClick="Button1_Click1" />
-                    </div>
-                    <div class="row heading">
-                        <br />
-                        <p>
-                            <asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" Width="200" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
-
-                                <asp:ListItem Text="All" Value="All"></asp:ListItem>
-                                <asp:ListItem Text="On-Going" Value="On-Going"></asp:ListItem>
-                                <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
-                            </asp:DropDownList>
-                        </p>
-
-                        <%--  <p>
-            <asp:Button ID="btnReg" runat="server" Text="Add Project" type="button" class="btn btn-primary" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
-        </p>--%>
-                    </div>
-                    <div class="table-responsive">
-                        <table id="example" class="display table" width="100%">
+                                    <asp:ListItem Text="All" Value="All"></asp:ListItem>
+                                    <asp:ListItem Text="On-Going" Value="On-Going"></asp:ListItem>
+                                    <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+        </div>
+            <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <table id="example" class="table">
                             <thead>
                                 <th>Project ID</th>
                                 <th>Project Name</th>
@@ -62,7 +63,7 @@
                                             <td><%# Eval("enddate", "{0:d}") %> </td>
                                              <td><%# Eval("eta", "{0:d}") %> </td>
                                             <td><%# Eval("jobdescription") %></td>
-                                            <td style="text-align: center"><%# Eval("amt")%></td>
+                                            <td style="text-align: center"><%# Eval("amt", "{0:c}") %></td>
                                             <td><%# Eval("timeframe") %> <%# Eval("timecat") %></td>
                                             <td><%# Eval("status") %></td>
                                             <td>
@@ -103,9 +104,9 @@
                                     NextPreviousButtonCssClass="btn btn-default" />
                             </Fields>
                         </asp:DataPager>
-                    </div>
-                </div>
             </div>
+        </div>
+        </div>
     </section>
 </asp:Content>
 

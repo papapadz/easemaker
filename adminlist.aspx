@@ -3,18 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
        <script src="js/bootsnav.js"></script>
   
-                <h2>Admin List</h2>
+                <h2 class="text-primary"><b>Admin List</b> <a class="btn btn-success" href="AddAdmin.aspx"><i class="fa fa-plus"></i></a></h2>
               <p>
          
                         <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Employer Name here..." />
                       
                   
          <asp:Button ID="Button1" Text="Search" runat="server"
-                            class="btn btn-default" OnClick="Button1_Click1" />
+                            class="btn btn-primary" OnClick="Button1_Click1" />
             </p>
-                <p><a href="AddAdmin.aspx">New Admin</a></p>
         
-    
+    <hr />
           <div class="table-responsive">
                             <asp:UpdatePanel ID="upInv" runat="server">
                                 <Triggers>
@@ -23,7 +22,7 @@
                                 <ContentTemplate>
                                     <%--<table class="table table-bordered cart_summary" overflow: hidden>--%>
                                     <%--  <div class="table-responsive-sm">--%>
-                                    <table  class="display table" width="100%">
+                                    <table  class="table" width="100%">
 
                                         <thead>
                                             <tr>

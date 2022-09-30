@@ -79,7 +79,7 @@
 										  </div>
 										  <div class="row">
 											  <div class="col-md-12 text-right">
-												  <asp:Button ID="btnSubmit" runat="server" class="btn btn-sm btn-round btn-primary" Text="Apply" CommandName="Edit" CommandArgument='<%# Eval("jobid") %>' />
+												  <asp:Button ID="btnSubmit" runat="server" class="btn btn-sm btn-round btn-primary" Text="View" CommandName="Edit" CommandArgument='<%# Eval("jobid") %>' />
 											  </div>
 										  </div>
 									  </div>
