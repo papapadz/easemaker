@@ -12,6 +12,8 @@ public partial class Subscription : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
 
+    private string subscription = "Yearly";
+
     void Page_PreInit(Object sender, EventArgs e)
     {
         if (Session["userid"] == null)
@@ -39,14 +41,14 @@ public partial class Subscription : System.Web.UI.Page
         //}
         if (!IsPostBack)
         {
-            if (ddlUserType.SelectedValue == "Monthly")
-            {
-                lblPrice.Text = "100.00";
-            }
-            else
-            {
-                lblPrice.Text = "1,200.00";
-            }
+            //if (ddlUserType.SelectedValue == "Monthly")
+            //{
+            //    lblPrice.Text = "100.00";
+           // }
+            //else
+            //{
+            //    lblPrice.Text = "1,200.00";
+           // }
             //GetCategories();
         }
     }
@@ -62,7 +64,20 @@ public partial class Subscription : System.Web.UI.Page
         ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "showalert", sb.ToString(), true);
     }
 
-
+    protected void select1(object sender, EventArgs e)
+    {
+        mypanel1.CssClass = "panel panel-primary";
+        mypanel2.CssClass = "panel panel-warning";
+        lblPrice.Text = "1,200.00";
+        subscription = "Yearly";
+    }
+    protected void select2(object sender, EventArgs e)
+    {
+        mypanel1.CssClass = "panel panel-warning";
+        mypanel2.CssClass = "panel panel-primary";
+        lblPrice.Text = "100.00";
+        subscription = "Monthly";
+    }
 
 
     protected void btnReg_Click(object sender, EventArgs e)
@@ -93,7 +108,7 @@ public partial class Subscription : System.Web.UI.Page
         cmd.CommandText = "INSERT INTO subscription (userid,date,expdate,qty,amount,Status,category) VALUES (@userid,@date,@expdate,@qty,@amount,@Status,@category);INSERT INTO billing (refid,userid,amount,Purpose,status,datetime,image,dateuploaded) VALUES (@refid,@userid,@amount,@Purpose,@status,@date,@image,@dateuploaded)";
         cmd.Parameters.AddWithValue("@userid", Session["userid"].ToString());
         cmd.Parameters.AddWithValue("@date", DateTime.Now);
-        if (ddlUserType.SelectedValue == "Monthly")
+        if (subscription == "Monthly")
         {
             cmd.Parameters.AddWithValue("@expdate", DateTime.Now.AddMonths(int.Parse(txtQty.Text)));
             cmd.Parameters.AddWithValue("@amount", Decimal.Parse(txtQty.Text) * Decimal.Parse("100.00"));
@@ -103,7 +118,7 @@ public partial class Subscription : System.Web.UI.Page
             cmd.Parameters.AddWithValue("@expdate", DateTime.Now.AddYears(int.Parse(txtQty.Text)));
             cmd.Parameters.AddWithValue("@amount", Decimal.Parse(txtQty.Text) * Decimal.Parse("1200.00"));
         }
-        cmd.Parameters.AddWithValue("@category", ddlUserType.SelectedValue);
+        cmd.Parameters.AddWithValue("@category", subscription);
         cmd.Parameters.AddWithValue("@qty", txtQty.Text);
         cmd.Parameters.AddWithValue("@refid", "");
         cmd.Parameters.AddWithValue("@Purpose", "Subscription");
@@ -116,18 +131,6 @@ public partial class Subscription : System.Web.UI.Page
         Response.Redirect("subscriptionlist.aspx");
 
     }
-
-    protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (ddlUserType.SelectedValue == "Monthly")
-        {
-            lblPrice.Text = "100.00";
-        }
-        else
-        {
-            lblPrice.Text = "1,200.00";
-        }
-        }
 
     void SetMasterPage(String userID)
     {

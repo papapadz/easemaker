@@ -49,6 +49,7 @@ public partial class EditCategory : System.Web.UI.Page
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
+            lblno.Text = ID.ToString();
             txtContactPerson.Text = data["CategoryName"].ToString();
         }
         con.Close();

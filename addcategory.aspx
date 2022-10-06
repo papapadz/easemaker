@@ -2,9 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <div class="row heading">
-        <h2>New Category Form</h2>
-        <p>Please fill up all text box!</p>
+        <h2 class="text-primary"><b>New Category Form</b></h2>
     </div>
+    <hr />
     
   
                     <fieldset>
@@ -12,16 +12,15 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Category Name</label>
                             <div class="col-md-8 inputGroupContainer">
-                                <div class="input-group"><%--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>--%>
-                                  <asp:textbox id="txtContactPerson" runat="server" class="form-control" placeholder="Category Name here" required/></div>
+                                <asp:textbox id="txtContactPerson" runat="server" class="form-control" placeholder="Category Name here" required/>
                             </div>
                         </div>
                        
                         
                         <div class="form-group">
-
+                            <label class="col-md-4 control-label"></label>
                             <div class="col-md-8 inputGroupContainer">
-                                <asp:Button ID="btnReg" runat="server" Text="Register" type="button" class="btn" Height="50px" Width="100px" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
+                                <asp:Button ID="btnReg" runat="server" Text="Save" type="button" class="btn btn-success" Width="100%" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
 
                             </div>
                         </div>

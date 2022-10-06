@@ -1,55 +1,44 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageUser.master" AutoEventWireup="true" CodeFile="uploadbillingpayment.aspx.cs" Inherits="uploadbillingpayment" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <section class="jobs">
-        <div class="container">
-
-            <div class="companies">
-     <div class="row heading">
-        <h2>Upload Payment</h2>
-        <p>Please fill up all text box!</p>
-    </div>
-
-
-    <fieldset>
-        <div class="form-group">
-            <label class="col-md-4 control-label">Job Order #</label>
-            <div class="col-md-8 inputGroupContainer">
-                <div class="input-group">
-                    <%--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>--%>
-                    <asp:TextBox ID="txtONO" runat="server" class="form-control" Enabled="false"/>
+     <section>
+         
+            <div class="container">
+         <div class="row heading">
+                <h2 class="text-primary"><b>Upload Payment</b></h2>
+         </div>
+         <hr />
+         <fieldset>
+                 <div class="row">
+                <label class="col-md-4 text-right">Job Order #</label>
+                <div class="col-md-8">
+                    <asp:Label ID="txtONO" runat="server" Enabled="false"/>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">Date</label>
-            <div class="col-md-8 inputGroupContainer">
-                <div class="input-group">
-                    <%--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>--%>
-                    <asp:TextBox ID="txtDate" runat="server" class="form-control" />
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">Upload</label>
-            <div class="col-md-8 inputGroupContainer">
-                <div class="input-group">
-                    <%--<span class="input-group-addon"><i class="glyphicon glyphicon-image"></i></span>--%>
-                     <%--<asp:Image ID="imgApplicant" runat="server" Width="150" Height="150" />--%>
-                    <asp:FileUpload ID="fuImage" runat="server" class="form-control" />
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
 
-            <div class="col-md-8 inputGroupContainer">
-                <asp:Button ID="btnReg" runat="server" Text="Submit" type="button" class="btn" Height="50px" Width="100px" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
-
-            </div>
-        </div>
-    </fieldset>
+             <div class="row">
+                    <label class="col-md-4 text-right">Date</label>
+                    <div class="col-md-8">
+                        <asp:Label ID="txtDate" runat="server" class="form-control" />
+                    </div>
                 </div>
+
+             <div class="row">
+                    <label class="col-md-4 text-right">Upload</label>
+                    <div class="col-md-8">
+                        <asp:FileUpload ID="fuImage" accept="image/png, image/jpeg" runat="server" class="form-control" required/>
+                    </div>
+                </div>
+
+             <div class="row">
+                 <label class="col-md-4"></label>
+                <div class="col-md-8">
+                 <asp:Button ID="btnReg" runat="server" Text="Submit" type="button" class="btn btn-success" width="100%" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
+                    </div>
             </div>
-         </section>
+         </fieldset>
+                
+            </div>   
+     </section>
 </asp:Content>
 

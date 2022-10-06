@@ -22,14 +22,13 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
 
-    <!-- Navigation Start  -->
     <nav class="navbar navbar-default navbar-sticky bootsnav">
 
         <div class="container">
@@ -38,8 +37,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="default2.aspx">
-                    <img src="img/logo.png" class="logo" width="100" /></a>
+                <a class="navbar-brand" href="default2.aspx"><img src="img/logo.png" class="logo" width="100" /></a>
             </div>
             <!-- End Header Navigation -->
 
@@ -47,27 +45,27 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li><a href="Default2.aspx">Home</a></li>
-                    <li><a href="joblistfreelancer.aspx?ST=&yrs=&cat=">Project List</a></li>
-                    <li><a href="ProjectManagementFreelancer.aspx">My Projects</a></li>
-                    <li><a href="billinglistFreelancer.aspx">Billing list</a></li>
+                      <li><a href="joblistfreelancer.aspx?ST=&yrs=&cat=">Project List</a></li>
+                      <li><a href="ProjectManagementLanding.aspx">My Projects</a></li>
+                        <li><a href="billinglistFreelancer.aspx">Billing list</a></li>
                     <%--							<li><a href="companies.html">Companies</a></li> 
                         <li><a href="companies.html">Jobs</a></li> --%>
                     <%--  <li><a href="login.html">Login</a></li>--%>
-                    <%--  <li class="dropdown">
+                  <%--  <li class="dropdown">
                         <a href="addresume.aspx" class="dropdown-toggle" data-toggle="dropdown">File Maintenance</a>
                         <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                            <li class="active"><a href="browse-job.html">Job List</a></li>
 
                         </ul>
                     </li>--%>
-                    <%-- <li class="dropdown">
+                   <%-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transaction</a>
                         <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                        <li class="active"><a href="browse-job.html">Job List</a></li>
                               <li class="active"><a href="browse-job.html">Projects</a></li>
                         </ul>
                     </li>--%>
-                    <%--     <li class="dropdown">
+               <%--     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports</a>
                         <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                             <li class="active"><a href="browse-job.html">Browse Jobs</a></li>
@@ -75,14 +73,19 @@
                             <li><a href="resume.html">Resume Detail</a></li>
                         </ul>
                     </li>--%>
-                    <li><a href="logout.aspx">Logout</a></li>
-                    <li><a href="myprofileapplicant.aspx">Freelancer Profile</a></li>
+                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="myprofileapplicant.aspx">My Profile</a></li>
+                            <li><a href="Myportfolio.aspx">My Portfolio</a></li>
+                            <li><a href="logout.aspx">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
     </nav>
-    <!-- Navigation End  -->
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
 
@@ -107,37 +110,17 @@
 
             <div class="companies">
                 <div class="row heading">
-                    <h2>Freelancer Project Contract Signing</h2>
-                    <p>Please Read the contract before signing</p>
+                    <h2 class="text-primary"><b>Freelancer Project Contract Signing</b></h2>
+                    <p class="text-danger"><small><i>Please Read the contract before signing</i></small></p>
      
-        <section class="main-container col1-layout">
-            <div class="main container">
-                <div class="row">
-                    <div class="tools">
-                        <a href="#colors_sketch" data-tool="marker">Marker</a> <a href="#colors_sketch" data-tool="eraser">Eraser</a>
-                    </div>
-                    <br />
-        
-                    <canvas id="colors_sketch" style="border: 2px solid black"  width="400px" height="150pxs" > </canvas>
-      
-                    <br />
-                    <br />
-
-                    <asp:Button ID="btnAdd" Text="Submit" runat="server" class="btn" OnClick="btnAdd_Click" />
-
-                    <hr />
-                    <asp:HiddenField ID="ImageVal" runat="server" />
-                </div>
-            </div>
-        </section>
-                     <input class="btn" name="b_print" onclick="printdiv('div_print');" type="button" value=" Print " />
+        <hr />
                     <div id="div_print">
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td colspan="1">
 
-                        <fieldset>
+                        <fieldset style='font-size: 12.0pt; line-height: 150%; font-family: "Open Sans",sans-serif; color: black'>
 
 
                             <h2 align="center" style='text-align: center'><span lang="EN-GB">DESIGN AGREEMENT</span></h2>
@@ -410,123 +393,7 @@ their signatures as follows:</span>
                             <p class="MsoNormal" style='text-align: justify'>
                                 <span lang="EN-GB"
                                     style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>Date:<u><asp:Label ID="lblDateFreelancer" runat="server"></asp:Label></u></span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
+                            </p>                            
 
                            <%-- </div>
 
@@ -538,9 +405,36 @@ their signatures as follows:</span>
             </tbody>
         </table>
             </div>
+                    
                 </div></div>
+            <div class="text-center">
+                <button class="btn btn-warning" width="100%" name="b_print" onclick="printdiv('div_print');" type="button><i class="fa fa-print"></i> Print</button>
+            </div>
             </section> 
         
+       <div id="divSignature" class = "main container text-center">
+           <hr />
+                <div class="row">
+                    <h4>Please Affix your Signature Here:</h4>
+                </div>
+                <div class="row">
+                    <div class="tools">
+                        <a class="btn btn-xs btn-info" href="#colors_sketch" data-tool="marker"><i class="fa fa-pencil"></i> Marker</a> 
+                        <a class="btn btn-xs btn-danger" href="#colors_sketch" data-tool="eraser"><i class="fa fa-eraser"></i> Eraser</a>
+                    </div>
+                    <br />
+        
+                    <canvas id="colors_sketch" style="border: 2px solid black"  width="400px" height="150pxs" > </canvas>
+      
+                    <br />
+                    <br />
+
+                    <asp:Button ID="btnAdd" Text="Submit" runat="server" class="btn btn-success" width="100%" OnClick="btnAdd_Click" />
+
+                    <hr />
+                    <asp:HiddenField ID="ImageVal" runat="server" />
+                </div>
+            </div>
     </form>
 
 
@@ -601,9 +495,7 @@ their signatures as follows:</span>
 				
 				
 			</div>--%>
-        <div class="copy-right">
-            <p>&copy;Copyright 2021 Al Refedain <a href="https://themezhub.com/">ThemezHub</a></p>
-        </div>
+        
     </footer>
 
 
@@ -639,6 +531,14 @@ their signatures as follows:</span>
             document.body.innerHTML = oldstr;
             return false;
         }
+    </script>
+    <script>
+        var signatureFile = document.getElementById("Image1").src
+        if (signatureFile != null || signatureFile != '' || !signatureFile.empty()) {
+            var divSign = document.getElementById("divSignature")
+            divSign.remove()
+        }
+
     </script>
 </body>
 

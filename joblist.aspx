@@ -3,19 +3,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
    
         <div class="container">
+			<h2 class="text-primary"><b>Project List</b></h2>
+			<hr />
+			<h4><b>Search Project</b></h4>
             <div class="row">
 				<div class="form-inline">
 						<asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..."/>
 						<asp:DropDownList ID="ddlCategory" runat="server" class="selectpicker form-control" data-live-search="true"
                                             AutoPostBack="true"/>
-					  <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" onclick="Button1_Click1"/>
+					  
 					</div>
+				<asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" onclick="Button1_Click1"/>
             </div>
-			<br />
-			<div class="panel panel-primary">
-				<div class="panel-heading"></div>
-				<div class="panel-body">
-					<table class="table">
+			<hr />
+			<div class="table-responsive">
+				<table class="table">
 						<thead>
 							<th>Project ID</th>
 							<th>Project Name</th>
@@ -70,7 +72,6 @@
 											</asp:DataPager>
 										</ul>
 									</div>
-				</div>
 			</div>
 	</div>
 

@@ -38,7 +38,7 @@ public partial class completed : System.Web.UI.Page
     {
 
 
-        if (Request.QueryString["status"].ToString() == "Uploaded Payment")
+        if (Request.QueryString["status"].ToString() == "Uploaded_Payment")
         {
           
             con.Open();

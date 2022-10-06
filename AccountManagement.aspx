@@ -3,16 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
 
+    <div class="row">
         <h2 class="text-primary"><b>Account Management List</b></h2>
-           <p>
-         
-                        <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
+        <hr />
+        <h4><b>Search Freelancer</b></h4>
+        <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
                       
                   
          <asp:Button ID="Button1" Text="Search" runat="server"
                             class="btn btn-primary" OnClick="Button1_Click1" />
-            </p>
-   
+    </div>
     <hr />
     <div class="table-responsive" style="font-family: Roboto;">
         <asp:UpdatePanel ID="upInv" runat="server">
@@ -39,8 +39,8 @@
 
                             <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
-                            <th>View Profile</th>
-                            <th>Verify</th>
+                            <%-- %><th>View Profile</th> --%>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,12 +62,33 @@
                                     <td>
                                         <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Id2")) %>'
                                             class="img-responsive" width="100" /></td> <td><%# Eval("status")%></td>
-                                    <td>
-                                        <a href='adminportfolio.aspx?ID=<%# Eval("userid") %>' onclick="javascript:return confirm('Are you sure you want to view?');">View</a>
-                                    </td>
                                     
                                     <td>
-                                        <a href='verifyuser2.aspx?ID=<%# Eval("userid") %>&UT=<%# Eval("UserType") %>' onclick="javascript:return confirm('Are you sure you want to Verify?');">Verify</a>
+                                        <a class="btn btn-xs btn-info" href='adminportfolio.aspx?ID=<%# Eval("userid") %>'>View</a>
+                                        <asp:HyperLink id="href1" 
+                                            onclick="javascript:return confirm('Are you sure you want to Activate User?')"
+                                            NavigateUrl='<%# string.Concat("verifyuser2.aspx?ID=", Eval("userid"),"&UT=", Eval("UserType"), "&flag=0") %>'
+                                              Text="Deactivate"
+                                              runat="server"
+                                              class="btn btn-xs btn-danger"
+                                              Visible='<%# Eval("status").ToString() == "Active" %>'
+                                            />
+                                        <asp:HyperLink id="HyperLink1" 
+                                            onclick="javascript:return confirm('Are you sure you want to Deactivate User?')"
+                                            NavigateUrl='<%# string.Concat("verifyuser2.aspx?ID=", Eval("userid"),"&UT=", Eval("UserType"), "&flag=2") %>'
+                                              Text="Activate"
+                                              runat="server"
+                                              class="btn btn-xs btn-info"  
+                                              Visible='<%# Eval("status").ToString() == "Inactive" %>'
+                                            />
+                                        <asp:HyperLink id="HyperLink2" 
+                                            onclick="javascript:return confirm('Are you sure you want to Verify User?')"
+                                            NavigateUrl='<%# string.Concat("verifyuser2.aspx?ID=", Eval("userid"),"&UT=", Eval("UserType"), "&flag=1") %>'
+                                              Text="Verify"
+                                              runat="server"
+                                              class="btn btn-xs btn-success"  
+                                              Visible='<%# Eval("status").ToString() == "For Verification" %>'
+                                            />
                                     </td>
                                 </tr>
                             </ItemTemplate>

@@ -45,6 +45,7 @@
                 <h2 class="text-primary"><b><asp:Label ID="txtContactPerson" runat="server"/>'s Portfolio</b></h2>
             </div>
         </div>
+        <hr />
         <div class="row">
             <div class="col-md-12 masonry-container">
                 <asp:ListView ID="lvInventory" runat="server" OnPagePropertiesChanging="lvInventory_PagePropertiesChanging">

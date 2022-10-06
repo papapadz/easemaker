@@ -10,22 +10,23 @@
                     <h2 class="text-primary"><b>Project Management</b></h2>
                 </div>
             </div>
-            <div class="row form-inline">
+            <hr />
+            <div class="row">
             <div class="col-md-6 text-left">
-                                <div class="form-inline">
+                <h4><b>Search Project Name</b></h4>
                                     <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..." />
                                     <asp:Button ID="Button1" Text="Search" runat="server"
                                         class="btn btn-primary" OnClick="Button1_Click1" />
-                                </div>
-                            </div>
+           </div>
                             <div class="col-md-6 text-right">
-                                <span><b>Status:</b></span>
-                                <asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" Width="200" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
-
-                                    <asp:ListItem Text="All" Value="All"></asp:ListItem>
-                                    <asp:ListItem Text="On-Going" Value="On-Going"></asp:ListItem>
-                                    <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
-                                </asp:DropDownList>
+                                <div class="form-inline">
+                                    <span><b>Status:</b></span>
+                                    <asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
+                                        <asp:ListItem Text="All" Value="All"></asp:ListItem>
+                                        <asp:ListItem Text="On-Going" Value="On-Going"></asp:ListItem>
+                                        <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
                             </div>
         </div>
             <hr />

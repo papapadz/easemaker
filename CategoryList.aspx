@@ -2,11 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
-    <div class="row heading">
-        <h2>Category List</h2>
-        <p><a href="addcategory.aspx">New Category</a></p>
+
+    <div class="row">
+        <h2 class="text-primary"><b>Category List</b> <a class="btn btn-success" href="addcategory.aspx"><i class="fa fa-plus"></i></a></h2>
     </div>
 
+    <hr />
     <div class="table-responsive">
         <asp:UpdatePanel ID="upInv" runat="server">
             <Triggers>
@@ -21,6 +22,7 @@
                         <tr>
                             <th>Category #</th>
                             <th>Category Name</th>
+                            <th>Action</th>
                             <%--    <th>Image</th>--%>
                             <%--  <th>edit</th>--%>
                         <%--    <th>Edit</th>--%>
@@ -40,7 +42,7 @@
                                                     class="img-responsive" width="100" /></td>
                                                     </tr>--%>
                                     <td>
-                                        <a href='Editcategory.aspx?ID=<%# Eval("categoryid") %>' onclick="javascript:return confirm('Are you sure you want to Edit?');">Edit</a>
+                                        <a class="btn btn-xs btn-warning" href='Editcategory.aspx?ID=<%# Eval("categoryid") %>' onclick="javascript:return confirm('Are you sure you want to Edit?');"><i class="fa fa-pencil"></i> Edit</a>
                                     </td>
                             </ItemTemplate>
                             <EmptyDataTemplate>

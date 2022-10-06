@@ -3,15 +3,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
        <script src="js/bootsnav.js"></script>
   
-                <h2 class="text-primary"><b>Admin List</b> <a class="btn btn-success" href="AddAdmin.aspx"><i class="fa fa-plus"></i></a></h2>
-              <p>
-         
-                        <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Employer Name here..." />
-                      
-                  
-         <asp:Button ID="Button1" Text="Search" runat="server"
-                            class="btn btn-primary" OnClick="Button1_Click1" />
-            </p>
+        <div class="row">
+            <h2 class="text-primary"><b>Admin List</b> <a class="btn btn-success" href="AddAdmin.aspx"><i class="fa fa-plus"></i></a></h2>
+        </div>
+    <hr />
+        <div class="row">
+             <h4><b>Search Employee</b></h4><asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Employer Name here..." />
+              <asp:Button ID="Button1" Text="Search" runat="server"
+                            class="btn btn-primary" OnClick="Button1_Click1" />        
+        </div>
         
     <hr />
           <div class="table-responsive">
@@ -32,7 +32,7 @@
                                                 <th>Contact Number</th>
                                                 <th>User Type</th>
                                                 <th>Status</th>
-                                                <th>Edit</th>
+                                                <th>Action</th>
                                                <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
                                             </tr>
@@ -48,7 +48,7 @@
                                                         <td><%# Eval("UserType")%></td>
                                                          <td><%# Eval("status")%></td>
                                                          <td>
-                                <a href='editadmin.aspx?ID=<%# Eval("userid") %>' onclick="javascript:return confirm('Are you sure you want to Edit?');">Edit</a>
+                                <a class="btn btn-xs btn-warning" href='adminportfolio.aspx?ID=<%# Eval("userid") %>' onclick="javascript:return confirm('Are you sure you want to Edit?');"><i class="fa fa-pencil"></i> Edit</a>
                             </td>
                                                   <%--      <%--<td><%# String.Format("{0:d/MM/yyyy HH:mm:tt}", Eval("BSPCDateadded")) %></td>
                                                --%>

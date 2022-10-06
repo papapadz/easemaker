@@ -16,7 +16,7 @@ public partial class VerifyApplicant : System.Web.UI.Page
         //    Response.Redirect("Login.aspx");
         //else
         //{
-            if (!IsPostBack)
+            if (!IsPostBack && Request.QueryString["flag"]!=null)
             {
                 UpdateStatus();
             }
@@ -24,16 +24,21 @@ public partial class VerifyApplicant : System.Web.UI.Page
     }
     void UpdateStatus()
     {
-     
+        string flag = Request.QueryString["flag"];
+        string status = "Inactive";
+
+        if (flag == "1")
+            status = "Active";
+        
         con.Open();
         SqlCommand cmd6 = new SqlCommand();
         cmd6.Connection = con;
         cmd6.CommandText = "UPDATE Users SET Status=@Status WHERE userid=@userid";
-        cmd6.Parameters.Add("@Status", SqlDbType.VarChar).Value = "Active";
+        cmd6.Parameters.Add("@Status", SqlDbType.VarChar).Value = status;
         cmd6.Parameters.Add("@userid", SqlDbType.VarChar).Value = Request.QueryString["ID"].ToString();
         cmd6.ExecuteNonQuery();
         con.Close();
-        Session["verified"] = "yes";
+        //Session["verified"] = "yes";
         if (Request.QueryString["UT"].ToString() == "Employer")
         {
             Response.Redirect("employers.aspx");

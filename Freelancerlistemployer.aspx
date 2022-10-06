@@ -5,12 +5,15 @@
 
     <div class="container">
         <h2 class="text-primary"><b>Freelancer List</b></h2>
-        <div class="row form-inline">
+        <hr />
+        <h4><b>Search Freelancer</b></h4>
+        <div class="row">
             <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
                       
                   
             <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" OnClick="Button1_Click1" />
         </div>
+        <hr />
         <asp:UpdatePanel ID="upInv" runat="server">
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="lvaccounts" EventName="PagePropertiesChanging" />

@@ -3,7 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
        <script src="js/bootsnav.js"></script>
     <div class="row heading">
-        <h2>Billing List</h2>
+        <h2 class="text-primary"><b>Billing List</b></h2>
+    </div>
+    <hr />
+    <div class="row">
+        <h4><b>Filter by</b></h4>
           <p><asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" Width="200" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
 
                         <asp:ListItem Text="All" Value="All"></asp:ListItem>
@@ -11,7 +15,7 @@
                            <asp:ListItem Text="Completed" Value="Completed"></asp:ListItem>
                     </asp:DropDownList></p>
     </div>
-
+    <hr />
     <div class="table-responsive">
         <asp:updatepanel id="upInv" runat="server">
                                 <Triggers>
@@ -29,11 +33,10 @@
                                                 <th>Date</th>
                                                 <th>Amount</th>
                                                 <th>Ref. #</th>
-                                                <th>Status</th>
-                                                  <th>Purpose</th>
-                                                  <th>Payment Date</th>
+                                                <th>Purpose</th>
+                                                <th>Payment Date</th>
                                                 <th>Image</th>
-                                                <th>Completed</th>
+                                                <th>Status</th>
                                                <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
                                             </tr>
@@ -44,19 +47,46 @@
                                                     <tr>
                                                         <td><%# Eval("Billingid")%></td>
                                                         <td><%# Eval("companyname")%><%# Eval("personname")%></td>
-                                                          <td><%# Eval("datetime")%></td>
+                                                        <td><%# Eval("datetime")%></td>
                                                         <td><%# Eval("amount")%></td>
                                                          <td><%# Eval("refid")%></td>
 
-                                                       <td><%# Eval("status")%></td>
+                                                      
                                                          <td><%# Eval("purpose")%></td>
                                                          <td><%# Eval("dateuploaded")%></td>
                                                          <td>  <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Image")) %>'
-                                                    class="img-responsive" width="500" /></td>
+                                                    class="img-responsive" width="300" /></td>
                                               
                                                          <td>
-                                        <a href='completed.aspx?ID=<%# Eval("Billingid") %>&purpose=<%# Eval("purpose") %>&UID=<%# Eval("userid") %>&status=<%# Eval("status") %>&JID=<%# Eval("refid") %>' onclick="javascript:return confirm('Are you sure you want to complete?');">Complete</a>
-                                    </td>
+                                                             <div class="row">
+                                                                 <div class="col-md-6">
+                                                                     <asp:Label id="lbl1"
+                                                                         Text='<%# Eval("status")%>'
+                                                                         runat="server"
+                                                                         Visible='<%# Eval("status").ToString() == "Pending" %>'
+                                                                         style="color: orange"
+                                                                         />
+                                                                     <asp:Label id="lbl2"
+                                                                         Text='<%# Eval("status")%>'
+                                                                         runat="server"
+                                                                         Visible='<%# Eval("status").ToString() == "Completed" %>'
+                                                                         style="color: green"
+                                                                         />
+
+                                                                 </div>
+                                                                <div class="col-md-6">
+                                                                    
+                                                                    <asp:HyperLink id="HyperLink2"
+                                                                        onclick="javascript:return confirm('Are you sure you want to verify payment?')"
+                                                                        NavigateUrl='<%# string.Concat("completed.aspx?ID=", Eval("Billingid"), "&purpose=", Eval("purpose"), "&UID=", Eval("userid"), "&status=Uploaded_Payment", "&JID=", Eval("refid")) %>' 
+                                                                        runat="server"
+                                                                        class="btn btn-xs btn-success" 
+                                                                        Text="Verify" 
+                                                                        Visible='<%# Eval("status").ToString() == "Uploaded Payment" %>'
+                                                                        />
+                                                                </div>
+                                                             </div>
+                                                         </td>
                                                     </tr>
                                                 </ItemTemplate>
                                                 <EmptyDataTemplate>

@@ -14,12 +14,20 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (Session["userid"] == null)
         {
-            GetInfo();
-            GetInfo2();
-            GetInfo2();
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        } else
+        {
+            if (!IsPostBack)
+            {
+                GetInfo();
+                GetInfo2();
+                GetInfo2();
+            }
         }
+        
     }
     void GetInfo3()
     {
@@ -81,7 +89,7 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_getfreelancer2 WHERE jobid=@jobid";
+        cmd.CommandText = "SELECT * FROM vw_getfreelancer WHERE jobid=@jobid";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())

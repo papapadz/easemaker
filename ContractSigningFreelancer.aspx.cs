@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,13 +13,21 @@ using System.Web.UI.WebControls;
 public partial class ContractSigningFreelancer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
-    protected void Page_Load(object sender, EventArgs e)
+
+      protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (Session["userid"] == null)
         {
-            GetInfo();
-            GetInfo2();
-            GetInfo3(); 
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        } else
+        {
+            if (!IsPostBack)
+            {
+                GetInfo();
+                GetInfo2();
+                GetInfo3();
+            }
         }
     }
     void GetInfo3()
@@ -55,7 +64,7 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_getemployer2 WHERE jobid=@jobid ";
+        cmd.CommandText = "SELECT * FROM vw_getemployer WHERE jobid=@jobid ";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
@@ -92,8 +101,8 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
                 lblFreelancer.Text = data["personname"].ToString();
                 lblDateFreelancer.Text = data["date"].ToString();
                 lblFreelancename.Text = data["personname"].ToString();
-
                 Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
+
                 //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
 
@@ -110,6 +119,7 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
         sb.Append("');");
         ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "showalert", sb.ToString(), true);
     }
+
     protected void btnAdd_Click(object sender, EventArgs e)
     {
         con.Open();
@@ -165,4 +175,5 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
         //    Response.Redirect("~/Customer/ContractSigning.aspx?ID=" + Request.QueryString["ID"].ToString());
         //}
     }
+
 }

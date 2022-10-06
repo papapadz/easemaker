@@ -2,26 +2,26 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
- 
-        <h2>Project List</h2>
-             <p>
-         
-                        <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Company name here..." />
-                      
-                  
-         <asp:Button ID="Button1" Text="Search" runat="server"
-                            class="btn btn-default" OnClick="Button1_Click1" />
-            </p>
-         <p><asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" Width="200" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
 
+    <div class="row">
+        <h2 class="text-primary"><b>Project List</b></h2>
+        <hr />
+        <h4><b>Search Company</b></h4>
+        <div class="form-inline">
+            <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Company name here..." />
+        
+            <asp:DropDownList runat="server" ID="ddltimecat" class="form-control" AutoPostBack="true" Width="200" OnSelectedIndexChanged="ddltimecat_SelectedIndexChanged">
                         <asp:ListItem Text="All" Value="All"></asp:ListItem>
-             <asp:ListItem Text="Posted" Value="Posted"></asp:ListItem>
+                        <asp:ListItem Text="Posted" Value="Posted"></asp:ListItem>
                         <asp:ListItem Text="On-Going" Value="On-Going"></asp:ListItem>
-
-                           <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
-                     
-                    </asp:DropDownList></p>
-        <p></p>
+                        <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
+                    </asp:DropDownList>
+        </div>
+        
+            <asp:Button ID="Button1" Text="Search" runat="server"
+                            class="btn btn-primary" OnClick="Button1_Click1" />
+    </div>
+    <hr />
        <%-- <p>
             <asp:Button ID="btnReg" runat="server" Text="Add Job" type="button" class="btn btn-primary" Height="50px" Width="100px" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
         </p>--%>
@@ -72,7 +72,7 @@
                     </ItemTemplate>
                     <EmptyDataTemplate>
                         <tr>
-                            <td colspan="10">
+                            <td colspan="8">
                                 <h2 class="text-center">No records found.</h2>
                             </td>
                         </tr>

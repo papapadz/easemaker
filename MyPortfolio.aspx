@@ -46,12 +46,14 @@
                 <h2 class="text-primary"><b><asp:Label ID="txtContactPerson" runat="server"/>'s Portfolio</b></h2>
             </div>
         </div>
+        <hr />
         <div class="row">
-            <div class="col-md-12 form-inline">
+            <div class="col-md-4">
                 <asp:FileUpload ID="fuImage" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg" />
                 <asp:Button ID="btnReg" runat="server" Text="Add" type="button" class="btn btn-sm btn-success" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
             </div>
         </div>
+        <hr />
         <div class="row">
             <div class="col-md-12 masonry-container">
                 <asp:ListView ID="lvInventory" runat="server" OnPagePropertiesChanging="lvInventory_PagePropertiesChanging">

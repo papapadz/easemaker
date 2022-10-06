@@ -3,7 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
    <section class="jobs">
         <div class="container">
-            
+            <h2 class="text-primary"><b>Job Listings</b></h2>
+                <hr />
 			<asp:Label ID="lblresults" runat="server"></asp:Label>
                   <div class="form-inline">
 						<asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..."/>
@@ -12,12 +13,9 @@
 					  <br />
 						<asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" onclick="Button1_Click1"/>
 					</div>
-            <div class="row top-pad">
-				<h2 class="text-primary"><b>Job Listings</b></h2>
-                <div class="filter">
-                    <div class="col-md-2 col-sm-3">
-                        <%--<p>Search here:</p>--%>
-                    </div>
+			<hr />
+            <div class="row">
+				<div class="filter">
 
                     <%--<div class="col-md-10 col-sm-9 pull-right">
 							<ul class="filter-list">

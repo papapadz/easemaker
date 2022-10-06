@@ -2,11 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
-    <div class="row heading">
-        <h2>Subscription List</h2>
-        <p><a href="subscription.aspx">Subscribe Now!</a></p>
+    <div class="row">
+        <h2 class="text-primary"><b>Subscription List</b> <a class="btn btn-success" href="subscription.aspx"><i class="fa fa-plus"></i></a></h2>
     </div>
-
+    <hr />
     <div class="table-responsive">
         <asp:UpdatePanel ID="upInv" runat="server">
             <Triggers>
@@ -21,11 +20,12 @@
                         <tr>
                             <th>Date</th>
                             <th>Expiration Date</th>
+                            
+                             <th>Category</th>
                             <th>Quantity</th>
                                <th>Amount</th>
-                             <th>Category</th>
                              <th>Status</th>
-                              <th>Cancel</th>
+                              <th>Action</th>
                         <%--    <th>Edit</th>--%>
                         </tr>
                     </thead>
@@ -35,8 +35,10 @@
                                 <tr>
                                     <td><%# Eval("date","{0:dd/MM/yyyy}")%></td>
                                     <td><%# Eval("expdate","{0:dd/MM/yyyy}")%></td>
-                                      <td><%# Eval("qty")%></td>
+                                    
                                     <td><%# Eval("category")%></td>
+                                      <td><%# Eval("qty")%></td>
+                                    
                                       <td><%# Eval("amount")%></td>
                                     <td><%# Eval("Status")%></td>
 
@@ -47,8 +49,15 @@
                                                         <td>    <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Image")) %>'
                                                     class="img-responsive" width="100" /></td>
                                                     </tr>--%>
-                                    <td>
-                                        <a href='cancelsubscription.aspx?ID=<%# Eval("subscriptionid") %>' onclick="javascript:return confirm('Are you sure you want to cancel?');">Cancel</a>
+                                    <td>    
+                                        <asp:Hyperlink 
+                                            Visible='<%# Eval("Status").ToString() == "Pending"%>'
+                                            class="btn btn-xs btn-danger"
+                                            Text="Cancel"
+                                            onclick="javascript:return confirm('Are you sure you want to cancel?');"
+                                            runat="server"
+                                            NavigateUrl='string.Concat("cancelsubscription.aspx?ID=",Eval("subscriptionid"))'
+                                            />
                                     </td>
                             </ItemTemplate>
                             <EmptyDataTemplate>

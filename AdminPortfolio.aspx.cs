@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -38,7 +40,7 @@ public partial class AdminPortfolio : System.Web.UI.Page
                     {
 
                         GetInfo(userID);
-                        Getclients();
+                        //Getclients();
                     }
                 }
                 else
@@ -48,43 +50,31 @@ public partial class AdminPortfolio : System.Web.UI.Page
                 Response.Redirect("Login.aspx");
         }
     }
-    void Getclients()
-    {
-
-        con.Open();
-        SqlCommand cmd = new SqlCommand();
-        cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_portfolio where userid=" + Request.QueryString["ID"].ToString();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        DataSet ds = new DataSet();
-        da.Fill(ds, "vw_portfolio");
-        lvInventory.DataSource = ds;
-        lvInventory.DataBind();
-        con.Close();
-        //}
-    }
-    protected void lvInventory_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
-    {
-        dpInventory.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
-        Getclients();
-    }
+    
     void GetInfo(int userID)
     {
 
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_portfolio WHERE userid=@userid ";
-        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = userID;
+        cmd.CommandText = "SELECT * FROM users WHERE userid=@ProductID ";
+        cmd.Parameters.Add("@ProductID", SqlDbType.Int).Value = userID;
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
             {
                 txtContactPerson.Text = data["personname"].ToString();
-              
-            
-            
-                //txtaboutme.Text = data["aboutme"].ToString();
+                TextBox1.Text = data["personname"].ToString()+"'s Profile";
+                //fuImage.ImageUrl = string.Concat("img/products/", data["Image"].ToString());
+                txtEmail.Text = data["email"].ToString();
+                txtAddress.Text = data["address"].ToString();
+                txtContactNo.Text = data["contactno"].ToString();
+                txtPassword.Text = Helper.CreateHashTag(data["password"].ToString());
+                if (data["UserType"].ToString() == "User")
+                {
+                    HyperLink1.NavigateUrl = "ViewPortfolioemployer.aspx?ID=" + userID;
+                    HyperLink1.Visible = true;
+                }
             }
         }
         con.Close();
@@ -102,7 +92,7 @@ public partial class AdminPortfolio : System.Web.UI.Page
 
     protected void btnReg_Click(object sender, EventArgs e)
     {
-        Response.Redirect("accountmanagement.aspx");
+        //Response.Redirect("accountmanagement.aspx");
         //con.Open();
         //SqlCommand cmd = new SqlCommand();
         //cmd.Connection = con;

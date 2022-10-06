@@ -67,7 +67,7 @@ public partial class Subscriptionlist : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_subscript where Companyname LIKE '%" + txtSearch.Text + "%' ";
+        cmd.CommandText = "SELECT * FROM vw_subscript where Companyname LIKE '%" + txtSearch.Text + "%' OR " + "PersonName LIKE '%" + txtSearch.Text + "%'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "vw_subscript");

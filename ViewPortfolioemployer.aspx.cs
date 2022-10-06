@@ -12,6 +12,50 @@ using System.Web.UI.WebControls;
 public partial class ViewPortfolioemployer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+
+    void Page_PreInit(Object sender, EventArgs e)
+    {
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+        //if (Session["UserID"] == null || Session["UserLevel"].ToString() == "Customer")
+        //{
+        //    Response.Redirect("Login.aspx");
+
+        if (!IsPostBack)
+        {
+            SetMasterPage(Session["userid"].ToString());
+        }
+    }
+
+    void SetMasterPage(String userID)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM Users WHERE UserID=@userid";
+        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = userID;
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            if (data["UserType"].ToString() == "Admin")
+            {
+                this.MasterPageFile = "~/MasterPage.master";
+            } else if (data["UserType"].ToString() == "Employer")
+            {
+                this.MasterPageFile = "~/MasterPageEmployer.master";
+            }
+            else
+            {
+                this.MasterPageFile = "~/MasterPageUser.master";
+            }
+
+        }
+        con.Close();
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["userid"] == null)
@@ -54,16 +98,16 @@ public partial class ViewPortfolioemployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_portfolio WHERE userid=@userid ";
+        cmd.CommandText = "SELECT * FROM users WHERE userid=@userid ";
         cmd.Parameters.Add("@userid", SqlDbType.Int).Value = userID;
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
             {
                 txtContactPerson.Text = data["personname"].ToString();
-               
-            
-            
+                //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
+
+
                 //txtaboutme.Text = data["aboutme"].ToString();
             }
         }
@@ -75,7 +119,7 @@ public partial class ViewPortfolioemployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_portfolio where userid=" + Request.QueryString["ID"].ToString();
+        cmd.CommandText = "SELECT * FROM vw_portfolio where userid=" + Session["userid"].ToString();
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "vw_portfolio");
@@ -86,8 +130,8 @@ public partial class ViewPortfolioemployer : System.Web.UI.Page
     }
     protected void lvInventory_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {
-        dpInventory.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
-        Getclients();
+        //dpInventory.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+        //Getclients();
     }
 
     private void ShowPopUpMsg(string msg)

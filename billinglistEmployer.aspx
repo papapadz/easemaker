@@ -2,10 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <div class="row heading">
-                <h2>Billing List</h2>
+                <h2 class="text-primary"><b>Billing List</b></h2>
                 
             </div>
-    
+    <hr />
           <div class="table-responsive">
                             <asp:UpdatePanel ID="upInv" runat="server">
                                 <Triggers>
@@ -24,8 +24,7 @@
                                                 <th>Ref. #</th>
                                                 <th>Status</th>
                                                 <th>Payment Date</th>
-                                                <th>Image</th>
-                                                <th>Upload Payment</th>
+                                                <th>Proof of Payment</th>
                                                <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
                                             </tr>
@@ -40,16 +39,28 @@
                                                          <td><%# Eval("refid")%></td>
                                                        <td><%# Eval("status")%></td>
                                                         <td><%# Eval("dateuploaded")%></td>
-                                                        <td>  <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Image")) %>'
-                                                    class="img-responsive" width="300" /></td>
-                                                         <td>
-                                        <a href='uploadbillingpayment.aspx?ID=<%# Eval("Billingid") %>&OID=<%# Eval("refid") %>' onclick="javascript:return confirm('Are you sure you want to complete?');">Upload</a>
+                                                        <td>  
+                                                            
+                                                            <asp:image id="Img1" 
+                                                                runat="server" 
+                                                                src='<%# string.Concat("img/", Eval("Image")) %>'
+                                                                class="img-responsive" width="300"
+                                                                Visible='<%# Eval("Status").ToString() == "Completed" || Eval("Status").ToString() == "Uploaded Payment" %>'
+                                                                ></asp:image>
+                                                            <asp:Hyperlink id="hlink1"
+                                                                runat="server" 
+                                                                NavigateUrl='<%# string.Concat("uploadbillingpayment.aspx?ID=", Eval("Billingid"), "&OID=", Eval("refid")) %>'
+                                                                class="btn btn-xs btn-info"
+                                                                Text='<i class="fa fa-upload"></i> Upload'
+                                                                Visible='<%# Eval("Status").ToString() != "Completed" && Eval("Status").ToString() != "Uploaded Payment"%>'
+                                                                ></asp:Hyperlink>
+                                        
                                     </td>
                                                     </tr>
                                                 </ItemTemplate>
                                                 <EmptyDataTemplate>
                                                     <tr>
-                                                        <td colspan="9">
+                                                        <td colspan="7">
                                                             <center><h2>No records found!</h2></center>
                                                         </td>
                                                     </tr>

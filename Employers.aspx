@@ -3,11 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
   
-        <h2 class="text-primary"><b>Employer List</b></h2>
-         <div>
-             <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Employer Name here..." />
-             <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" OnClick="Button1_Click1" />
-         </div><hr />
+        <div class="row">
+            <h2 class="text-primary"><b>Employer List</b></h2>
+            <hr />
+             <div>
+                 <h4><b>Search Employer</b></h4>
+                 <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Employer Name here..." />
+                 <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" OnClick="Button1_Click1" />
+             </div>
+        </div>
+    <hr />
         <%--<p><a href="addemployer.aspx">New Employer</a></p>--%>
     
 
@@ -29,8 +34,9 @@
                             <th>Contact Person</th>
                             <th>Address</th>
                             <th>Contact Number</th>
+                            <th>Business Permit</th>
+                            
                             <th>Status</th>
-                            <th>File</th>
                             <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
                             <th>Action</th>
@@ -52,12 +58,35 @@
 
                                     <%--      <%--<td><%# String.Format("{0:d/MM/yyyy HH:mm:tt}", Eval("BSPCDateadded")) %></td>
                                     --%>
-                                    <td><%# Eval("status")%></td>
                                     <td>
                                         <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Id1")) %>'
-                                            class="img-responsive" width="100" /></td>
+                                            class="img-responsive" width="100" />
+                                    </td>
+                                    
+                                    <td><%# Eval("status")%></td>
                                     <td>
-                                        <a href='verifyuser2.aspx?ID=<%# Eval("userid") %>&UT=<%# Eval("UserType") %>' onclick="javascript:return confirm('Are you sure you want to Verify?');">
+                                        <asp:HyperLink id="href1" 
+                                              NavigateUrl='<%# string.Concat("verifyuser2.aspx?ID=", Eval("userid"),"&UT=", Eval("UserType"), "&flag=0") %>'
+                                              Text="Deactivate"
+                                              runat="server"
+                                              class="btn btn-xs btn-danger"
+                                              Visible='<%# Eval("status").ToString() == "Active" %>'
+                                            />
+                                        <asp:HyperLink id="HyperLink1" 
+                                              NavigateUrl='<%# string.Concat("verifyuser2.aspx?ID=", Eval("userid"),"&UT=", Eval("UserType"), "&flag=2") %>'
+                                              Text="Activate"
+                                              runat="server"
+                                              class="btn btn-xs btn-info"  
+                                              Visible='<%# Eval("status").ToString() == "Inactive" %>'
+                                            />
+                                        <asp:HyperLink id="HyperLink2" 
+                                              NavigateUrl='<%# string.Concat("verifyuser2.aspx?ID=", Eval("userid"),"&UT=", Eval("UserType"), "&flag=1") %>'
+                                              Text="Verify"
+                                              runat="server"
+                                              class="btn btn-xs btn-success"  
+                                              Visible='<%# Eval("status").ToString() == "For Verification" %>'
+                                            />
+                                        <%--<a href='verifyuser2.aspx?ID=<%# Eval("userid") %>&UT=<%# Eval("UserType") %>' onclick="javascript:return confirm('Are you sure you want to Verify?');">
                                             <asp:Label 
                                                 runat="server" 
                                                 Visible='<%# Eval("status").ToString() == "Active" %>'
@@ -71,7 +100,7 @@
                                                 Visible='<%# Eval("status").ToString() == "For Verification" %>'
                                                 Text="Verify" />
 
-                                        </a>
+                                        </a> --%>
                                     </td>
                                 </tr>
                             </ItemTemplate>

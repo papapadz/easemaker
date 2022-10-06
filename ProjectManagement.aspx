@@ -6,6 +6,7 @@
      
     <div class="container">
 		<h2 class="text-primary"><b>Project Management</b></h2>
+		<hr />
         <div class="row">
 			<div class="form-inline">
 						<asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..."/>
@@ -15,13 +16,13 @@
                         <asp:ListItem Text="On-Going" Value="On-Going"></asp:ListItem>
                            <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
                     </asp:DropDownList>
-					  <asp:Button ID="Button2" Text="Search" runat="server" class="btn btn-primary" onclick="Button1_Click1"/>
+					  
 					</div>
+			<asp:Button ID="Button2" Text="Search" runat="server" class="btn btn-primary" onclick="Button1_Click1"/>
         </div>
-        <div class="panel panel-primary">
-				<div class="panel-heading"></div>
-				<div class="panel-body">
-					<table class="table">
+		<hr />
+        <div class="table-responsive">
+            <table class="table">
 						<thead>
 							<th>Project ID</th>
 							<th>Project Name</th>
@@ -32,6 +33,7 @@
 							<th>Amount Offered</th>
 							<th>Time Frame</th>
 							<th>Status</th>
+							<th>Action</th>
 						</thead>
 						<tbody>
 							<asp:UpdatePanel ID="upInv" runat="server">
@@ -51,6 +53,9 @@
 												<td><%# Eval("amt", "{0:c}") %></td>
 												<td><%# Eval("timeframe") %> <%# Eval("timeCat") %></td>
 												<td><%# Eval("status") %></td>
+												<td>
+													<a href='ProjectManagementView.aspx?ID=<%# Eval("Jobid") %>&Status=<%# Eval("status") %>&projname=<%# Eval("jobtitle") %>&eta=<%# Eval("eta", "{0:d}") %>&name=<%# Eval("personname") %>&ct=<%# Eval("timeframe") %>&tc=<%# Eval("timecat") %>' onclick="javascript:return confirm('Are you sure you want to Proceed?');">View More</a>
+												</td>
 											</tr>
 										</ItemTemplate>
 										<EmptyDataTemplate>
@@ -76,8 +81,7 @@
 											</asp:DataPager>
 										</ul>
 									</div>
-				</div>
-			</div>
+        </div>
     </div>
 </asp:Content>
 

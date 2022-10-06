@@ -3,10 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
     <div class="row heading">
-        <h2> Logs</h2>
-       
+        <h2 class="text-primary"><b>Logs</b></h2>
     </div>
-
+    <hr />
     <div class="table-responsive">
         <asp:UpdatePanel ID="upInv" runat="server">
             <Triggers>
