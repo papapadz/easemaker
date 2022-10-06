@@ -18,7 +18,7 @@
             <hr />
             <div class="row">
                 <div class="col-md-4">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                         <div class="panel-body">
                             <h2>Contract</h2>
                                 <h1></h1>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                         <div class="panel-body">
                             <h2>Files</h2>
                                 <h1></h1>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                         <div class="panel-body">
                             <h2>Invoices</h2>
                                 <h1></h1>
@@ -99,7 +99,7 @@
 
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                           <h3>Hours Logged: <asp:Label ID="lbltotalhrs" runat="server"></asp:Label></h3>
                   
                         <%--	<p>Description:<asp:Label ID="Label9" runat="server" /></p>--%>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                             <div class="panel-heading">
                                 <i class="fa fa-leaf fa-fw"></i>Deadline: <asp:Label ID="lblETA" runat="server"></asp:Label>
                             </div>
@@ -146,7 +146,7 @@
             
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                         <div class="panel-heading">
                             <i class="fa fa-leaf fa-fw"></i>Time Log:
                         </div>
@@ -246,7 +246,7 @@
 						</div>--%>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <div class="panel panel-primary box">
+                    <div class="panel panel-primary ">
                                     <div class="panel-heading">
                                         <i class="fa fa-leaf fa-fw"></i>Deliverable Tracker:
                                     </div>

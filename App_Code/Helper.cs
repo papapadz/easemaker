@@ -56,8 +56,8 @@ public class Helper
     }
     public static string GetURL()
     {
-        //return "http://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
-        return "http://" + "20213t05.isproj.org" + HttpContext.Current.Request.ApplicationPath;
+        return "http://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
+        //return "http://" + "20213t05.isproj.org" + HttpContext.Current.Request.ApplicationPath;
     }
     public static void AddLog(string userID, string logType, string desc)
     {

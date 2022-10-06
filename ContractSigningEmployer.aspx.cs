@@ -232,7 +232,7 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = Session["userid"].ToString();
         cmd.ExecuteNonQuery();
         con.Close();
-        Response.Redirect("projectmanagement.aspx");
+        Response.Redirect("projectmanagement.aspx?status=On-Going");
        // Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
     }
 }
