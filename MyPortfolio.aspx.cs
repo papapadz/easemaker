@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -77,11 +78,13 @@ public partial class MyProfileApplicant : System.Web.UI.Page
             {
                 txtContactPerson.Text = data["personname"].ToString();
                 //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
-            
-            
-                //txtaboutme.Text = data["aboutme"].ToString();
-            }
+                if (data["Status"].ToString() == "Subscribed")
+                    Label1.Visible = true;
+
+
+            //txtaboutme.Text = data["aboutme"].ToString();
         }
+    }
         con.Close();
     }
 

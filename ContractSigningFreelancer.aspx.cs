@@ -89,7 +89,7 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
+        cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
         SqlDataReader data = cmd.ExecuteReader();

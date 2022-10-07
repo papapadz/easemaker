@@ -362,7 +362,7 @@ their signatures as follows:</span>
 
                             <p class="MsoNormal" style='text-align: justify'>
                                 <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>Date:<u><asp:Label ID="lblDateEmployer" runat="server"></u></asp:Label></span>
+                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>Date:<u><asp:Label ID="lblDateEmployer" runat="server"></asp:Label></u></span>
                             </p>
 
                             <p class="MsoNormal" style='text-align: justify'>

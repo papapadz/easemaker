@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,11 +14,21 @@ public partial class ProjectViewApplicant : System.Web.UI.Page
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
     {
-        GetInfo();
-        getjobs();
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+        else
+        {
+            GetInfo();
+            getjobs();
+        }
+            
     }
     void GetInfo()
     {
+        string userid = null;
 
         con.Open();
         SqlCommand cmd = new SqlCommand();
@@ -28,6 +39,7 @@ public partial class ProjectViewApplicant : System.Web.UI.Page
         while (data.Read())
         {
             {
+                userid = data["userid"].ToString();
                 lblJD.Text = data["jobdescription"].ToString();
                 lbltl.Text = data["timeline"].ToString();
                 Image2.ImageUrl = string.Concat("img/", data["Image"].ToString());
@@ -37,6 +49,21 @@ public partial class ProjectViewApplicant : System.Web.UI.Page
                 //lblC.Text = data["contactno"].ToString();
                 lblJT.Text = data["jobtitle"].ToString();
                 lblBudget.Text = data["amt"].ToString();
+
+            }
+        }
+        con.Close();
+
+        con.Open();
+        SqlCommand cmd2 = new SqlCommand();
+        cmd2.Connection = con;
+        cmd2.CommandText = "SELECT TOP(1) * from subscription WHERE userid=@userid AND status='Subscribed'";
+        cmd2.Parameters.Add("@userid", userid);
+        SqlDataReader data2 = cmd2.ExecuteReader();
+        while (data2.Read())
+        {
+            {
+                Label1.Visible = true;
 
             }
         }

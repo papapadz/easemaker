@@ -63,7 +63,7 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_getemployer WHERE jobid=@jobid and userid=@userid";
+        cmd.CommandText = "SELECT TOP(1) * FROM vw_getemployer WHERE jobid=@jobid and userid=@userid";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
@@ -75,7 +75,7 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
                 imgSignClient.ImageUrl = string.Concat("img/", data["filename"].ToString());
                 lblDateEmployer.Text = data["date"].ToString();
                 lblemployer.Text = data["Companyname"].ToString();
-                //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
+                //imgSignClient.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
 
                 //txtaboutme.Text = data["aboutme"].ToString();
@@ -89,7 +89,7 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_getfreelancer WHERE jobid=@jobid";
+        cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())

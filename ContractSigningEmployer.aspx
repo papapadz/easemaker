@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href=""><%--<img src="img/logo.png" class="logo" alt="">--%> <img src="img/logo.png" class="logo" width="100" /></a>
+                <a class="navbar-brand" href="defaultemployer.aspx"><%--<img src="img/logo.png" class="logo" alt="">--%> <img src="img/logo.png" class="logo" width="100" /></a>
             </div>
             <!-- End Header Navigation -->
 
@@ -59,7 +59,7 @@
                         <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                        <li><a href="Freelancerlistemployer.aspx">Freelancer List</a></li>
                             <li><a href="joblist.aspx">My Project List</a></li>
-                             <li><a href="projectmanagement.aspx">Project Management</a></li>
+                             <li><a href="projectmanagementLanding.aspx">Project Management</a></li>
                               <li><a href="billinglistemployer.aspx">Billing list</a></li>
                              <li><a href="subscriptionlist.aspx">Subscription</a></li>
                         </ul>
@@ -72,8 +72,13 @@
                             <li><a href="resume.html">Resume Detail</a></li>
                         </ul>
                     </li>--%>
-                    <li><a href="logout.aspx">Logout</a></li>
-                      <li><a href="myprofileemployer.aspx">Employer Profile</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="myprofileemployer.aspx">Employer Profile</a></li>
+                            <li><a href="logout.aspx">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -85,42 +90,23 @@
   
                   <form runat="server" class="well form-horizontal">
                      <asp:ScriptManager ID="ScriptManager1" runat="server" />
-           <section class="jobs">
+           
+       <section class="jobs">
         <div class="container">
 
             <div class="companies">
                 <div class="row heading">
-                    <h2>Freelancer Project Contract Signing</h2>
-                    <p>Please Read the contract before signing</p>
-     
-        <section class="main-container col1-layout">
-            <div class="main container">
-                <div class="row">
-                    <div class="tools">
-                        <a href="#colors_sketch" data-tool="marker">Marker</a> <a href="#colors_sketch" data-tool="eraser">Eraser</a>
-                    </div>
-                    <br />
-        
-                    <canvas id="colors_sketch" style="border: 2px solid black"  width="400px" height="150pxs" > </canvas>
-      
-                    <br />
-                    <br />
-
-                    <asp:Button ID="btnAdd" Text="Submit" runat="server" class="btn" OnClick="btnAdd_Click" />
-                    <asp:Button ID="Button1" Text="Start Project" runat="server" class="btn" OnClick="Button1_Click" />
-                    <hr />
-                    <asp:HiddenField ID="ImageVal" runat="server" />
-                </div>
-            </div>
-        </section>
-                     <input class="btn" name="b_print" onclick="printdiv('div_print');" type="button" value=" Print " />
+                    <h2 class="text-primary"><b>Employer Project Contract Signing</b></h2>
+                    <p class="text-danger"><small><i>Please Read the contract before signing</i></small></p>
+     <asp:Button ID="Button1" Text="Start Project" runat="server" OnClick="Button1_Click" class="btn btn-success" />
+        <hr />
                     <div id="div_print">
         <table class="table table-striped">
             <tbody>
                 <tr>
                     <td colspan="1">
 
-                        <fieldset>
+                        <fieldset style='font-size: 12.0pt; line-height: 150%; font-family: "Open Sans",sans-serif; color: black'>
 
 
                             <h2 align="center" style='text-align: center'><span lang="EN-GB">DESIGN AGREEMENT</span></h2>
@@ -393,123 +379,7 @@ their signatures as follows:</span>
                             <p class="MsoNormal" style='text-align: justify'>
                                 <span lang="EN-GB"
                                     style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>Date:<u><asp:Label ID="lblDateFreelancer" runat="server"></asp:Label></u></span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
-                            <p class="MsoNormal" style='text-align: justify'>
-                                <span lang="EN-GB"
-                                    style='font-size: 12.0pt; line-height: 107%; font-family: "Open Sans",sans-serif'>&nbsp;</span>
-                            </p>
-
+                            </p>                            
 
                            <%-- </div>
 
@@ -521,72 +391,37 @@ their signatures as follows:</span>
             </tbody>
         </table>
             </div>
+                    
                 </div></div>
+            <div class="text-center">
+                <button class="btn btn-warning" width="100%" name="b_print" onclick="printdiv('div_print');" type="button><i class="fa fa-print"></i> Print</button>
+            </div>
             </section> 
-                      </form>
         
+       <div id="divSignature" class = "main container text-center">
+           <hr />
+                <div class="row">
+                    <h4>Please Affix your Signature Here:</h4>
+                </div>
+                <div class="row">
+                    <div class="tools">
+                        <a class="btn btn-xs btn-info" href="#colors_sketch" data-tool="marker"><i class="fa fa-pencil"></i> Marker</a> 
+                        <a class="btn btn-xs btn-danger" href="#colors_sketch" data-tool="eraser"><i class="fa fa-eraser"></i> Eraser</a>
+                    </div>
+                    <br />
+        
+                    <canvas id="colors_sketch" style="border: 2px solid black"  width="400px" height="150pxs" > </canvas>
+      
+                    <br />
+                    <br />
 
+                    <asp:Button ID="btnAdd" Text="Submit" runat="server" class="btn btn-success" width="100%" OnClick="btnAdd_Click" />
 
-
-    <!-- footer start -->
-    <footer>
-        <%--	<div class="container">
-				<div class="col-md-3 col-sm-6">
-					<h4>Featured Job</h4>
-					<ul>
-						<li><a href="#">Browse Jobs</a></li>
-						<li><a href="#">Premium MBA Jobs</a></li>
-						<li><a href="#">Access Database</a></li>
-						<li><a href="#">Manage Responses</a></li>
-						<li><a href="#">Report a Problem</a></li>
-						<li><a href="#">Mobile Site</a></li>
-						<li><a href="#">Jobs by Skill</a></li>
-					</ul>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<h4>Latest Job</h4>
-					<ul>
-						<li><a href="#">Browse Jobs</a></li>
-						<li><a href="#">Premium MBA Jobs</a></li>
-						<li><a href="#">Access Database</a></li>
-						<li><a href="#">Manage Responses</a></li>
-						<li><a href="#">Report a Problem</a></li>
-						<li><a href="#">Mobile Site</a></li>
-						<li><a href="#">Jobs by Skill</a></li>
-					</ul>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<h4>Reach Us</h4>
-					<address>
-					<ul>
-					<li>1201, Murakeu Market, QUCH07<br>
-					United Kingdon</li>
-					<li>Email: Support@job.com</li>
-					<li>Call: 044 123 458 65879</li>
-					<li>Skype: job@skype</li>
-					<li>FAX: 123 456 85</li>
-					</ul>
-					</address>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<h4>Drop A Mail</h4>
-					<form>
-						<input type="text" class="form-control input-lg" placeholder="Your Name">
-						<input type="text" class="form-control input-lg" placeholder="Email...">
-						<textarea class="form-control" placeholder="Message"></textarea>
-						<button type="submit" class="btn btn-primary">Login</button>
-					</form>
-				</div>
-				
-				
-			</div>--%>
-        <div class="copy-right">
-            <p>&copy;Copyright 2021 Al Refedain <a href="https://themezhub.com/">ThemezHub</a></p>
-        </div>
-    </footer>
+                    <hr />
+                    <asp:HiddenField ID="ImageVal" runat="server" />
+                </div>
+            </div>
+    </form>
 
 
     <script type="text/javascript" src="js/jquery.min.js"></script>

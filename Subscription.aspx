@@ -7,7 +7,8 @@
     </div>
     <hr />
   
-    <fieldset>
+    <div class="container">
+        <fieldset>
         <div class="row">
             <div class="col-md-6">
                 <asp:Panel id="mypanel1" runat="server" class="panel panel-warning">
@@ -66,5 +67,6 @@
              <div class="col-md-4"></div>
         </div>
     </fieldset>
+    </div>
 </asp:Content>
 

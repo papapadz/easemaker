@@ -2,7 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <script src="js/bootsnav.js"></script>
-    <div class="row">
+    <div class="container">
+        <div class="row">
         <h2 class="text-primary"><b>Subscription List</b> <a class="btn btn-success" href="subscription.aspx"><i class="fa fa-plus"></i></a></h2>
     </div>
     <hr />
@@ -79,6 +80,7 @@
                 </asp:DataPager>
             </ContentTemplate>
         </asp:UpdatePanel>
+    </div>
     </div>
 
 </asp:Content>

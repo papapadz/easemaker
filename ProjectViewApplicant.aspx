@@ -17,7 +17,7 @@
 								</div>
 								<div class="col-md-8">
 									<div class="profile-content" style="padding-top:50px">
-									<h2><asp:Label ID="lblCN" runat="server" /></h2>
+									<h2><asp:Label ID="lblCN" runat="server" /> <asp:Label ID="Label1" class="btn btn-info btn-xs" runat="server" Text="Verified" /></h2>
 									<h1><asp:Label ID="lblJT" runat="server" /></h1>
 									<p>Description:<asp:Label ID="lblJD" runat="server" /></p>
                              <%--   <p>Offer: Php <asp:Label ID="lblBudget" runat="server" /></p>

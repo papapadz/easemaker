@@ -91,6 +91,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="myprofileapplicant.aspx">My Profile</a></li>
                             <li><a href="Myportfolio.aspx">My Portfolio</a></li>
+                            <li><a href="subscription.aspx">Subscribe</a></li>
                             <li><a href="logout.aspx">Logout</a></li>
                         </ul>
                     </li>
