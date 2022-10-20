@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
     <section>
+        <asp:TextBox id="hiddentxt" runat="server" hidden/>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -348,6 +349,125 @@
             </div>
         </div>
     </section>
-   
+   <script src="https://unpkg.com/paymaya-js-sdk@2.0.0/dist/bundle.js"></script>
+    <script>
+        const SUCCESS_URL = window.location.origin + "/checkPayment.aspx?userid=" + $('#ContentPlaceHolder1_hiddentxt').val()
+        const FAILURE_URL = window.location.origin + "/joblistfreelancer.aspx?ST=&yrs=&cat="
+        const CANCEL_URL = window.location.origin + "/joblistfreelancer.aspx?ST=&yrs=&cat="
+
+        var cart = {
+            "totalAmount": {
+                "value": 100,
+                "currency": "PHP",
+                "details": {
+                    "discount": 0,
+                    "serviceCharge": 0,
+                    "shippingFee": 0,
+                    "tax": 0,
+                    "subtotal": 100
+                }
+            },
+            "items": [
+                {
+                    "name": "Canvas Slip Ons",
+                    "quantity": 1,
+                    "code": "XXXX",
+                    "description": "Subscription",
+                    "amount": {
+                        "value": 100,
+                        "details": {
+                            "discount": 0,
+                            "serviceCharge": 0,
+                            "shippingFee": 0,
+                            "tax": 0,
+                            "subtotal": 100
+                        }
+                    },
+                    "totalAmount": {
+                        "value": 100,
+                        "details": {
+                            "discount": 0,
+                            "serviceCharge": 0,
+                            "shippingFee": 0,
+                            "tax": 0,
+                            "subtotal": 100
+                        }
+                    }
+                }
+            ],
+            "requestReferenceNumber": "1551191039",
+            "redirectUrl": {
+                "success": SUCCESS_URL,
+                "failure": FAILURE_URL,
+                "cancel": CANCEL_URL
+            }
+        }
+
+        PayMayaSDK.init('pk-eo4sL393CWU5KmveJUaW8V730TTei2zY8zE4dHJDxkF', true);
+        init()
+        
+        console.log(cart)
+
+        function send() {
+
+            total = 100
+            var self = this
+
+            cart["items"][0]["name"] = "Service Charge"
+            cart["items"][0]["amount"]["value"] = total
+            cart["items"][0]["amount"]["details"]["subtotal"] = total
+            cart["items"][0]["totalAmount"]["value"] = total
+            cart["items"][0]["totalAmount"]["details"]["subtotal"] = total
+            cart["totalAmount"]["value"] = total
+            cart["totalAmount"]["details"]["subtotal"] = total
+            cart["requestReferenceNumber"] = Date.now()
+
+            $.ajax({
+                headers: {
+                    'Authorization': 'Basic cGstZW80c0wzOTNDV1U1S212ZUpVYVc4VjczMFRUZWkyelk4ekU0ZEhKRHhrRjo='
+                },
+                url: "https://pg-sandbox.paymaya.com/checkout/v1/checkouts",
+                method: "POST",
+                data: cart
+            }).done(function (response) {
+                self.addBilling(response);
+                //console.log(response)
+            })
+        }
+
+        function addBilling(objInfo) {
+            $.ajax({
+                method: "GET",
+                url: "addBilling.aspx",
+                data: {
+                    checkoutid: objInfo.checkoutId,
+                    refno: cart["requestReferenceNumber"],
+                    jobid: document.getElementById('ContentPlaceHolder1_Label2').textContent
+                }
+            }).done(function (response) {
+                console.log("Billing success!")
+                //window.location.href = "joblist.aspx";
+            })
+        }
+
+        function init() {
+            $.ajax({
+                headers: {
+                    'Authorization': 'Basic c2stS2ZtZkxKWEZkVjV0MWluWU44bElPd1NydWVDMUcyN1NDQWtsQnFZQ2RyVTo='
+                },
+                url: "https://pg-sandbox.paymaya.com/checkout/v1/customizations",
+                type: "POST",
+                data: {
+                    logoUrl: window.location.host + "/img/logo.png",
+                    iconUrl: window.location.host + "/img/logo.png",
+                    appleTouchIconUrl: "https://cdn3.iconfinder.com/data/icons/diagram_v2/PNG/96x96/diagram_v2-12.png",
+                    customTitle: "EaseMaker",
+                    colorScheme: "#5bc0de",
+                }
+            }).done(function (response) {
+                console.log(response)
+            })
+        }
+    </script>
 </asp:Content>
 

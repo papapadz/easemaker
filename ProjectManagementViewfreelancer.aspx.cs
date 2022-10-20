@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,6 +15,16 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
     public static Stopwatch sw;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+
+        hiddentxt.Text = Session["userid"].ToString();
+        Label2.Text = Request.QueryString["ID"].ToString();
+        lblPrjname.Text = Request.QueryString["projname"].ToString();
+
         if (Request.QueryString["Status"].ToString() != "Deliverables Completed")
         {
             divrate.Visible = false;
@@ -31,8 +42,6 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
         //Calendar1.SelectedDate = DateTime.Today;
         if (!IsPostBack)
         {
-            Label2.Text = Request.QueryString["ID"].ToString();
-            lblPrjname.Text = Request.QueryString["projname"].ToString();
             GetInfo();
             getjobs();
             getjobs2();
@@ -42,6 +51,7 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
             sw = new Stopwatch();
         }
     }
+
     void Getnotif()
     {
         con.Open();
@@ -67,11 +77,27 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
         //while (data.Read())
         //{
         //    {
-              
+
 
         //    }
         //}
         //con.Close();
+
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM projects where jobid=" + Request.QueryString["ID"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        if(data.HasRows)
+        {
+            while (data.Read())
+            {
+                if (data["checkoutid"].ToString()==null || data["checkoutid"].ToString() == "")
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "", "send();", true);
+            }
+        }
+        con.Close();
+        
     }
     protected void lbprojects_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
     {

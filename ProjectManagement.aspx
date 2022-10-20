@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
      
     <div class="container">
-		<h2 class="text-primary"><b>Project Management</b></h2>
+		<h2 class="text-primary"><b>Project Management</b> <a href="AddJob.aspx" class="btn btn-success"><i class="fa fa-plus"></i></a></h2>
 		<hr />
         <div class="row">
 			<div class="form-inline">
@@ -47,8 +47,8 @@
 												<td><%# Eval("jobid") %></td>
 												<td><a href="projectview.aspx?ID=<%# Eval("jobid") %>"><%# Eval("Jobtitle") %></a></td>
 												<td><a href="employerportfolio.aspx?ID=<%# Eval("PersonID") %>"><%# Eval("PersonName") %></a></td>
-												<td>-</td>
-												<td>-</td>
+												<td><%# Eval("startdate") %></td>
+												<td><%# Eval("enddate") %></td>
 												<td><%# Eval("JobDescription") %></td>
 												<td><%# Eval("amt", "{0:c}") %></td>
 												<td><%# Eval("timeframe") %> <%# Eval("timeCat") %></td>

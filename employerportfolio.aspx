@@ -42,7 +42,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-primary"><b><asp:Label ID="txtContactPerson" runat="server"/>'s Portfolio</b></h2>
+                <h2 class="text-primary"><b><asp:Label ID="txtContactPerson" runat="server"/>'s Portfolio</b> <asp:Label ID="Label1" runat="server" class="btn btn-rounded btn-xs btn-info" visible="false"><i class="fa fa-check"></i> Verified</asp:Label></h2>
             </div>
         </div>
         <hr />

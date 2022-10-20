@@ -17,7 +17,7 @@ public partial class Filesupload : System.Web.UI.Page
         if (!IsPostBack)
         {
             //lblPN.Text = Request.QueryString["name"].ToString();
-            txtDesc.Text = Request.QueryString["ID"].ToString();
+            Label1.Text = Request.QueryString["ID"].ToString();
             getexperience();
         }
     }
@@ -261,8 +261,13 @@ public partial class Filesupload : System.Web.UI.Page
 
     protected void Button1_Click1(object sender, EventArgs e)
     {
-        ShowPopUpMsg("Resume Completed!");
-        Response.Redirect("projectmanagementfreelancer.aspx");
+        //ShowPopUpMsg("Resume Completed!");
+        Response.Redirect("ProjectManagementViewfreelancer.aspx" +
+            "?ID=" + Request.QueryString["ID"].ToString() + 
+            "&Status=" + Request.QueryString["Status"].ToString() +
+            "&eta=" + Request.QueryString["eta"].ToString() +
+            "&projname=" + Request.QueryString["projname"].ToString() +
+            "&name=" + Request.QueryString["name"].ToString());
     }
 
     protected void Button2_Click(object sender, EventArgs e)

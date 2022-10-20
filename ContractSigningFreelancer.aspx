@@ -412,7 +412,7 @@ their signatures as follows:</span>
             </div>
             </section> 
         
-       <div id="divSignature" class = "main container text-center">
+       <asp:Panel id="divSignature" class = "main container text-center" runat="server">
            <hr />
                 <div class="row">
                     <h4>Please Affix your Signature Here:</h4>
@@ -434,7 +434,7 @@ their signatures as follows:</span>
                     <hr />
                     <asp:HiddenField ID="ImageVal" runat="server" />
                 </div>
-            </div>
+            </asp:Panel>
     </form>
 
 
@@ -531,14 +531,6 @@ their signatures as follows:</span>
             document.body.innerHTML = oldstr;
             return false;
         }
-    </script>
-    <script>
-        var signatureFile = document.getElementById("Image1").src
-        if (signatureFile != null || signatureFile != '' || !signatureFile.empty()) {
-            var divSign = document.getElementById("divSignature")
-            divSign.remove()
-        }
-
     </script>
 </body>
 

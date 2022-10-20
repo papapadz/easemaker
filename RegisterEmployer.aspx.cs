@@ -10,13 +10,15 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
 
 public partial class Register : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        HttpWebRequest myReq =
+(HttpWebRequest)WebRequest.Create("http://www.contoso.com/");
         if (!IsPostBack)
         {
             GetUserTypes();

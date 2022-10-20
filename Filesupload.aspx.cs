@@ -252,17 +252,14 @@ public partial class Filesupload : System.Web.UI.Page
         //getexperience();
     }
 
-
-  
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("addskills.aspx");
-    }
-
     protected void Button1_Click1(object sender, EventArgs e)
     {
-        ShowPopUpMsg("Resume Completed!");
-        Response.Redirect("projectmanagementfreelancer.aspx");
+        Response.Redirect("ProjectManagementViewfreelancer.aspx" +
+            "?ID=" + Request.QueryString["ID"].ToString() +
+            "&Status=" + Request.QueryString["Status"].ToString() +
+            "&eta=" + Request.QueryString["eta"].ToString() +
+            "&projname=" + Request.QueryString["projname"].ToString() +
+            "&name=" + Request.QueryString["name"].ToString());
     }
 
     protected void Button2_Click(object sender, EventArgs e)

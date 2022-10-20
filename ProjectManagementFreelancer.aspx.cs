@@ -26,6 +26,7 @@ public partial class ProjectManagementFreelancer : System.Web.UI.Page
             getjobs();
         }
     }
+
     public string GetClassName(string amount)
     {
         if (Convert.ToDecimal(amount) <= 0)
@@ -44,7 +45,7 @@ public partial class ProjectManagementFreelancer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_projlistemployer where userid=" + Session["userid"].ToString();
+        cmd.CommandText = "SELECT * FROM vw_projlistemployer where userid='" + Session["userid"].ToString() + "' and status='" + Request.QueryString["status"].ToString() + "'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "vw_projlistemployer");

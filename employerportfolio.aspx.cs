@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -81,9 +82,10 @@ public partial class employerportfolio : System.Web.UI.Page
         {
             {
                 txtContactPerson.Text = data["personname"].ToString();
-              
-            
-            
+                if (data["Status"].ToString() == "Subscribed")
+                    Label1.Visible = true;
+
+
                 //txtaboutme.Text = data["aboutme"].ToString();
             }
         }

@@ -60,7 +60,7 @@
                        <li><a href="Freelancerlistemployer.aspx">Freelancer List</a></li>
                             <li><a href="joblist.aspx">My Project List</a></li>
                              <li><a href="projectmanagementLanding.aspx">Project Management</a></li>
-                              <li><a href="billinglistemployer.aspx">Billing list</a></li>
+                              <li><a href="billinglist.aspx">Billing list</a></li>
                              <li><a href="subscriptionlist.aspx">Subscription</a></li>
                         </ul>
                     </li>
@@ -98,7 +98,7 @@
                 <div class="row heading">
                     <h2 class="text-primary"><b>Employer Project Contract Signing</b></h2>
                     <p class="text-danger"><small><i>Please Read the contract before signing</i></small></p>
-     <asp:Button ID="Button1" Text="Start Project" runat="server" OnClick="Button1_Click" class="btn btn-success" />
+     <asp:Button ID="Button1" Text="Start Project" runat="server" OnClick="Button1_Click" class="btn btn-success" Visible=true/>
         <hr />
                     <div id="div_print">
         <table class="table table-striped">
@@ -398,7 +398,7 @@ their signatures as follows:</span>
             </div>
             </section> 
         
-       <div id="divSignature" class = "main container text-center">
+       <asp:Panel id="divSignature" class = "main container text-center" runat="server">
            <hr />
                 <div class="row">
                     <h4>Please Affix your Signature Here:</h4>
@@ -420,7 +420,7 @@ their signatures as follows:</span>
                     <hr />
                     <asp:HiddenField ID="ImageVal" runat="server" />
                 </div>
-            </div>
+            </asp:Panel>
     </form>
 
 

@@ -41,7 +41,7 @@ public partial class Freelancerlistemployer : System.Web.UI.Page
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         //cmd.CommandText = "SELECT * FROM users where usertype='User'";
-        cmd.CommandText = "SELECT * FROM vw_applicant where usertype='User' AND projectStatus='Posted' AND useridemp=" + Session["userid"];
+        cmd.CommandText = "SELECT * FROM vw_applicant where usertype='User' AND projectStatus='Posted' AND useridemp=" + Session["userid"] + " ORDER BY subscriptionStatus";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "users");
@@ -97,7 +97,7 @@ public partial class Freelancerlistemployer : System.Web.UI.Page
         cmd1.Parameters.AddWithValue("@userid", userID);
         cmd1.ExecuteNonQuery();
         con.Close();
-        
+
         con.Open();
         SqlCommand cmd2 = new SqlCommand();
         cmd2.Connection = con;

@@ -31,7 +31,7 @@
 									      <div class="panel-body">
 										      <div class="row text-primary">
 											      <div class="col-md-6 text-left">
-													      <h3><b><%# Eval("PersonName") %></b></h3>
+													      <h3><b><%# Eval("PersonName") %></b> <asp:label runat="server" visible='<%# Eval("subscriptionStatus").ToString() == "Subscribed" %>'><i class="fa fa-check"></i></asp:label> </h3>
 												      </div>
 												      <div class="col-md-6 text-right">
 													      <h3><b><%# Eval("amt", "{0:c}") %></b></h3>
@@ -50,7 +50,7 @@
 										      </div>
                                               <div class="row">
                                                    <div class="col-md-12 form-inline text-right">
-                                                      <asp:Button runat="server" class="btn btn-success" Text="Accept" OnClick="btnAccept_Click" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
+                                                      <asp:Button runat="server" class="btn btn-success" Text="Accept" OnClientClick="return confirm('Are you sure you want Hire this Freelancer?');"  OnClick="btnAccept_Click" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
                                                  
                                                       <a class="btn btn-primary" href='employerportfolio.aspx?ID=<%# Eval("userid") %>'>View Profile</a>
                                                   </div>

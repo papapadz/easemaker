@@ -10,42 +10,47 @@ using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 
+
 /// <summary>
 /// Summary description for BSPHelper
 /// </summary>
 public class Helper
 {
-   
+
     //
     // TODO: Add constructor logic here
     //
     //public static Boolean CheckDupProduct2( string usercode)
-   // {
-       
+    // {
 
-        //SqlConnection con = new SqlConnection(BSPGetConnection());
-        //con.Open();
-        //SqlCommand cmd2 = new SqlCommand();
-        //cmd2.Connection = con;
-        //cmd2.CommandText = "Select * from MySCart" +
-        //" where BSPCID = @BSPCID and BSPOrderID='0'";
-        
-        //cmd2.Parameters.AddWithValue("@BSPCID", usercode);
-        //SqlDataReader dr = cmd2.ExecuteReader();
-        //if (dr.HasRows)
-        //{
-        //    con.Close();
-        //    return true;
-        //}
-        //else
-        //{
-        //    con.Close();
-        //    return false;
-        //}
 
-        //con.Close();
-        //return false;
+    //SqlConnection con = new SqlConnection(BSPGetConnection());
+    //con.Open();
+    //SqlCommand cmd2 = new SqlCommand();
+    //cmd2.Connection = con;
+    //cmd2.CommandText = "Select * from MySCart" +
+    //" where BSPCID = @BSPCID and BSPOrderID='0'";
+
+    //cmd2.Parameters.AddWithValue("@BSPCID", usercode);
+    //SqlDataReader dr = cmd2.ExecuteReader();
+    //if (dr.HasRows)
+    //{
+    //    con.Close();
+    //    return true;
     //}
+    //else
+    //{
+    //    con.Close();
+    //    return false;
+    //}
+
+    //con.Close();
+    //return false;
+    //}
+
+    private const string PUBLIC_KEY = "Basic cGstZW80c0wzOTNDV1U1S212ZUpVYVc4VjczMFRUZWkyelk4ekU0ZEhKRHhrRjo=";
+    private const string SECRET_KEY = "Basic c2stS2ZtZkxKWEZkVjV0MWluWU44bElPd1NydWVDMUcyN1NDQWtsQnFZQ2RyVTo=";
+
     public static string CreateHashTag(string Phrase)
     {
         SHA512Managed HashTool = new SHA512Managed();
@@ -130,6 +135,5 @@ public class Helper
         return true;
 
     }
-
 
 }

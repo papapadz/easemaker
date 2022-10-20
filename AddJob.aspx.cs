@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -25,7 +26,7 @@ public partial class AddJob : System.Web.UI.Page
         //}
         if (!IsPostBack)
         {
-
+            hiddentxt.Text = Session["userid"].ToString();
             getcategory();
             getposition();
         }
@@ -101,7 +102,14 @@ public partial class AddJob : System.Web.UI.Page
 
         //max and critical
 
+        Page.ClientScript.RegisterStartupScript(this.GetType(), "", "send();", true);
 
+        store();
+        //Response.Redirect("joblist.aspx");
+    }
+
+    protected void store()
+    {
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
@@ -119,6 +127,5 @@ public partial class AddJob : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         con.Close();
         Helper.AddLog(Session["userid"].ToString(), "jobs", "Added Job");
-        Response.Redirect("joblist.aspx");
     }
 }

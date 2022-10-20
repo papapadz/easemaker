@@ -2,7 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
        <script src="js/bootsnav.js"></script>
-    <div class="row heading">
+    <div class="container">
+        <div class="row heading">
         <h2 class="text-primary"><b>Billing List</b></h2>
     </div>
     <hr />
@@ -35,7 +36,6 @@
                                                 <th>Ref. #</th>
                                                 <th>Purpose</th>
                                                 <th>Payment Date</th>
-                                                <th>Image</th>
                                                 <th>Status</th>
                                                <%-- <th>Deactivate</th>
                                                 <th>Activate</th>--%>
@@ -46,16 +46,15 @@
                                                 <ItemTemplate>
                                                     <tr>
                                                         <td><%# Eval("Billingid")%></td>
-                                                        <td><%# Eval("companyname")%><%# Eval("personname")%></td>
+                                                        <td><%# Eval("companyname")%> <%# Eval("personname")%></td>
                                                         <td><%# Eval("datetime")%></td>
                                                         <td><%# Eval("amount")%></td>
                                                          <td><%# Eval("refid")%></td>
 
                                                       
                                                          <td><%# Eval("purpose")%></td>
-                                                         <td><%# Eval("dateuploaded")%></td>
-                                                         <td>  <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Image")) %>'
-                                                    class="img-responsive" width="300" /></td>
+                                                         <td><%# Eval("datepaid")%></td>
+                                                         
                                               
                                                          <td>
                                                              <div class="row">
@@ -75,7 +74,7 @@
 
                                                                  </div>
                                                                 <div class="col-md-6">
-                                                                    
+                                                                    <!-- 
                                                                     <asp:HyperLink id="HyperLink2"
                                                                         onclick="javascript:return confirm('Are you sure you want to verify payment?')"
                                                                         NavigateUrl='<%# string.Concat("completed.aspx?ID=", Eval("Billingid"), "&purpose=", Eval("purpose"), "&UID=", Eval("userid"), "&status=Uploaded_Payment", "&JID=", Eval("refid")) %>' 
@@ -83,8 +82,15 @@
                                                                         class="btn btn-xs btn-success" 
                                                                         Text="Verify" 
                                                                         Visible='<%# Eval("status").ToString() == "Uploaded Payment" %>'
-                                                                        />
-                                                                </div>
+                                                                        /> -->
+                                                                 <asp:Panel
+                                                                    Visible='<%# Eval("Status").ToString() == "Pending" && Session["usertype"].ToString() != "Admin"%>'
+                                                                    runat="server"
+                                                                    >
+                                                                    <button class="btn btn-warning btn-xs" type="button" onclick='check("<%# Eval("checkoutid") %>")'>Pay Now</button>
+                                                                </asp:Panel>
+                                                                
+                                                                    </div>
                                                              </div>
                                                          </td>
                                                     </tr>
@@ -109,5 +115,25 @@
                                 </ContentTemplate>
                             </asp:updatepanel>
     </div>
+
+    </div>
+    <script>
+        var UPDATE_URL = window.location.origin + "/checkOutSuccess.aspx?checkoutid=";
+
+        function check(x) {
+            console.log(x)
+            $.ajax({
+                contentType: 'application/json',
+                headers: { 'Authorization': 'Basic c2stS2ZtZkxKWEZkVjV0MWluWU44bElPd1NydWVDMUcyN1NDQWtsQnFZQ2RyVTo=' },
+                url: "https://pg-sandbox.paymaya.com/checkout/v1/checkouts/" + x
+            }).done(function (response) {
+                console.log(response)
+                if (response.paymentStatus == "PAYMENT_SUCCESS")
+                    window.location.href = UPDATE_URL + x + "&datepaid=" + response.updatedAt
+                else
+                    window.location.href = "https://payments-web-sandbox.paymaya.com/checkout?id="+x
+            })
+        }
+    </script>
 </asp:Content>
 

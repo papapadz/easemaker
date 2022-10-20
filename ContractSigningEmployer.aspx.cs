@@ -24,7 +24,7 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
             {
                 GetInfo();
                 GetInfo2();
-                GetInfo2();
+                GetInfo3();
             }
         }
         
@@ -35,25 +35,28 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM projects WHERE jobid=@jobid ";
+        cmd.CommandText = "SELECT TOP(1) * FROM projects WHERE jobid=@jobid ";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
-            {
-                if (data["startdate"].ToString() != "")
+            
+                if (data["startdate"].ToString() == "" || data["startdate"].ToString() == null)
                 {
-                    lblDate.Text = data["startdate"].ToString();
+
+                    lblDate.Text = DateTime.Now.ToShortDateString();
                 }
                 else
                 {
-                    lblDate.Text = DateTime.Now.ToShortDateString();
-                }
+                lblDate.Text = data["startdate"].ToString();
+                Button1.Visible = false;
+
+            }
                 //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
 
                 //txtaboutme.Text = data["aboutme"].ToString();
-            }
+            
         }
         con.Close();
     }
@@ -67,20 +70,25 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
-        while (data.Read())
+        if(data.HasRows)
         {
+            divSignature.Visible = false;
+            while (data.Read())
             {
-                lblEmployerAddress.Text = data["address"].ToString();
-                lblEmployername.Text = data["Companyname"].ToString();
-                imgSignClient.ImageUrl = string.Concat("img/", data["filename"].ToString());
-                lblDateEmployer.Text = data["date"].ToString();
-                lblemployer.Text = data["Companyname"].ToString();
-                //imgSignClient.ImageUrl = string.Concat("img/", data["Image"].ToString());
+                {
+                    lblEmployerAddress.Text = data["address"].ToString();
+                    lblEmployername.Text = data["Companyname"].ToString();
+                    imgSignClient.ImageUrl = string.Concat("img/", data["filename"].ToString());
+                    lblDateEmployer.Text = data["date"].ToString();
+                    lblemployer.Text = data["Companyname"].ToString();
+                    //imgSignClient.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
 
-                //txtaboutme.Text = data["aboutme"].ToString();
+                    //txtaboutme.Text = data["aboutme"].ToString();
+                }
             }
-        }
+        } else
+            divSignature.Visible = true;
         con.Close();
     }
     void GetInfo()

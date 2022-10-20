@@ -59,7 +59,19 @@
                                             runat="server"
                                             NavigateUrl='string.Concat("cancelsubscription.aspx?ID=",Eval("subscriptionid"))'
                                             />
-                                    </td>
+                                        <asp:Panel
+                                            Visible='<%# Eval("Status").ToString() == "Pending"%>'
+                                            runat="server"
+                                            >
+                                            <button class="btn btn-warning btn-xs" type="button" onclick='check("<%# Eval("checkoutid") %>")'>Pay Now</button>
+                                        </asp:Panel>
+                                        <asp:Label
+                                            Visible='<%# Eval("Status").ToString() == "Completed"%>'
+                                            runat="server"
+                                            Text='<%# string.Concat("Paid @ ",Eval("datepaid").ToString()) %>'
+                                            class="bg-success"
+                                            />
+                                     </td>
                             </ItemTemplate>
                             <EmptyDataTemplate>
                                 <tr>
@@ -83,5 +95,23 @@
     </div>
     </div>
 
+    <script>
+        var UPDATE_URL = window.location.origin + "/checkOutSuccess.aspx?checkoutid=";
+
+        function check(x) {
+            console.log(x)
+            $.ajax({
+                contentType: 'application/json',
+                headers: { 'Authorization': 'Basic c2stS2ZtZkxKWEZkVjV0MWluWU44bElPd1NydWVDMUcyN1NDQWtsQnFZQ2RyVTo=' },
+                url: "https://pg-sandbox.paymaya.com/checkout/v1/checkouts/" + x
+            }).done(function (response) {
+                console.log(response)
+                if (response.paymentStatus == "PAYMENT_SUCCESS")
+                    window.location.href = UPDATE_URL + x + "&datepaid=" + response.updatedAt
+                else
+                    window.location.href = "https://payments-web-sandbox.paymaya.com/checkout?id="+x
+            })
+        }
+    </script>
 </asp:Content>
 

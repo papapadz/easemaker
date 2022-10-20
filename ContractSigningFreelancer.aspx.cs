@@ -93,22 +93,28 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
-        while (data.Read())
+        if (data.HasRows)
         {
+            divSignature.Visible = false;
+            while (data.Read())
             {
-                lblFreelanceaddress.Text = data["address"].ToString();
-                lblFreelancename.Text = data["personname"].ToString();
-                lblFreelancer.Text = data["personname"].ToString();
-                lblDateFreelancer.Text = data["date"].ToString();
-                lblFreelancename.Text = data["personname"].ToString();
-                Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
+                {
+                    lblFreelanceaddress.Text = data["address"].ToString();
+                    lblFreelancename.Text = data["personname"].ToString();
+                    lblFreelancer.Text = data["personname"].ToString();
+                    lblDateFreelancer.Text = data["date"].ToString();
+                    lblFreelancename.Text = data["personname"].ToString();
+                    Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
+                    //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
-                //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
-
-                //txtaboutme.Text = data["aboutme"].ToString();
+                    //txtaboutme.Text = data["aboutme"].ToString();
+                }
             }
         }
+        else
+            divSignature.Visible = true;
+
         con.Close();
     }
     private void ShowPopUpMsg(string msg)

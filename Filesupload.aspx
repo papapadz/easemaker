@@ -6,50 +6,43 @@
 
             <div class="companies">
                 <div class="row heading">
-                    <h2>Files Upload</h2>
-                    <p>Please fill up all text box!</p>
+                    <h2 class="text-primary"><b>Files Upload</b></h2>
+                    <small><i>Please fill up all text box!</i></small>
                 </div>
 
                 <div class="container">
                     <div class="card">
-                        <fieldset class="col-md-12">
+                        <fieldset>
                             <%--<div class="form-group">
                             <label class="col-md-2 control-label">My Skills</label>
 
                         </div--%>
                             <div class="form-group">
-                                <label class="control-label">Select File</label>
-                                <div class="col-md-12 inputGroupContainer">
-                                    <div class="input-group">
-                                        <%--<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>--%>
-                                        <asp:FileUpload ID="fuimage" runat="server" class="form-control" />
-                                    </div>
+                                <label class="col-md-4 control-label">Select File</label>
+                                <div class="col-md-8">
+                                    <asp:FileUpload ID="fuimage" runat="server" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Description</label>
-                                <div class="col-md-12 inputGroupContainer">
-                                    <div class="input-group">
-                                        <%--<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>--%>
-                                        <asp:TextBox ID="txtDesc" runat="server" class="form-control" TextMode="MultiLine" Width="700" />
-                                    </div>
+                                <label class="col-md-4 control-label">Description</label>
+                                <div class="col-md-8">
+                                    <asp:TextBox ID="txtDesc" runat="server" class="form-control" TextMode="MultiLine" />
                                 </div>
                             </div>
 
                             <div class="form-group">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8">
 
-                                <div class="col-md-8 inputGroupContainer" style="padding-top:25px;">
-
-                                    <asp:Button ID="btnAdd" runat="server" class="btn"
-                                        Text="Add" OnClick="btnReg_Click" />
+                                    <asp:Button ID="btnAdd" runat="server" class="btn btn-success"
+                                        Text="Submit" OnClick="btnReg_Click" width="100%" />
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <hr />
+                            <div class="row">
                                 <%--<label class="col-md-4 control-label">Work Expeirnece List</label>--%>
-                                <div class="col-md-12 inputGroupContainer">
-                                    <div class="input-group">
-
-                                        <asp:GridView ID="gvfiles" runat="server" AutoGenerateColumns="False"
+                                <div class="col-md-12 text-center">
+                                    <asp:GridView ID="gvfiles" runat="server" AutoGenerateColumns="False"
                                             class="table" OnRowCommand="GridView1_RowCommand" OnSelectedIndexChanged="gvfiles_SelectedIndexChanged" OnRowDeleting="gvfiles_RowDeleting">
                                             <Columns>
 
@@ -60,10 +53,11 @@
                                                 <asp:ButtonField ButtonType="Link" Text="Download" CommandName="Download" />
                                             </Columns>
                                         </asp:GridView>
-
-                                    </div>
                                 </div>
                             </div>
+                            <hr />
+                            <asp:Button ID="Button1" runat="server" class="btn btn-info"
+                                        Text="Back" OnClick="Button1_Click1" width="100%"/>
                             <%--     <div class="form-group">
                             <label class="col-md-4 control-label">Email</label>
                             <div class="col-md-8 inputGroupContainer">
@@ -76,7 +70,7 @@
                                <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
                             </div>
 
-                         </div>--%>
+                         </div>
                             <div class="form-group">
 
                                 <div class="col-md-8 inputGroupContainer" style="padding-top:25px;">
@@ -88,7 +82,7 @@
                                 </div>
                                 <div class="col-md-8 inputGroupContainer">
                                 </div>
-                            </div>
+                            </div>--%>
                         </fieldset>
                     </div>
                 </div>

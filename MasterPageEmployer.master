@@ -65,7 +65,8 @@
                        <li><a href="Freelancerlistemployer.aspx">Freelancer List</a></li>
                             <li><a href="joblist.aspx">My Project List</a></li>
                              <li><a href="projectmanagementLanding.aspx">Project Management</a></li>
-                              <li><a href="billinglistemployer.aspx">Billing list</a></li>
+                              <%--<li><a href="billinglistemployer.aspx">Billing list</a></li>--%>
+                            <li><a href="billinglist.aspx">Billing list</a></li>
                              <li><a href="subscriptionlist.aspx">Subscription</a></li>
                         </ul>
                     </li>

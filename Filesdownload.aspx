@@ -6,7 +6,7 @@
 
             <div class="companies">
                 <div class="row heading">
-                    <h2>Files Download for Project #  <asp:Label ID="txtDesc" runat="server" class="form-control" Enabled="false"/></h2>
+                    <h2 class="text-primary"><b>Files Download for Project #  <asp:Label ID="txtDesc" runat="server" class="form-control" Enabled="false"/></b></h2>
                   <%--  <p>Please fill up all text box!</p>--%>
                 </div>
 
@@ -65,6 +65,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr />
+                            <asp:Button ID="Button1" runat="server" class="btn btn-info"
+                                        Text="Back" OnClick="Button1_Click1" width="100%"/>
                             <%--     <div class="form-group">
                             <label class="col-md-4 control-label">Email</label>
                             <div class="col-md-8 inputGroupContainer">
@@ -77,7 +80,7 @@
                                <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
                             </div>
 
-                         </div>--%>
+                         </div>
                             <div class="form-group">
 
                                 <div class="col-md-8 inputGroupContainer">
@@ -89,7 +92,7 @@
                                 </div>
                                 <div class="col-md-8 inputGroupContainer">
                                 </div>
-                            </div>
+                            </div>--%>
                         </fieldset>
                     </div>
                 </div>

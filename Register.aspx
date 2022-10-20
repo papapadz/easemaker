@@ -2,10 +2,10 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-   <div class="container-fluid">
+   <div class="container" style="margin: 0 auto">
        <div class="row">
            <div class="col-md-6">
-               <img style="width: 100%" src="https://images.unsplash.com/photo-1587614297696-d150ef162d88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z2lybCUyMGxhcHRvcHxlbnwwfHwwfHw%3D&w=1000&q=80"/>
+               <img style="width: 100%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCJmaAVzRs6ePMF70eiKPsAywdcbrrC0PzWg&usqp=CAU"/>
            </div>
            <div class="col-md-6">
                <h3 class="text-primary"><b>Get business going with someone you can rely on!</b></h3>

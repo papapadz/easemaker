@@ -6,13 +6,13 @@
 
             <div class="companies">
                 <div class="row heading">
-                    <h2>Invoice Download for Project #  <asp:Label ID="txtDesc" runat="server" class="form-control" Enabled="false"/></h2>
+                    <h2 class="text-primary"><b>Invoice Download for Project #  <asp:Label ID="txtDesc" runat="server" class="form-control" Enabled="false"/></b></h2>
                   <%--  <p>Please fill up all text box!</p>--%>
                 </div>
-
+                <hr />
                 <div class="container">
-                    <div class="card">
-                        <fieldset class="col-md-12">
+                    
+                        <fieldset>
                             <%--<div class="form-group">
                             <label class="col-md-2 control-label">My Skills</label>
 
@@ -44,10 +44,9 @@
                                         Text="Add" OnClick="btnReg_Click" />
                                 </div>
                             </div>--%>
-                            <div class="form-group">
+                            <div class="row">
                                 <%--<label class="col-md-4 control-label">Work Expeirnece List</label>--%>
-                                <div class="col-md-12 inputGroupContainer">
-                                    <div class="input-group">
+                                <div class="col-md-12 text-center">
 
                                         <asp:GridView ID="gvfiles" runat="server" AutoGenerateColumns="False"
                                             class="table" OnRowCommand="GridView1_RowCommand" OnSelectedIndexChanged="gvfiles_SelectedIndexChanged" OnRowDeleting="gvfiles_RowDeleting">
@@ -63,8 +62,10 @@
                                         </asp:GridView>
 
                                     </div>
-                                </div>
                             </div>
+                            <hr />
+                            <asp:Button ID="Button1" runat="server" class="btn btn-info"
+                                        Text="Back" OnClick="Button1_Click1" width="100%"/>
                             <%--     <div class="form-group">
                             <label class="col-md-4 control-label">Email</label>
                             <div class="col-md-8 inputGroupContainer">
@@ -77,7 +78,7 @@
                                <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
                             </div>
 
-                         </div>--%>
+                         </div>
                             <div class="form-group">
 
                                 <div class="col-md-8 inputGroupContainer">
@@ -90,8 +91,8 @@
                                 <div class="col-md-8 inputGroupContainer">
                                 </div>
                             </div>
+                                --%>
                         </fieldset>
-                    </div>
                 </div>
             </div>
         </div>

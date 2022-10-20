@@ -38,7 +38,7 @@
                     <li><a href="Default2.aspx">Home</a></li>
                       <li><a href="joblistfreelancer.aspx?ST=&yrs=&cat=">Project List</a></li>
                       <li><a href="ProjectManagementLanding.aspx">My Projects</a></li>
-                        <li><a href="billinglistFreelancer.aspx">Billing list</a></li>
+                        <li><a href="billinglist.aspx">Billing list</a></li>
                     <%--							<li><a href="companies.html">Companies</a></li> 
                         <li><a href="companies.html">Jobs</a></li> --%>
                     <%--  <li><a href="login.html">Login</a></li>--%>
@@ -69,6 +69,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="myprofileapplicant.aspx">My Profile</a></li>
                             <li><a href="Myportfolio.aspx">My Portfolio</a></li>
+                            <li><a href="subscriptionlist.aspx">Subscription</a></li>
                             <li><a href="logout.aspx">Logout</a></li>
                         </ul>
                     </li>

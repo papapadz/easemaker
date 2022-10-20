@@ -2,12 +2,12 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="container-fluid">
+    <div class="container" style="margin: 0 auto">
        <div class="row">
-           <div class="col-md-6">
-               <img style="width: 100%" src="https://images.unsplash.com/photo-1587614297696-d150ef162d88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z2lybCUyMGxhcHRvcHxlbnwwfHwwfHw%3D&w=1000&q=80"/>
+           <div class="col-md-6" >
+               <img style="width: 100%"; height=auto; src="https://images.unsplash.com/photo-1587614297696-d150ef162d88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z2lybCUyMGxhcHRvcHxlbnwwfHwwfHw%3D&w=1000&q=80"/>
            </div>
-           <div class="col-md-4">
+           <div class="col-md-6">
                <form id="Form1">
                     <div id="Div1" runat="server" class="alert alert-success" visible="false">
                         Your account has been verified. You can now login!

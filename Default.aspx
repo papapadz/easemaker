@@ -20,7 +20,8 @@
 <body>
     
     <!-- Navigation Start  -->
-    <nav class="navbar navbar-default navbar-sticky bootsnav">
+    <div class="container">
+        <nav class="navbar navbar-default navbar-sticky bootsnav">
         <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
@@ -51,6 +52,7 @@
             <!-- /.navbar-collapse -->
         </div>
     </nav>
+    </div>
     <!-- Navigation End  -->
 
     <!-- Main jumbotron for a primary marketing message or call to action -->

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Outlook;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,6 +12,24 @@ using System.Web.UI.WebControls;
 public partial class joblistdefault : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+
+    void Page_PreInit(Object sender, EventArgs e)
+    {
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+        //if (Session["UserID"] == null || Session["UserLevel"].ToString() == "Customer")
+        //{
+        //    Response.Redirect("Login.aspx");
+
+        if (!IsPostBack)
+        {
+            SetMasterPage(Session["userid"].ToString());
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -122,6 +142,29 @@ public partial class joblistdefault : System.Web.UI.Page
         da.Fill(ds, "joblistview");
         lbprojects.DataSource = ds;
         lbprojects.DataBind();
+        con.Close();
+    }
+
+    void SetMasterPage(String userID)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM Users WHERE UserID=@userid";
+        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = userID;
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            if (data["UserType"].ToString() == "Employer")
+            {
+                this.MasterPageFile = "~/MasterPageEmployer.master";
+            }
+            else if (data["UserType"].ToString() == "User")
+            {
+                this.MasterPageFile = "~/MasterPageUser.master";
+            } else
+                this.MasterPageFile = "~/MasterPage.master";
+        }
         con.Close();
     }
 }

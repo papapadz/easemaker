@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="panel panel-primary text-center" style="padding:10px">
-                        <h2 class="number"><a href="billinglistemployer.aspx">
+                        <h2 class="number"><a href="billinglist.aspx">
                             <asp:Label ID="Label2" Text="0" runat="server"></asp:Label></a>            <i class="fa fa-credit-card text-primary"></i>
                         </h2>
                         <span><b>Pending Billing</b></span>
