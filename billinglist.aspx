@@ -87,9 +87,26 @@
                                                                     Visible='<%# Eval("Status").ToString() == "Pending" && Session["usertype"].ToString() != "Admin"%>'
                                                                     runat="server"
                                                                     >
-                                                                    <button class="btn btn-warning btn-xs" type="button" onclick='check("<%# Eval("checkoutid") %>")'>Pay Now</button>
+                                                                    <asp:Panel
+                                                                        Visible='<%# Eval("purpose").ToString() == "Service Fee"%>'
+                                                                        runat="server">
+                                                                        <button class="btn btn-warning btn-xs" type="button" onclick='check("<%# Eval("checkoutid") %>")'>Pay Now</button>
+                                                                    </asp:Panel> 
+                                                                    <asp:Hyperlink id="hlink1"
+                                                                        runat="server" 
+                                                                        NavigateUrl='<%# string.Concat("uploadbillingpayment.aspx?ID=", Eval("Billingid"), "&OID=", Eval("refid")) %>'
+                                                                        class="btn btn-xs btn-info"
+                                                                        Text='<i class="fa fa-upload"></i> Upload'
+                                                                        Visible='<%# Eval("purpose").ToString() == "Project Payment"%>'
+                                                                        ></asp:Hyperlink>
                                                                 </asp:Panel>
                                                                 
+                                                                    <asp:image id="Img1" 
+                                                                        runat="server" 
+                                                                        src='<%# string.Concat("img/", Eval("Image")) %>'
+                                                                        class="img-responsive" width="300"
+                                                                        Visible='<%# Eval("Status").ToString() == "Completed" || Eval("Status").ToString() == "Uploaded Payment" %>'
+                                                                        ></asp:image>
                                                                     </div>
                                                              </div>
                                                          </td>

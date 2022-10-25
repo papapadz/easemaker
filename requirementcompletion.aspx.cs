@@ -11,13 +11,14 @@ public partial class addcategory : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
 
+    public string jobID;
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (Session["userid"] == null)
-        //{
-        //    Session.Clear();
-        //    Response.Redirect("Login.aspx");
-        //}
+        if (Session["userid"] == null)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
         //if (Session["usertype"].ToString() != "Admin")
         //{
         //    Session.Clear();
@@ -28,6 +29,18 @@ public partial class addcategory : System.Web.UI.Page
 
             //GetCategories();
         }
+
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM projreq where projreqid=" + Request.QueryString["reqid"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            jobID = data["jobid"].ToString();
+           
+        }
+        con.Close();
     }
 
 
@@ -53,7 +66,7 @@ public partial class addcategory : System.Web.UI.Page
         cmd3.Connection = con;
         cmd3.CommandText = "SELECT * FROM projreq " +
             "WHERE jobid=@jobid and status='Completed' and projreqid=@projreqid";
-        cmd3.Parameters.AddWithValue("@jobid", this.Request.QueryString["ID"].ToString());
+        cmd3.Parameters.AddWithValue("@jobid", jobID);
         cmd3.Parameters.AddWithValue("@projreqid", this.Request.QueryString["reqid"].ToString());
         SqlDataReader dr2 = cmd3.ExecuteReader();
 
@@ -74,17 +87,17 @@ public partial class addcategory : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@status2", "Completed");
         cmd.Parameters.AddWithValue("@remarks", txtContactPerson.Text);
         cmd.Parameters.AddWithValue("@enddate", DateTime.Now);
-        cmd.Parameters.AddWithValue("@jobid", Request.QueryString["ID"].ToString());
+        cmd.Parameters.AddWithValue("@jobid", jobID);
         cmd.Parameters.AddWithValue("@projreqid", Request.QueryString["reqid"].ToString());
         cmd.ExecuteNonQuery();
         con.Close();
         Helper.AddLog(Session["userid"].ToString(), "Requirement Completion", "Requirement Updated!");
-        Response.Redirect("projectrequirementlist.aspx?ID=" + Request.QueryString["ID"].ToString());
+        Response.Redirect("projectrequirementlist.aspx?ID=" + jobID);
 
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        Response.Redirect("projectrequirementlist.aspx?ID=" + Request.QueryString["ID"].ToString());
+        Response.Redirect("projectrequirementlist.aspx?ID=" + jobID);
     }
 }

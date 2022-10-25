@@ -13,6 +13,12 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     public static Stopwatch sw;
+    public static string queryStatus;
+    public static string eta;
+    public static string projectName;
+    public static string ct;
+    public static string tc;
+    public static string freelancerName;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["userid"] == null)
@@ -21,21 +27,23 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
             Response.Redirect("Login.aspx");
         }
 
+        getProject();
+
         hiddentxt.Text = Session["userid"].ToString();
         Label2.Text = Request.QueryString["ID"].ToString();
-        lblPrjname.Text = Request.QueryString["projname"].ToString();
+        lblPrjname.Text = projectName;
 
-        if (Request.QueryString["Status"].ToString() != "Deliverables Completed")
+        if (queryStatus != "Deliverables Completed")
         {
             divrate.Visible = false;
         }
-        if (Request.QueryString["Status"].ToString() == "Done")
+        if (queryStatus == "Done")
         {
             divtime.Visible = false;
         }
-        if (Request.QueryString["ETA"].ToString() != "")
+        if (eta != "")
         {
-            DateTime today = DateTime.Parse(Request.QueryString["ETA"].ToString());
+            DateTime today = DateTime.Parse(eta);
             Calendar1.TodaysDate = today;
             Calendar1.SelectedDate = Calendar1.TodaysDate;
         }
@@ -51,7 +59,24 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
             sw = new Stopwatch();
         }
     }
-
+    void getProject()
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM joblistview where  jobid=" + Request.QueryString["ID"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            queryStatus = data["status"].ToString();
+            eta = data["eta"].ToString();
+            projectName = data["jobtitle"].ToString();
+            ct = data["timeframe"].ToString();
+            tc = data["timecat"].ToString();
+            freelancerName = data["PersonName"].ToString();
+        }
+        con.Close();
+    }
     void Getnotif()
     {
         con.Open();
@@ -125,22 +150,22 @@ public partial class ProjectManagementViewfreelancer : System.Web.UI.Page
 
     protected void LinkButton3_Click(object sender, EventArgs e)
     {
-        Response.Redirect("filesupload.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname="+ Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ETA=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("filesupload.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        Response.Redirect("ContractSigningFreelancer.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ETA=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("ContractSigningFreelancer.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
-        Response.Redirect("filesuploadinvoice.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ETA=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("filesuploadinvoice.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void LinkButton4_Click(object sender, EventArgs e)
     {
-        Response.Redirect("addratingemployer.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ETA=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("addratingemployer.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
     protected void Start(object sender, EventArgs e)
     {

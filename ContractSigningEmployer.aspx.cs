@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,6 +14,13 @@ using System.Web.UI.WebControls;
 public partial class ContractSigningEmployer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+
+    public string projStatus;
+    public string tc;
+    public string ct;
+    public string billAmt;
+    public string freelancerid;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["userid"] == null)
@@ -20,12 +29,11 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
             Response.Redirect("Login.aspx");
         } else
         {
-            if (!IsPostBack)
-            {
+            
                 GetInfo();
                 GetInfo2();
                 GetInfo3();
-            }
+            
         }
         
     }
@@ -35,12 +43,16 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT TOP(1) * FROM projects WHERE jobid=@jobid ";
+        cmd.CommandText = "SELECT TOP(1) projects.*, joblist.timecat, joblist.amt, joblist.timeframe FROM projects JOIN joblist ON joblist.jobid = projects.jobid WHERE projects.jobid=@jobid";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
-            
+            projStatus = data["status"].ToString();
+            tc = data["timecat"].ToString();
+            ct = data["timeframe"].ToString();
+            billAmt = data["amt"].ToString();
+
                 if (data["startdate"].ToString() == "" || data["startdate"].ToString() == null)
                 {
 
@@ -97,25 +109,62 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid";
+        //cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
+        cmd.CommandText = "SELECT TOP(1) * FROM vw_applicant WHERE jobid=@jobid and status='Done'";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
-        while (data.Read())
+        if (data.HasRows)
         {
+            while (data.Read())
             {
-                lblFreelanceaddress.Text = data["address"].ToString();
-                lblFreelancename.Text = data["personname"].ToString();
-                lblFreelancer.Text = data["personname"].ToString();
-                lblDateFreelancer.Text = data["date"].ToString();
-                lblFreelancename.Text = data["personname"].ToString();
+                {
 
-                Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
-                //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
+                    freelancerid = data["userID"].ToString();
+                    lblFreelanceaddress.Text = data["address"].ToString();
+                    lblFreelancename.Text = data["personname"].ToString();
+                    lblFreelancer.Text = data["personname"].ToString();
+                    //lblDateFreelancer.Text = data["date"].ToString();
+                    //lblFreelancename.Text = data["personname"].ToString();
+                    //Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
+                    //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
 
-                //txtaboutme.Text = data["aboutme"].ToString();
+                    //txtaboutme.Text = data["aboutme"].ToString();
+                }
             }
         }
+        con.Close();
+
+        con.Open();
+        SqlCommand cmd2 = new SqlCommand();
+        cmd2.Connection = con;
+        //cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
+        cmd2.CommandText = "SELECT TOP(1) * FROM contracts LEFT JOIN Users ON dbo.Users.userID = contracts.userid WHERE jobid=@jobid and Users.userid=@userid";
+        cmd2.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
+        cmd2.Parameters.Add("@userid", SqlDbType.Int).Value = freelancerid;
+        SqlDataReader data2 = cmd2.ExecuteReader();
+        if (data2.HasRows)
+        {
+            divSignature.Visible = false;
+            while (data2.Read())
+            {
+                {
+                    //lblFreelanceaddress.Text = data["address"].ToString();
+                    //lblFreelancename.Text = data["personname"].ToString();
+                    //lblFreelancer.Text = data["personname"].ToString();
+                    lblDateFreelancer.Text = data2["date"].ToString();
+                    //lblFreelancename.Text = data["personname"].ToString();
+                    Image1.ImageUrl = string.Concat("img/", data2["filename"].ToString());
+                    //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
+
+
+                    //txtaboutme.Text = data["aboutme"].ToString();
+                }
+            }
+        }
+        else
+            divSignature.Visible = true;
+
         con.Close();
     }
     private void ShowPopUpMsg(string msg)
@@ -204,32 +253,33 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
 
             return;
         }
-        if (Request.QueryString["status"].ToString() == "Done")
+        if (projStatus == "Done")
         {
             ShowPopUpMsg("This Project is already done!");
             con.Close();
             return;
         }
         con.Close();
+
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         cmd.CommandText = "UPDATE joblist SET status=@status2 WHERE jobid=@jobid;UPDATE projects SET status=@status2,startdate=@startdate,eta=@eta WHERE jobid=@jobid";
 
 
-        if (Request.QueryString["tc"].ToString() == "Days")
+        if (tc == "Days")
         {
-            DateTime eta = DateTime.Now.AddDays(int.Parse(Request.QueryString["ct"].ToString()));
+            DateTime eta = DateTime.Now.AddDays(int.Parse(ct));
             cmd.Parameters.Add("@eta", SqlDbType.DateTime).Value = eta;
         }
-        else if (Request.QueryString["tc"].ToString() == "Months")
+        else if (tc == "Months")
         {
-            DateTime eta = DateTime.Now.AddMonths(int.Parse(Request.QueryString["ct"].ToString()));
+            DateTime eta = DateTime.Now.AddMonths(int.Parse(ct));
             cmd.Parameters.Add("@eta", SqlDbType.DateTime).Value = eta;
         }
-        else if (Request.QueryString["tc"].ToString() == "Years")
+        else if (tc == "Years")
         {
-            DateTime eta = DateTime.Now.AddYears(int.Parse(Request.QueryString["ct"].ToString()));
+            DateTime eta = DateTime.Now.AddYears(int.Parse(ct));
             cmd.Parameters.Add("@eta", SqlDbType.DateTime).Value = eta;
         }
 
@@ -240,7 +290,25 @@ public partial class ContractSigningEmployer : System.Web.UI.Page
         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = Session["userid"].ToString();
         cmd.ExecuteNonQuery();
         con.Close();
+
+        /** Bill Employer **/
+        DateTime now = DateTime.Now;
+        con.Open();
+        SqlCommand cmd6 = new SqlCommand();
+        cmd6.Connection = con;
+        cmd6.CommandText = "INSERT INTO billing (refid,userid,datetime,amount,Purpose,status,checkoutid)" +
+            " VALUES (@refid,@userid,@datetime,@amount,@Purpose,@status,@checkoutid)";
+        cmd6.Parameters.Add("@refid", SqlDbType.VarChar).Value = now.ToFileTime();
+        cmd6.Parameters.Add("@userid", SqlDbType.VarChar).Value = Session["userid"].ToString();
+        cmd6.Parameters.Add("@amount", SqlDbType.Decimal).Value = billAmt;
+        cmd6.Parameters.Add("@datetime", now);
+        cmd6.Parameters.Add("@Purpose", "Project Payment");
+        cmd6.Parameters.Add("@status", "Pending");
+        cmd6.Parameters.Add("@checkoutid", SqlDbType.VarChar).Value = Request.QueryString["ID"].ToString();
+        cmd6.ExecuteNonQuery();
+        con.Close();
+
         Response.Redirect("projectmanagement.aspx?status=On-Going");
-       // Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+       // Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + projStatus + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + ct + "&tc=" + tc + "&eta=" + Request.QueryString["eta"].ToString());
     }
 }

@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 public partial class ProjectManagementFreelancer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+    public string reqStatus;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["userid"] == null)
@@ -20,6 +22,11 @@ public partial class ProjectManagementFreelancer : System.Web.UI.Page
         //if (Session["UserID"] == null || Session["UserLevel"].ToString() == "Customer")
         //{
         //    Response.Redirect("Login.aspx");
+
+        if (Request.QueryString["status"].ToString() == "Completed")
+            reqStatus = "Done";
+        else
+            reqStatus = Request.QueryString["status"].ToString();
 
         if (!IsPostBack)
         {
@@ -45,7 +52,7 @@ public partial class ProjectManagementFreelancer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM vw_projlistemployer where userid='" + Session["userid"].ToString() + "' and status='" + Request.QueryString["status"].ToString() + "'";
+        cmd.CommandText = "SELECT DISTINCT projectid,* FROM vw_projlistemployer where userid='" + Session["userid"].ToString() + "' and status='" + reqStatus + "'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "vw_projlistemployer");
@@ -108,15 +115,15 @@ public partial class ProjectManagementFreelancer : System.Web.UI.Page
         cmd.Connection = con;
         if (ddltimecat.SelectedValue == "On-Going")
         {
-            cmd.CommandText = "SELECT * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status!='Completed' and Status!='Pending' and userid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT DISTINCT projectid, * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status!='Completed' and Status!='Pending' and userid=" + Session["userid"].ToString();
         }
         else if (ddltimecat.SelectedValue == "Done")
         {
-            cmd.CommandText = "SELECT * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Completed' and userid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT DISTINCT projectid, * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Completed' and userid=" + Session["userid"].ToString();
         }
         else
         {
-            cmd.CommandText = "SELECT * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT DISTINCT projectid, * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString();
         }
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
@@ -133,15 +140,15 @@ public partial class ProjectManagementFreelancer : System.Web.UI.Page
         cmd.Connection = con;
         if (ddltimecat.SelectedValue == "On-Going")
         {
-            cmd.CommandText = "SELECT * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status!='Done' and Status!='Pending' and userid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT DISTINCT projectid, * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status!='Done' and Status!='Pending' and userid=" + Session["userid"].ToString();
         }
         else if (ddltimecat.SelectedValue == "Done")
         {
-            cmd.CommandText = "SELECT * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Done' and userid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT DISTINCT projectid, * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Done' and userid=" + Session["userid"].ToString();
         }
         else
         {
-            cmd.CommandText = "SELECT * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString();
+            cmd.CommandText = "SELECT DISTINCT projectid, * FROM vw_projlistemployer where jobtitle LIKE '%" + txtSearch.Text + "%' and userid=" + Session["userid"].ToString();
         }
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();

@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li><a href="Default2.aspx">Home</a></li>
-                      <li><a href="joblistfreelancer.aspx?ST=&yrs=&cat=">Project List</a></li>
+                      <li><a href="joblistfreelancer.aspx">Project List</a></li>
                       <li><a href="ProjectManagementLanding.aspx">My Projects</a></li>
                         <li><a href="billinglist.aspx">Billing list</a></li>
                     <%--							<li><a href="companies.html">Companies</a></li> 

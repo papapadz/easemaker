@@ -2,29 +2,31 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <div class="row heading">
-        <h2>Requirement Completion Form</h2>
-        <p>Please fill up all text box!</p>
+        <h2 class="text-primary"><b>Requirement Completion Form</b></h2>
+        <p><small><i>Please fill up all text box!</i></small></p>
     </div>
     
   
                     <fieldset>
                       
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label class="col-md-4 control-label">Remark/s</label>
-                            <div class="col-md-8 inputGroupContainer">
+                            <div class="col-md-8">
                                 <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                   <asp:textbox id="txtContactPerson" runat="server" class="form-control" TextMode="MultiLine" placeholder="Remark/s here"/></div>
                             </div>
                         </div>
                        
                         
-                        <div class="form-group">
-
-                            <div class="col-md-8 inputGroupContainer">
-                                <asp:Button ID="btnReg" runat="server" Text="Complete" type="button" class="btn btn-primary" Height="50px" Width="100px" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
-                                <asp:Button ID="Button1" runat="server" Text="Cancel" type="button" class="btn btn-warning" Height="50px" Width="100px"  OnClientClick="return confirm('Do you wish to continue?')" OnClick="Button1_Click" />
+                        <div class="form-group row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8">
+                                <asp:Button ID="btnReg" runat="server" Text="Complete" type="button" class="btn btn-success col-md-12" OnClick="btnReg_Click" OnClientClick="return confirm('Do you wish to continue?')" />
+                                
                             </div>
                         </div>
+                        <hr />
+                        <asp:Button ID="Button1" runat="server" Text="Back" type="button" class="btn btn-info col-md-12"  OnClientClick="return confirm('Do you wish to continue?')" OnClick="Button1_Click" />
                     </fieldset>
 </asp:Content>
 

@@ -49,7 +49,7 @@
 												<td><%# Eval("timeframe") %> <%# Eval("timeCat") %></td>
 												<td><%# Eval("status") %></td>
 												<td>
-													<a href='ProjectManagementView.aspx?ID=<%# Eval("jobid") %>&Status=<%# Eval("status") %>&projname=<%# Eval("Jobtitle") %>&eta=<%# Eval("eta", "{0:d}") %>&name=<%# Eval("PersonName") %>&ct=<%# Eval("timeframe") %>&tc=<%# Eval("timecat") %>' onclick="javascript:return confirm('Are you sure you want to Proceed?');">View More</a>
+													<a href='ProjectManagementView.aspx?ID=<%# Eval("jobid") %>' onclick="javascript:return confirm('Are you sure you want to Proceed?');">View More</a>
 												</td>
 											</tr>
 										</ItemTemplate>

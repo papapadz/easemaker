@@ -104,7 +104,7 @@ public partial class uploadbillingpayment : System.Web.UI.Page
             con.Close();
             Helper.AddLog(Session["userid"].ToString(), "billing client", "Billing payment upload!");
             ShowPopUpMsg("Upload Successful!");
-            Response.Redirect("billinglistFreelancer.aspx");
+            Response.Redirect("billinglist.aspx");
         }
         else
         {

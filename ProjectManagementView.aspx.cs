@@ -12,23 +12,33 @@ public partial class ProjectManagementView : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     public static Stopwatch sw;
+    public static string queryStatus;
+    public static string eta;
+    public static string projectName;
+    public static string ct;
+    public static string tc;
+    public static string freelancerName;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Request.QueryString["Status"].ToString() != "Deliverables Completed")
+
+        getProject();
+
+        if (queryStatus == "Done" || queryStatus == "Deliverables Completed")
         {
-            divrate.Visible = false;
+            divrate.Visible = true;
         }
-    
-        if (Request.QueryString["ETA"].ToString() != "")
+
+        if (eta != "")
         {
-            DateTime today = DateTime.Parse(Request.QueryString["ETA"].ToString());
+            DateTime today = DateTime.Parse(eta);
             Calendar1.TodaysDate = today;
             Calendar1.SelectedDate = Calendar1.TodaysDate;
         }
         if (!IsPostBack)
         {
             Label2.Text = Request.QueryString["ID"].ToString();
-            lblPrjname.Text = Request.QueryString["projname"].ToString();
+            lblPrjname.Text = projectName;
             GetInfo();
             getjobs();
             getjobs2();
@@ -36,6 +46,25 @@ public partial class ProjectManagementView : System.Web.UI.Page
          
             sw = new Stopwatch();
         }
+    }
+
+    void getProject()
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM joblistview where  jobid=" + Request.QueryString["ID"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            queryStatus = data["status"].ToString();
+            eta = data["eta"].ToString();
+            projectName = data["jobtitle"].ToString();
+            ct = data["timeframe"].ToString();
+            tc = data["timecat"].ToString();
+            freelancerName = data["PersonName"].ToString();
+        }
+        con.Close();
     }
     void Getnotif()
     {
@@ -106,22 +135,22 @@ public partial class ProjectManagementView : System.Web.UI.Page
 
     protected void LinkButton3_Click(object sender, EventArgs e)
     {
-        Response.Redirect("filesdownload.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname="+ Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("filesdownload.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        Response.Redirect("ContractSigningEmployer.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("ContractSigningEmployer.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
-        Response.Redirect("filesdownloadinvoice.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("filesdownloadinvoice.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void LinkButton4_Click(object sender, EventArgs e)
     {
-        Response.Redirect("addrating.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("addrating.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
   
@@ -152,7 +181,7 @@ public partial class ProjectManagementView : System.Web.UI.Page
 
     protected void LinkButton5_Click1(object sender, EventArgs e)
     {
-        Response.Redirect("projectrequirementlist.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString());
+        Response.Redirect("projectrequirementlist.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void lbprojects2_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)

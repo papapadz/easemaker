@@ -1,79 +1,78 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageEmployer.master" AutoEventWireup="true" CodeFile="ApplicantList.aspx.cs" Inherits="ApplicantList" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div class="row heading">
-                <h2>Applicant List for Project  # <asp:Label ID="Label1" runat="server" class="form-control" Enabled="false"/></h2>
-                <p></p>
-            </div>
-    
-          <div class="table-responsive">
-                            <asp:UpdatePanel ID="upInv" runat="server">
-                                <Triggers>
-                                    <asp:AsyncPostBackTrigger ControlID="lvInventory" EventName="PagePropertiesChanging" />
-                                </Triggers>
-                                <ContentTemplate>
-                                    <%--<table class="table table-bordered cart_summary" overflow: hidden>--%>
-                                    <%--  <div class="table-responsive-sm">--%>
-                                    <table  class="display table" width="100%">
 
-                                        <thead>
-                                            <tr>
-                                                <th>Email</th>
-                                                <th>Applicant Name</th>
-                                                <th>Address</th>
-                                                <th>Contact Number</th>
-                                                <th>Status</th>
-                                                <th>Image</th>
-                                                <th>Rating</th>
-                                                <th>Portfolio</th>
-                                                <th>Select</th>
-                                               <%-- <th>Deactivate</th>
-                                                <th>Activate</th>--%>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <asp:ListView ID="lvInventory" runat="server" OnPagePropertiesChanging="lvInventory_PagePropertiesChanging">
-                                                <ItemTemplate>
-                                                    <tr>
-                                                        <td><%# Eval("Email")%></td>
-                                                        <td><%# Eval("PersonName")%></td>
-                                                          <td><%# Eval("Address")%></td>
-                                                        <td><%# Eval("ContactNo")%></td>
-                                                         <td><%# Eval("status")%></td>
-                                                      
-                                              
-                                                        <td>    <img id="Img1" runat="server" src='<%# string.Concat("img/", Eval("Image")) %>'
-                                                    class="img-responsive" width="100" /></td>
-                                                         <td>    <img id="Img2" runat="server" src='<%# string.Concat("img/", Eval("Image2")) %>'
-                                                    class="img-responsive" width="100" /></td>
-                                                         <td>
-                                        <a href='viewportfolioemployer.aspx?ID=<%# Eval("userid") %>&JID=<%# Eval("jobid") %>' onclick="javascript:return confirm('Are you sure you want to Continue?');"><i class="fa fa-print"></i></a>
-                                    </td>
-                                                          <td>
-                                        <a href='SelectFreelancer.aspx?ID=<%# Eval("userid") %>&ID2=<%# Eval("useridemp") %>&JID=<%# Eval("jobid") %>&po=<%# Eval("jobtitle") %>' onclick="javascript:return confirm('Are you sure you want to Continue?');"><i class="fa fa-check-square-o"></i></a>
-                                    </td>
-                                                    </tr>
-                                                </ItemTemplate>
-                                                <EmptyDataTemplate>
-                                                    <tr>
-                                                        <td colspan="9">
-                                                            <center><h2>No records found!</h2></center>
-                                                        </td>
-                                                    </tr>
-                                                </EmptyDataTemplate>
-                                            </asp:ListView>
-                                        </tbody>
-                                    </table>
-                                    <asp:DataPager ID="dpInventory" runat="server" PageSize="20" PagedControlID="lvInventory">
-                                        <Fields>
-                                            <asp:NextPreviousPagerField FirstPageText="<<" PreviousPageText="<" ShowFirstPageButton="True" ShowNextPageButton="false" ButtonType="Button" ButtonCssClass="btn" />
-                                            <asp:NumericPagerField NumericButtonCssClass="Button" CurrentPageLabelCssClass="btn" NextPreviousButtonCssClass="btn" />
-                                            <asp:NextPreviousPagerField NextPageText=">" LastPageText=">>" ShowLastPageButton="True" ShowPreviousPageButton="false" ButtonType="Button" ButtonCssClass="btn" />
-                                        </Fields>
-                                    </asp:DataPager>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script src="js/bootsnav.js"></script>
+
+    <div class="container">
+        <h2 class="text-primary"><b>Applicants List</b></h2>
+        <hr />
+        <h4><b>Search Freelancer</b></h4>
+        <div class="row">
+            <asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Name here..." />
+                      
                   
+            <asp:Button ID="Button1" Text="Search" runat="server" class="btn btn-primary" OnClick="Button1_Click1" />
+        </div>
+        <hr />
+        <asp:UpdatePanel ID="upInv" runat="server">
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="lvaccounts" EventName="PagePropertiesChanging" />
+            </Triggers>
+            <ContentTemplate>
+                <%--<table class="table table-bordered cart_summary" overflow: hidden>--%>
+                <%--  <div class="table-responsive-sm">--%>
+                
+                    <tbody>
+                        <asp:ListView ID="lvaccounts" runat="server" OnPagePropertiesChanging="lvaccounts_PagePropertiesChanging">
+                            <ItemTemplate>
+							    <div class="row">
+								    <div class="col-md-12" style="padding:10px">
+									    <div class="panel panel-default box">
+									      <div class="panel-body">
+										      <div class="row text-primary">
+											      <div class="col-md-6 text-left">
+													      <h3><b><%# Eval("PersonName") %></b> <asp:label runat="server" visible='<%# Eval("subscriptionStatus").ToString() == "Subscribed" %>'><i class="fa fa-check"></i></asp:label> </h3>
+												      </div>
+												      <div class="col-md-6 text-right">
+													      <h3><b><%# Eval("amt", "{0:c}") %></b></h3>
+												      </div>			
+										      </div>
+										      <div class="row">
+											      <div class="col-md-12">
+												       <i class="fa fa-envelope"></i> <asp:Label ID="Label3" runat="server" Text='<%# Eval("Email") %>'></asp:Label>
+												       <i class="fa fa-phone"></i> <asp:Label ID="Label1" runat="server" Text='<%# Eval("ContactNo") %>'></asp:Label>
+											      </div>
+										      </div>
+										      <div class="row">
+											      <div class="col-md-12">
+												      <h4 class="text-primary"><%# Eval("jobdescription") %></h4>
+											      </div>
+										      </div>
+                                              <div class="row">
+                                                   <div class="col-md-12 form-inline text-right">
+                                                      <asp:Button runat="server" class="btn btn-success" Text="Accept" OnClientClick="return confirm('Are you sure you want Hire this Freelancer?');"  OnClick="btnAccept_Click" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
+                                                 
+                                                      <a class="btn btn-primary" href='employerportfolio.aspx?ID=<%# Eval("userid") %>'>View Profile</a>
+                                                  </div>
+                                              </div>
+										    </div>
+									    </div>
+								    </div>
+							    </div>
+                            </ItemTemplate>
+                            <EmptyDataTemplate>
+                                <h3>No Record</h3>
+                            </EmptyDataTemplate>
+                        </asp:ListView>
+                <asp:DataPager ID="dpAccounts" runat="server" PageSize="20" PagedControlID="lvaccounts">
+                    <Fields>
+                        <asp:NextPreviousPagerField FirstPageText="<<" PreviousPageText="<" ShowFirstPageButton="True" ShowNextPageButton="false" ButtonType="Button" ButtonCssClass="btn" />
+                        <asp:NumericPagerField NumericButtonCssClass="Button" CurrentPageLabelCssClass="btn" NextPreviousButtonCssClass="btn" />
+                        <asp:NextPreviousPagerField NextPageText=">" LastPageText=">>" ShowLastPageButton="True" ShowPreviousPageButton="false" ButtonType="Button" ButtonCssClass="btn" />
+                    </Fields>
+                </asp:DataPager>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
 </asp:Content>
-

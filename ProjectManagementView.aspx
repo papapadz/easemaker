@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-        <div class="col-md-4"  id ="divrate" runat="server">
+        <asp:Panel class="col-md-4"  id ="divrate" Visible="false" runat="server">
             <div class="panel panel-primary box">
                         <div class="panel-body">
                             <h2>Rate & Comment</h2>
@@ -101,7 +101,7 @@
                                 </ul>
                         </div>
                     </div>
-                </div>
+                </asp:Panel>
         </div>
         <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -179,7 +179,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <i class="fa fa-leaf fa-fw"></i>Deliverable Tracker:  <asp:LinkButton ID="LinkButton5" runat="server" CssClass="btn" OnClick="LinkButton5_Click1">View More</asp:LinkButton>
+                            <i class="fa fa-leaf fa-fw"></i>Deliverable Tracker:  <asp:LinkButton ID="LinkButton5" runat="server" CssClass="btn btn-xs btn-success" OnClick="LinkButton5_Click1">View More</asp:LinkButton>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

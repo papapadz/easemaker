@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.PowerPoint;
+using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -41,7 +43,7 @@ public partial class Freelancerlistemployer : System.Web.UI.Page
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
         //cmd.CommandText = "SELECT * FROM users where usertype='User'";
-        cmd.CommandText = "SELECT * FROM vw_applicant where usertype='User' AND projectStatus='Posted' AND useridemp=" + Session["userid"] + " ORDER BY subscriptionStatus";
+        cmd.CommandText = "SELECT * FROM Users LEFT OUTER JOIN subscription ON subscription.userid = Users.userID where usertype='User' ORDER BY subscription.Status";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "users");
@@ -63,10 +65,7 @@ public partial class Freelancerlistemployer : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-      
-            cmd.CommandText = "SELECT * FROM vw_applicant WHERE PersonName LIKE '%" + txtSearch.Text + "%' AND projectStatus='Posted' AND usertype='User' AND useridemp=" + Session["userid"];
-        
-     
+        cmd.CommandText = "SELECT * FROM Users LEFT OUTER JOIN subscription ON subscription.userid = Users.userID where usertype='User' AND PersonName LIKE '%" + txtSearch.Text + "%' ORDER BY subscription.Status";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "users");

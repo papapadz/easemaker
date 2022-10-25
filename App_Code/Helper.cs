@@ -9,14 +9,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
-
+using System.Net;
+using System.IO;
+using System.Web.Script.Serialization;
 
 /// <summary>
 /// Summary description for BSPHelper
 /// </summary>
 public class Helper
 {
-
     //
     // TODO: Add constructor logic here
     //
@@ -48,8 +49,10 @@ public class Helper
     //return false;
     //}
 
-    private const string PUBLIC_KEY = "Basic cGstZW80c0wzOTNDV1U1S212ZUpVYVc4VjczMFRUZWkyelk4ekU0ZEhKRHhrRjo=";
-    private const string SECRET_KEY = "Basic c2stS2ZtZkxKWEZkVjV0MWluWU44bElPd1NydWVDMUcyN1NDQWtsQnFZQ2RyVTo=";
+    //private const string PUBLIC_KEY = "Basic cGstZW80c0wzOTNDV1U1S212ZUpVYVc4VjczMFRUZWkyelk4ekU0ZEhKRHhrRjo=";
+    //private const string SECRET_KEY = "Basic c2stS2ZtZkxKWEZkVjV0MWluWU44bElPd1NydWVDMUcyN1NDQWtsQnFZQ2RyVTo=";
+    private const string UB_CLIENT_ID = "4b27d8a5-b3ac-4338-a02c-7abd623ec935";
+    private const string UB_CLIENT_SECRET = "R5sG3dH0tD8xQ8yD5rD1uP0oF3iV1fX4hP2vD2iH6nE3iE1bW2";
 
     public static string CreateHashTag(string Phrase)
     {
@@ -127,7 +130,7 @@ public class Helper
             client.Send(emailMessage);
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return false;
         }
@@ -136,4 +139,55 @@ public class Helper
 
     }
 
+    public static string newAccount(string username, string password, string name)
+    {
+        ServicePointManager.Expect100Continue = true;
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api-uat.unionbankph.com/partners/sb/sandbox/v1/accounts");
+        request.ContentType = "application/x-www-form-urlencoded";
+        request.Headers["x-ibm-client-id"] = UB_CLIENT_ID;
+        request.Headers["x-ibm-client-secret"] = UB_CLIENT_SECRET;
+        request.Method = "POST";
+
+        var postData = "username=" + Uri.EscapeDataString(username);
+        postData += "&password=" + Uri.EscapeDataString(password);
+        postData += "&account_name=" + Uri.EscapeDataString(name);
+        var data = Encoding.ASCII.GetBytes(postData);
+
+        using (var stream = request.GetRequestStream())
+        {
+            stream.Write(data, 0, data.Length);
+        }
+
+        var response = (HttpWebResponse)request.GetResponse();
+
+        var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+        return responseString;
+    }
+
+    public static string auth()
+    {
+        ServicePointManager.Expect100Continue = true;
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api-uat.unionbankph.com/partners/sb/customers/v1/oauth2/authorize?client_id=4b27d8a5-b3ac-4338-a02c-7abd623ec935&response_type=code&scope=account&redirect_uri=https://api-uat.unionbankph.com/ubp/uat/v1/redirect&state=code&type=single&partnerId=18474d1f-d6be-4b0e-98e8-b4ac70e1c264");
+        //request.ContentType = "application/x-www-form-urlencoded";
+        //request.Headers["x-ibm-client-id"] = UB_CLIENT_ID;
+        //request.Headers["x-ibm-client-secret"] = UB_CLIENT_SECRET;
+        //request.Method = "POST";
+
+        
+        //var data = Encoding.ASCII.GetBytes(postData);
+
+        
+
+
+        var response = (HttpWebResponse)request.GetResponse();
+
+        var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+        return responseString;
+    }
 }

@@ -43,6 +43,7 @@
                             ControlToValidate="txtEmail" ValidationGroup="save"
                             ErrorMessage=" Invalid Email Format"
                             ForeColor="red"></asp:RegularExpressionValidator>
+                        <asp:label id="errorEmail" class="text-danger" runat="server" ></asp:label>
                         <asp:TextBox ID="txtEmail" runat="server" type="email" class="form-control input-lg" required />
 
                     </div>
@@ -66,20 +67,21 @@
                     </div>
                     <div class="form-group">
                         <label>Contact # </label>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server"
+                            ValidationExpression="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$"
+                            ControlToValidate="txtCN" ValidationGroup="save"
+                            ErrorMessage=" Invalid Contact Number!"
+                            ForeColor="red"></asp:RegularExpressionValidator>
                         <asp:TextBox ID="txtCN" runat="server" class="form-control input-lg" required />
-                           <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" runat="server"
-                            Enabled="True" FilterMode="InvalidChars"
-                            InvalidChars="!#$%^&amp;*()&lt;&gt;?/=|][{}'&quot;~`+\:;,<>"
-                            TargetControlID="txtCN">
-                        </asp:FilteredTextBoxExtender>
+                          
+                       
                     </div>
                     <div class="form-group">
-                        <label>Birthday</label>
-                        <asp:TextBox ID="txtBD" runat="server" class="form-control input-lg" TextMode="Date" />
-
+                        <label>Birthday</label><asp:label id="errorBirthday" class="text-danger" runat="server" ></asp:label>
+                        <asp:TextBox ID="txtBD" runat="server" class="form-control input-lg" TextMode="Date" required/>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label>Password</label><asp:label id="errorPassword" class="text-danger" runat="server" required></asp:label>
 
                         <asp:TextBox ID="txtPassword" runat="server" class="form-control input-lg"
                             TextMode="Password" required />
@@ -93,10 +95,10 @@
 
                     </div>
                     <div class="form-group">
-                        <label>Identification Photo Front</label>
+                        <label>Identification Photo Front</label> <asp:label id="errorImage" class="text-danger" runat="server" required></asp:label>
                         <div class="input-group">
                             <%--<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>--%>
-                            <asp:FileUpload ID="fuImage" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg"/>
+                            <asp:FileUpload required ID="fuImage" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg"/>
 
                         </div>
                     </div>
@@ -104,7 +106,7 @@
                         <label>Identification Photo Back</label>
                         <div class="input-group">
                             <%--<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>--%>
-                            <asp:FileUpload ID="fuImage2" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg"/>
+                            <asp:FileUpload required ID="fuImage2" runat="server" class="form-control" accept="image/png, image/gif, image/jpeg"/>
 
                         </div>
                     </div>

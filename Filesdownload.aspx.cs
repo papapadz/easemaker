@@ -252,18 +252,18 @@ public partial class Filesdownload : System.Web.UI.Page
   
     protected void Button1_Click(object sender, EventArgs e)
     {
-        Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void Button1_Click1(object sender, EventArgs e)
     {
         
-        Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ct=" + Request.QueryString["ct"].ToString() + "&tc=" + Request.QueryString["tc"].ToString() + "&eta=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("projectmanagementview.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 
    

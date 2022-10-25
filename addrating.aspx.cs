@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -11,6 +12,7 @@ using System.Web.UI.WebControls;
 public partial class addrating : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+    private string name;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -26,15 +28,35 @@ public partial class addrating : System.Web.UI.Page
         //}
         if (!IsPostBack)
         {
-         
+
             Label1.Text = Request.QueryString["ID"].ToString();
-            txtContactPerson.Text = Request.QueryString["name"].ToString();
+            txtContactPerson.Text = name;
             //GetCategories();
-            GetInfo();
+            GetInfo2();
         }
     }
     void GetInfo()
     {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM Users WHERE userID=@userid ";
+        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            {
+                //lblRating.Text = data["rating"].ToString();
+
+                Label2.Text = "Rating by " + data["PersonName"].ToString();
+
+            }
+        }
+        con.Close();
+    }
+    void GetInfo2()
+    {
+        bool getUserInfo = false;
 
         con.Open();
         SqlCommand cmd = new SqlCommand();
@@ -48,9 +70,14 @@ public partial class addrating : System.Web.UI.Page
                 //lblRating.Text = data["rating"].ToString();
                 Image2.ImageUrl = string.Concat("img/", data["image"].ToString());
                 lblComment.Text = data["comment"].ToString();
+                panelRating.Visible = false;
+                getUserInfo = true;
             }
         }
         con.Close();
+
+        if(getUserInfo)
+            GetInfo();
     }
 
 
@@ -95,6 +122,7 @@ public partial class addrating : System.Web.UI.Page
             cmd2.ExecuteNonQuery();
             con.Close();
             ShowPopUpMsg("Rating Successfully Updated! ");
+            
             //return;
         }
         con.Close();
@@ -115,7 +143,7 @@ public partial class addrating : System.Web.UI.Page
         Helper.AddLog(Session["userid"].ToString(), "Rating", "Added rating");
         ShowPopUpMsg("Rating Successfully Added! ");
         GetInfo();
-        //Response.Redirect("projectmanagement.aspx");
+        Response.Redirect("projectmanagement.aspx?status=Completed");
     }
 
     protected void ddlund_SelectedIndexChanged(object sender, EventArgs e)

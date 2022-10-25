@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Select File</label>
                                 <div class="col-md-8">
-                                    <asp:FileUpload ID="fuimage" runat="server" class="form-control" />
+                                    <asp:FileUpload ID="fuimage" accept="image/jpeg" runat="server" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">

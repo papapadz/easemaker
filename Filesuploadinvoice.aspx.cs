@@ -12,16 +12,31 @@ using System.Web.UI.WebControls;
 public partial class Filesupload : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+    public string reqStatus;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            getProject();
             //lblPN.Text = Request.QueryString["name"].ToString();
             Label1.Text = Request.QueryString["ID"].ToString();
             getexperience();
         }
     }
-  
+    void getProject()
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM joblistview where  jobid=" + Request.QueryString["ID"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            reqStatus = data["status"].ToString();
+        }
+        con.Close();
+    }
+
     void getexperience()
     {
         //change select statement
@@ -49,7 +64,7 @@ public partial class Filesupload : System.Web.UI.Page
     }
     protected void btnReg_Click(object sender, EventArgs e)
     {
-        if (Request.QueryString["status"].ToString() == "Done")
+        if (reqStatus == "Done")
         {
             ShowPopUpMsg("This Project is already done!");
             return;
@@ -70,7 +85,7 @@ public partial class Filesupload : System.Web.UI.Page
     }
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (Request.QueryString["status"].ToString() == "Done")
+        if (reqStatus == "Done")
         {
             ShowPopUpMsg("This Project is already done!");
             return;
@@ -264,7 +279,7 @@ public partial class Filesupload : System.Web.UI.Page
         //ShowPopUpMsg("Resume Completed!");
         Response.Redirect("ProjectManagementViewfreelancer.aspx" +
             "?ID=" + Request.QueryString["ID"].ToString() + 
-            "&Status=" + Request.QueryString["Status"].ToString() +
+            "&Status=" + reqStatus +
             "&eta=" + Request.QueryString["eta"].ToString() +
             "&projname=" + Request.QueryString["projname"].ToString() +
             "&name=" + Request.QueryString["name"].ToString());

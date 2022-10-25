@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,20 +10,37 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 public partial class Filesupload : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
+    public string projStatus;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             //lblPN.Text = Request.QueryString["name"].ToString();
-
+            getProject();
             getexperience();
         }
     }
-  
+
+    void getProject()
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM joblistview where  jobid=" + Request.QueryString["ID"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            projStatus = data["status"].ToString();
+        }
+        con.Close();
+    }
+
     void getexperience()
     {
         //change select statement
@@ -49,7 +68,7 @@ public partial class Filesupload : System.Web.UI.Page
     }
     protected void btnReg_Click(object sender, EventArgs e)
     {
-        if (Request.QueryString["status"].ToString() == "Done")
+        if (projStatus == "Done")
         {
             ShowPopUpMsg("This Project is already done!");
             return;
@@ -70,7 +89,7 @@ public partial class Filesupload : System.Web.UI.Page
     }
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (Request.QueryString["status"].ToString() == "Done")
+        if (projStatus == "Done")
         {
             ShowPopUpMsg("This Project is already done!");
             return;
@@ -218,15 +237,34 @@ public partial class Filesupload : System.Web.UI.Page
 
                 cmd.Parameters.Add("@jobid", SqlDbType.VarChar).Value = Request.QueryString["ID"].ToString();
                 cmd.Parameters.Add("@FileDescription", SqlDbType.VarChar).Value = txtDesc.Text;
-                cmd.Parameters.Add("@FileName", SqlDbType.VarChar).Value = fileName;
+                cmd.Parameters.Add("@FileName", SqlDbType.VarChar).Value = addWaterMark(fileName);
                 cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = Session["userid"].ToString();
                 cmd.ExecuteNonQuery();
                 con.Close();
                 getexperience();
+                addWaterMark(fileName);
             }
         
     }
+
+    public string addWaterMark(string uploadedFilename)
+    {
+        string newFileName = "ease_" + uploadedFilename;
+        using (System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath("~/Files/" + uploadedFilename)))
+        using (System.Drawing.Image watermarkImage = System.Drawing.Image.FromFile(Server.MapPath("~/img/logo.png")))
+        using (System.Drawing.Graphics imageGraphics = System.Drawing.Graphics.FromImage(image))
+        using (TextureBrush watermarkBrush = new TextureBrush(watermarkImage))
+        {
+            int x = (image.Width / 2 - watermarkImage.Width / 2);
+            int y = (image.Height / 2 - watermarkImage.Height / 2);
+            watermarkBrush.TranslateTransform(x, y);
+            imageGraphics.FillRectangle(watermarkBrush, new System.Drawing.Rectangle(new System.Drawing.Point(x, y), new Size(watermarkImage.Width + 1, watermarkImage.Height)));
+            image.Save(Server.MapPath("~/Files/" + newFileName));
+        }
+        return newFileName;
+    }
+
     protected void gvfiles_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
 
@@ -255,11 +293,7 @@ public partial class Filesupload : System.Web.UI.Page
     protected void Button1_Click1(object sender, EventArgs e)
     {
         Response.Redirect("ProjectManagementViewfreelancer.aspx" +
-            "?ID=" + Request.QueryString["ID"].ToString() +
-            "&Status=" + Request.QueryString["Status"].ToString() +
-            "&eta=" + Request.QueryString["eta"].ToString() +
-            "&projname=" + Request.QueryString["projname"].ToString() +
-            "&name=" + Request.QueryString["name"].ToString());
+            "?ID=" + Request.QueryString["ID"].ToString());
     }
 
     protected void Button2_Click(object sender, EventArgs e)

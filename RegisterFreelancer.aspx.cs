@@ -1,4 +1,6 @@
-﻿using PayPal.Api;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,6 +14,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+public class MyDetail
+{
+    public string message
+    {
+        get;
+        set;
+    }
+}
 public partial class RegisterFreelancer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
@@ -22,7 +32,11 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         {
             GetUserTypes();
         }
-
+        
+        //string jsonData = "{\"msg\":\"Test Account successfully created.\",\"data\":{\"user\":{\"username\":\"ease_test1\",\"password\":\"P@ssw0rd\"},\"account\":{\"user_id\":\"18474d1f-d6be-4b0e-98e8-b4ac70e1c264\",\"account_number\":\"104758330416\",\"card_number\":\"4190200051478796\",\"account_name\":\"Test1\",\"account_code\":\"kO6Od104nwLpLJ8X\",\"account_type\":\"Savings Account\",\"status\":\"Active\",\"branch\":\"1257\",\"balance\":\"100000\"}},\"code\":200,\"status\":1}";
+        //var getresult = JObject.Parse(jsonData);
+        //Console.WriteLine("test: " + getresult);
+        //Page.Response.Write("<script>console.log('" + getresult["data"]["account"]["user_id"] + "');</script>");
     }
     void GetUserTypes()
     {
@@ -60,19 +74,28 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         }
         if (age < 18)
         {
-            ShowPopUpMsg("Birthday not Valid! Must be 18 years or above!");
+            errorBirthday.Visible = true;
+            errorBirthday.Text = "Birthday not Valid! Must be 18 years or above!";
+            //ShowPopUpMsg("Birthday not Valid! Must be 18 years or above!");
             return;
         }
 
         if (dh > today)
         {
-            ShowPopUpMsg("No future dates for date hired!");
+            //ShowPopUpMsg("No future dates for date hired!");
+            errorBirthday.Visible = true;
+            errorBirthday.Text = "No future dates for date hired!";
             return;
         }
 
 
 
-        if (txtPassword.Text != txtPassword_confirm.Text) { ShowPopUpMsg("Pasword Mismatch!"); return; }
+        if (txtPassword.Text != txtPassword_confirm.Text) {
+            //ShowPopUpMsg("Pasword Mismatch!"); 
+            errorPassword.Visible = true;
+            errorPassword.Text = "Pasword Mismatch!";
+            return; 
+        }
 
         //duplicate email
         con.Open();
@@ -120,7 +143,7 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         //Helper.AddLog("1", "Add", "Added a user record");
 
         Helper.SendEmail(txtEmail.Text, "Registered as Freelancer", Mail_Body());
-
+        
         Response.Redirect("Login.aspx");
     }
 
@@ -137,23 +160,34 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         }
         if (age < 18)
         {
-            ShowPopUpMsg("Birthday not Valid! Must be 18 years or above!");
+            errorBirthday.Visible = true;
+            errorBirthday.Text = "Birthday not Valid! Must be 18 years or above!";
             return;
-        }
+        } else
+            errorBirthday.Visible = false;
+
         if (fuImage.HasFile || fuImage2.HasFile)
         {
-
+            errorImage.Visible = false;
         }
         else
         {
-            ShowPopUpMsg("Please add identification!");
+            errorImage.Visible = true;
+            errorImage.Text = " Please add identification!";
+            //ShowPopUpMsg("Please add identification!");
             return;
         }
        
-        if (txtPassword.Text != txtPassword_confirm.Text) { ShowPopUpMsg("Pasword Mismatch!"); return; }
-
-        //check password
-        if (checkPassword(txtPassword.Text) == 0) { ShowPopUpMsg("Pasword must be at least 6 characters, must contain Uppercase and Lowercase letters, numbers and symbols!"); return; }
+        if (txtPassword.Text != txtPassword_confirm.Text) {
+            errorPassword.Visible = true;
+            errorPassword.Text =" Pasword Mismatch!"; 
+            return; 
+        }else if (checkPassword(txtPassword.Text) == 0) {
+            errorPassword.Visible = true;
+            errorPassword.Text = " Pasword must be at least 6 characters, must contain Uppercase and Lowercase letters, numbers and symbols!"; 
+            return; 
+        } else
+            errorPassword.Visible = false;
 
         //duplicate email
         con.Open();
@@ -166,13 +200,16 @@ public partial class RegisterFreelancer : System.Web.UI.Page
 
         if (dr.HasRows)
         {
-            ShowPopUpMsg("User Email already Used!");
+            //ShowPopUpMsg("User Email already Used!");
+            errorEmail.Visible = true;
+            errorEmail.Text = " User Email already Used!";
             txtEmail.Text = "";
             txtEmail.Focus();
             con.Close();
 
             return;
-        }
+        } else
+            errorEmail.Visible = false;
         con.Close();
 
 
@@ -210,6 +247,13 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@updatedate", "");
         cmd.ExecuteNonQuery();
         con.Close();
+
+        //Helper.SendEmail(txtEmail.Text, "Registered as Freelancer", Mail_Body());
+        string asdasf = Helper.newAccount(txtEmail.Text, txtPassword.Text, txtFN.Text);
+        Page.Response.Write("<script>console.log('" + asdasf + "');</script>");
+        ShowPopUpMsg("Check email for verification");
+
+
         //Helper.AddLog("1", "Add", "Added a user record");
         //string message = "<br /> From <br />" +
         //"<br /> Please Click link below to Verify Account <br />" +
@@ -242,8 +286,6 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         //message.BodyEncoding = Encoding.Default;
         //message.Priority = MailPriority.High;
         //SmtpMail.Send(message); //Smtpclient to send the mail message  
-        Helper.SendEmail(txtEmail.Text, "Registered as Freelancer", Mail_Body());
-        ShowPopUpMsg("Check email for verification");
         //Response.Redirect("Login.aspx");
     }
     private AlternateView Mail_Body()

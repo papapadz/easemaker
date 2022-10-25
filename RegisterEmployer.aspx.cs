@@ -10,15 +10,13 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net;
+
 
 public partial class Register : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
-    {
-        HttpWebRequest myReq =
-(HttpWebRequest)WebRequest.Create("http://www.contoso.com/");
+    {   
         if (!IsPostBack)
         {
             GetUserTypes();
@@ -70,7 +68,10 @@ public partial class Register : System.Web.UI.Page
         //    ShowPopUpMsg("No future dates for date hired!");
         //    return;
         //}
-        if (txtPassword.Text != txtPassword_confirm.Text) { ShowPopUpMsg("Pasword Mismatch!"); return; }
+        if (txtPassword.Text != txtPassword_confirm.Text) { 
+            ShowPopUpMsg("Pasword Mismatch!"); 
+            return; 
+        }
         
         //check password
         if (checkPassword(txtPassword.Text) == 0) { ShowPopUpMsg("Pasword must be at least 6 characters, must contain Uppercase and Lowercase letters, numbers and symbols!"); return; }
@@ -104,8 +105,6 @@ public partial class Register : System.Web.UI.Page
             "Password, status, UserType) VALUES (@Companyname, @PersonName, @Email, @ContactNo, " +
             "@Address, " +
             "@Password, @status,  @UserType)";
-        string SQL = "Insert into ";
-  
         cmd.Parameters.AddWithValue("@UserType", "Applicant");
         cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
         cmd.Parameters.AddWithValue("@Password", Helper.CreateHashTag(txtPassword.Text));

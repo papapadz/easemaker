@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -12,6 +15,7 @@ public partial class addratingemployer : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(Helper.GetConnection());
 
+    public string name;
     protected void Page_Load(object sender, EventArgs e)
     {
         //if (Session["userid"] == null)
@@ -26,16 +30,35 @@ public partial class addratingemployer : System.Web.UI.Page
         //}
         if (!IsPostBack)
         {
-         
             Label1.Text = Request.QueryString["ID"].ToString();
-            txtContactPerson.Text = Request.QueryString["name"].ToString();
             //GetCategories();
-            GetInfo();
+            GetInfo2();
         }
     }
+
     void GetInfo()
     {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "SELECT TOP(1) * FROM Users WHERE userID=@userid ";
+        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
+        SqlDataReader data = cmd.ExecuteReader();
+        while (data.Read())
+        {
+            {
+                //lblRating.Text = data["rating"].ToString();
+                
+                Label2.Text = data["PersonName"].ToString();
 
+            }
+        }
+        con.Close();
+    }
+
+    void GetInfo2()
+    {
+        bool getUserInfo = false;
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
@@ -48,9 +71,15 @@ public partial class addratingemployer : System.Web.UI.Page
                 //lblRating.Text = data["rating"].ToString();
                 Image2.ImageUrl = string.Concat("img/", data["image"].ToString());
                 lblComment.Text = data["comment"].ToString();
+                panelRating.Visible = false;
+                txtContactPerson.Text = "Rating by " + data["PersonName"].ToString();
+                getUserInfo = true;
             }
         }
         con.Close();
+
+        if (getUserInfo)
+            GetInfo();
     }
 
 
@@ -177,6 +206,6 @@ public partial class addratingemployer : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        Response.Redirect("projectmanagementviewfreelancer.aspx?ID=" + Request.QueryString["ID"].ToString() + "&status=" + Request.QueryString["status"].ToString() + "&projname=" + Request.QueryString["projname"].ToString() + "&name=" + Request.QueryString["name"].ToString() + "&ETA=" + Request.QueryString["eta"].ToString());
+        Response.Redirect("projectmanagementviewfreelancer.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 }

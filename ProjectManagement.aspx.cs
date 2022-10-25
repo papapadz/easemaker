@@ -25,7 +25,10 @@ public partial class ProjectManagement : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            this.statusReq = Request.QueryString["status"].ToString();
+            if (Request.QueryString["status"].ToString() == "Completed")
+                this.statusReq = "Done";
+            else
+                this.statusReq = Request.QueryString["status"].ToString();
             getjobs();
         }
     }

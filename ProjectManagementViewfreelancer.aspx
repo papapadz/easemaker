@@ -76,11 +76,10 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="col-md-3 col-sm-4" id ="divrate" runat="server">
-                            <div class="profile-content">
+                    <asp:Panel class="panel panel-primary" id ="divrate" runat="server">
+                            <div class="panel-body">
                                 <h2>Rate & Comment</h2>
-                                <h1>
-                                    </h1>
+                                <h1></h1>
                                 <%--	<p>Description:<asp:Label ID="Label9" runat="server" /></p>--%>
                                 <%--   <p>Offer: Php <asp:Label ID="lblBudget" runat="server" /></p>
                                 <p>Time Frame: <asp:Label ID="lbltl" runat="server" /></p>--%>
@@ -94,14 +93,14 @@
                                     <%--	<li><span>From:</span>1998</li>--%>
                                 </ul>
                             </div>
-                        </div>
+                        </asp:Panel>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="panel panel-primary ">
-                          <h3>Hours Logged: <asp:Label ID="lbltotalhrs" runat="server"></asp:Label></h3>
+                          <h3 class="text-center">Hours Logged: <asp:Label ID="lbltotalhrs" runat="server"></asp:Label></h3>
                   
                         <%--	<p>Description:<asp:Label ID="Label9" runat="server" /></p>--%>
                         <div id="divtime" runat="server" class="text-center">

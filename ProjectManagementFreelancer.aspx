@@ -71,8 +71,12 @@
                                                 <img id="Img3" runat="server" src='<%# string.Concat("img/", Eval("image")) %>'
                                                     class="img-responsive" width="100" /><%# Eval("cOMMENT") %></td>
                                             <td>
+													<a href='ProjectManagementViewFreelancer.aspx?ID=<%# Eval("Jobid") %>' onclick="javascript:return confirm('Are you sure you want to Proceed?');">View More</a>
+												</td>
+                                             <%-- <td>
                                                 <a href='ProjectManagementViewfreelancer.aspx?ID=<%# Eval("Jobid") %>&Status=<%# Eval("status") %>&eta=<%# Eval("eta", "{0:d}") %>&projname=<%# Eval("jobtitle") %>&name=<%# Eval("companyname") %>' onclick="javascript:return confirm('Are you sure you want to Proceed?');">View More</a>
                                             </td>
+                                                 --%>
                                             <%--  <td>
                                             <a href='filesuploadcontractfreelancer.aspx?ID=<%# Eval("Jobid") %>&Status=<%# Eval("status") %>' onclick="javascript:return confirm('Are you sure you want to Proceed?');"><i class="fa fa-pencil"></i></a>
                                         </td>

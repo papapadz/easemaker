@@ -78,7 +78,7 @@ public partial class joblistdefault : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + Request.QueryString["ST"].ToString() + "%' and status='Posted' and category =" + Request.QueryString["cat"].ToString() + " and status='Posted'";
+        cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + Request.QueryString["ST"].ToString() + "%' and status='Posted' and category =" + Request.QueryString["cat"].ToString();
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "joblistview");

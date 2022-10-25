@@ -120,7 +120,7 @@ public partial class projectrequirementlist : System.Web.UI.Page
             //ShowPopUpMsg("Requirement already completed!");
             con.Close();
 
-            Response.Redirect("projectmanagement.aspx");
+            Response.Redirect("projectmanagementview.aspx?ID="+ this.Request.QueryString["ID"].ToString());
         }
         else
         {
@@ -139,7 +139,12 @@ public partial class projectrequirementlist : System.Web.UI.Page
             Helper.AddLog(Session["userid"].ToString(), "Requirement Completion", "Requirement Updated!");
             //Response.Redirect("projectrequirementlist.aspx?ID=" + Request.QueryString["ID"].ToString());
 
-            Response.Redirect("projectmanagement.aspx");
+            Response.Redirect("projectmanagementview.aspx?ID=" + this.Request.QueryString["ID"].ToString());
         }
+    }
+
+    protected void btnAdd_click(object sender, EventArgs e)
+    {
+        Response.Redirect("projectrequirement.aspx?ID=" + Request.QueryString["ID"].ToString());
     }
 }

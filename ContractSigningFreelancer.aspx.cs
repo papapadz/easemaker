@@ -85,26 +85,53 @@ public partial class ContractSigningFreelancer : System.Web.UI.Page
     }
     void GetInfo()
     {
-
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
+        //cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
+        cmd.CommandText = "SELECT TOP(1) * FROM vw_applicant WHERE jobid=@jobid and status='Done'";
         cmd.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
-        cmd.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
         SqlDataReader data = cmd.ExecuteReader();
         if (data.HasRows)
         {
-            divSignature.Visible = false;
             while (data.Read())
             {
                 {
                     lblFreelanceaddress.Text = data["address"].ToString();
                     lblFreelancename.Text = data["personname"].ToString();
                     lblFreelancer.Text = data["personname"].ToString();
-                    lblDateFreelancer.Text = data["date"].ToString();
-                    lblFreelancename.Text = data["personname"].ToString();
-                    Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
+                    //lblDateFreelancer.Text = data["date"].ToString();
+                    //lblFreelancename.Text = data["personname"].ToString();
+                    //Image1.ImageUrl = string.Concat("img/", data["filename"].ToString());
+                    //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
+
+
+                    //txtaboutme.Text = data["aboutme"].ToString();
+                }
+            }
+        }
+        con.Close();
+
+        con.Open();
+        SqlCommand cmd2 = new SqlCommand();
+        cmd2.Connection = con;
+        //cmd.CommandText = "SELECT TOP(1) * FROM vw_getfreelancer WHERE jobid=@jobid and userid=@userid";
+        cmd2.CommandText = "SELECT TOP(1) * FROM contracts LEFT JOIN Users ON dbo.Users.userID = contracts.userid WHERE jobid=@jobid and Users.userid=@userid";
+        cmd2.Parameters.Add("@jobid", SqlDbType.Int).Value = Request.QueryString["ID"].ToString();
+        cmd2.Parameters.Add("@userid", SqlDbType.Int).Value = Session["userid"].ToString();
+        SqlDataReader data2 = cmd2.ExecuteReader();
+        if (data2.HasRows)
+        {
+            divSignature.Visible = false;
+            while (data2.Read())
+            {
+                {
+                    //lblFreelanceaddress.Text = data["address"].ToString();
+                    //lblFreelancename.Text = data["personname"].ToString();
+                    //lblFreelancer.Text = data["personname"].ToString();
+                    lblDateFreelancer.Text = data2["date"].ToString();
+                    //lblFreelancename.Text = data["personname"].ToString();
+                    Image1.ImageUrl = string.Concat("img/", data2["filename"].ToString());
                     //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
 
 
