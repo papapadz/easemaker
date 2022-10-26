@@ -152,7 +152,7 @@ public partial class Subscription : System.Web.UI.Page
         }
         cmd.Parameters.AddWithValue("@category", subscription);
         cmd.Parameters.AddWithValue("@qty", lblQty.Text);
-        cmd.Parameters.AddWithValue("@refid", GetTimestamp(DateTime.Now));
+        cmd.Parameters.AddWithValue("@refid", DateTime.Now.ToFileTime().ToString());
         cmd.Parameters.AddWithValue("@Purpose", "Subscription");
         cmd.Parameters.AddWithValue("@image", "");
         cmd.Parameters.AddWithValue("@dateuploaded", DBNull.Value);

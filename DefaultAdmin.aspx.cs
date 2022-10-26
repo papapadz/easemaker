@@ -66,7 +66,7 @@ public partial class DefaultAdmin : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT Count(userid) as counter1 FROM users where status='For Verification' and usertype='Freelancer'";
+        cmd.CommandText = "SELECT Count(userid) as counter1 FROM users where status='For Verification' and usertype='User'";
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
         {
