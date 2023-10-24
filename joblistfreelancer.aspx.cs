@@ -62,10 +62,12 @@ public partial class joblistdefault : System.Web.UI.Page
     }
     void getjobs()
     {
+        string qString = "SELECT * FROM joblistview where status = 'Posted'";
+
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM joblistview where status = 'Posted'";
+        cmd.CommandText = qString;
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "joblistview");
@@ -126,4 +128,5 @@ public partial class joblistdefault : System.Web.UI.Page
         lbprojects.DataBind();
         con.Close();
     }
+
 }

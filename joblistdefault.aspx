@@ -4,9 +4,6 @@
     <section class="jobs">
         <div class="container">
             
-			<div class="row heading">
-                  <h2>Results for: <asp:Label ID="lblresults" runat="server"></asp:Label></h2>
-            </div>
                   <div class="form-inline">
 						<asp:TextBox ID="txtSearch" Text="" runat="server" class="form-control" Width="200" Placeholder="Type Project Name here..."/>
 						<asp:DropDownList ID="ddlCategory" runat="server" class="selectpicker form-control" data-live-search="true"

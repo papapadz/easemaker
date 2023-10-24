@@ -8,6 +8,8 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Net.Mime;
 
 public partial class ApplicantList : System.Web.UI.Page
 {
@@ -113,4 +115,99 @@ public partial class ApplicantList : System.Web.UI.Page
 
         Response.Redirect("joblist.aspx");
     }
+
+    protected void sendMail(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        var jobID = btn.Attributes["data-jobid"];
+        var userID = btn.Attributes["data-userid"];
+
+        string fname = "";
+        string emailadd = "";
+        SqlConnection con2 = new SqlConnection(Helper.GetConnection());
+        con2.Open();
+        SqlCommand cmd2 = new SqlCommand();
+        cmd2.Connection = con2;
+        cmd2.CommandText = "SELECT TOP(1) * FROM Users " +
+            "WHERE UserID =@userid ";
+        cmd2.Parameters.AddWithValue("@userid", userID);
+        SqlDataReader data = cmd2.ExecuteReader();
+        while (data.Read())
+        {
+            if (data.HasRows)
+            {
+                fname = data["PersonName"].ToString();
+                emailadd = data["Email"].ToString();
+            }
+        }
+        con2.Close();
+        
+        Helper.SendEmail(emailadd, "Project Invitation", Mail_Body2(jobID, fname));
+
+        ShowPopUpMsg("Email Sent!");
+    }
+
+    private AlternateView Mail_Body2(string jobID, string name)
+    {
+
+        string personName = "";
+        string company = "";
+        SqlConnection con2 = new SqlConnection(Helper.GetConnection());
+        con2.Open();
+        SqlCommand cmd2 = new SqlCommand();
+        cmd2.Connection = con2;
+        cmd2.CommandText = "SELECT TOP(1) * FROM Users " +
+            "WHERE UserID =@userid ";
+        cmd2.Parameters.AddWithValue("@userid", Session["userid"]);
+        SqlDataReader data = cmd2.ExecuteReader();
+        while (data.Read())
+        {
+            if (data.HasRows)
+            {
+                personName = data["PersonName"].ToString();
+                company = data["Companyname"].ToString();
+            }
+        }
+        con2.Close();
+
+
+        string message = "<br />Ease Maker<br />" +
+           "<br /> Greetings " + name + "!<br/ >" +
+           "<br />We have posted a project that perfectly suits you. Please consider this invitation to apply for the job. <br />" +
+           "<br /> Click the link below: <br />" +
+           "<br /> <p> <a href=" + Helper.GetURL() + "/projectviewapplicant.aspx?ID=" + jobID + "> Click here to view Project! </ a > </p > <br />" +
+           "<br />Please Ignore if you already accepted this project!<br />" +
+           "<br /> Thank you, <br />" +
+           "<br />" + personName + "<br />" + company;
+
+        string path = Server.MapPath(@"img/logo.png");
+        LinkedResource Img = new LinkedResource(path, MediaTypeNames.Image.Jpeg);
+        Img.ContentId = "MyImage";
+
+
+        string str = @"  
+            <table>  
+              <tr>  
+             <td>  
+                      <img src=cid:MyImage  id='img' alt=''/>
+            <br/> 
+            <img src=cid:MyImage2  id='img2' alt=''/> 
+            <br/>
+            '" + message + @"' 
+            <br/>
+
+            </td>
+            <br/>
+                     
+            </tr>  
+            <tr>  
+                     
+            </tr></table>  
+            ";
+        AlternateView AV =
+        AlternateView.CreateAlternateViewFromString(str, null, MediaTypeNames.Text.Html);
+        AV.LinkedResources.Add(Img);
+        return AV;
+    }
+
 }

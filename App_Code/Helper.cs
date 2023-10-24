@@ -12,7 +12,10 @@ using System.Web.UI.WebControls;
 using System.Net;
 using System.IO;
 using System.Web.Script.Serialization;
-
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Drawing;
 /// <summary>
 /// Summary description for BSPHelper
 /// </summary>
@@ -139,7 +142,7 @@ public class Helper
 
     }
 
-    public static string newAccount(string username, string password, string name)
+    /** public static string newAccount(string username, string password, string name)
     {
         ServicePointManager.Expect100Continue = true;
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -189,5 +192,23 @@ public class Helper
         var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
         return responseString;
+    }
+    **/
+
+    public static string addWaterMark(string uploadedFilename)
+    {
+        string newFileName = "ease_" + uploadedFilename;
+        using (System.Drawing.Image image = System.Drawing.Image.FromFile(System.Web.HttpContext.Current.Server.MapPath("~/img/" + uploadedFilename)))
+        using (System.Drawing.Image watermarkImage = System.Drawing.Image.FromFile(System.Web.HttpContext.Current.Server.MapPath("~/img/logo.png")))
+        using (System.Drawing.Graphics imageGraphics = System.Drawing.Graphics.FromImage(image))
+        using (TextureBrush watermarkBrush = new TextureBrush(watermarkImage))
+        {
+            int x = (image.Width / 2 - watermarkImage.Width / 2);
+            int y = (image.Height / 2 - watermarkImage.Height / 2);
+            watermarkBrush.TranslateTransform(x, y);
+            imageGraphics.FillRectangle(watermarkBrush, new System.Drawing.Rectangle(new System.Drawing.Point(x, y), new Size(watermarkImage.Width + 1, watermarkImage.Height)));
+            image.Save(System.Web.HttpContext.Current.Server.MapPath("~/img/" + newFileName));
+        }
+        return newFileName;
     }
 }

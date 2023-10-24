@@ -51,7 +51,9 @@
 										      </div>
                                               <div class="row">
                                                    <div class="col-md-12 form-inline text-right">
-                                                      <asp:Button runat="server" class="btn btn-success" Text="Accept" OnClientClick="return confirm('Are you sure you want Hire this Freelancer?');"  OnClick="btnAccept_Click" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
+                                                      <asp:Button runat="server" class="btn btn-warning" Text="Send Email" OnClientClick="return confirm('Are you sure you want send an email?');"  OnClick="sendMail" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
+                                                 
+                                                       <asp:Button runat="server" class="btn btn-success" Text="Accept" OnClientClick="return confirm('Are you sure you want Hire this Freelancer?');"  OnClick="btnAccept_Click" data-jobid='<%#Eval("jobid")%>' data-userid='<%#Eval("userid")%>'/>
                                                  
                                                       <a class="btn btn-primary" href='employerportfolio.aspx?ID=<%# Eval("userid") %>'>View Profile</a>
                                                   </div>

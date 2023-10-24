@@ -76,6 +76,25 @@
                           
                        
                     </div>
+                   <div class="form-group form-check-inline">
+                       <label>Preferences</label>
+                       <div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="preference1" value="1" runat="server">
+  <label class="form-check-label" for="inlineCheckbox1">Graphic Design</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="preference2" value="2" runat="server">
+  <label class="form-check-label" for="inlineCheckbox2">Illustration</label>
+</div>
+                       <div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox"  id="preference3" value="3" runat="server">
+  <label class="form-check-label" for="inlineCheckbox2">Web Design</label>
+</div>
+                       <div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="preference4" value="4" runat="server">
+  <label class="form-check-label" for="inlineCheckbox2">Photoshop</label>
+</div>
+                   </div>
                     <div class="form-group">
                         <label>Birthday</label><asp:label id="errorBirthday" class="text-danger" runat="server" ></asp:label>
                         <asp:TextBox ID="txtBD" runat="server" class="form-control input-lg" TextMode="Date" required/>

@@ -43,7 +43,9 @@
                                               <hr />
                                               <div class="row">
                                                   <div class="col-md-12">
-                                                      <a href="ViewPortfolioemployer.aspx?ID=<%# Eval("userID") %>">View Portfolio</a>
+                                                      <asp:Button runat="server" class="btn btn-warning" Text="Send Email" OnClientClick="return confirm('Are you sure you want send an email?');"  OnClick="sendMail" data-userid='<%#Eval("userid")%>'/>
+                                                 
+                                                      <a class="btn btn-primary" href="ViewPortfolioemployer.aspx?ID=<%# Eval("userID") %>">View Portfolio</a>
                                                   </div>
                                               </div>
 										    </div>

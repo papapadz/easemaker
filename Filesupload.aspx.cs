@@ -237,32 +237,14 @@ public partial class Filesupload : System.Web.UI.Page
 
                 cmd.Parameters.Add("@jobid", SqlDbType.VarChar).Value = Request.QueryString["ID"].ToString();
                 cmd.Parameters.Add("@FileDescription", SqlDbType.VarChar).Value = txtDesc.Text;
-                cmd.Parameters.Add("@FileName", SqlDbType.VarChar).Value = addWaterMark(fileName);
+                cmd.Parameters.Add("@FileName", SqlDbType.VarChar).Value = fileName;
                 cmd.Parameters.Add("@DateAdded", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = Session["userid"].ToString();
                 cmd.ExecuteNonQuery();
                 con.Close();
                 getexperience();
-                addWaterMark(fileName);
             }
         
-    }
-
-    public string addWaterMark(string uploadedFilename)
-    {
-        string newFileName = "ease_" + uploadedFilename;
-        using (System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath("~/Files/" + uploadedFilename)))
-        using (System.Drawing.Image watermarkImage = System.Drawing.Image.FromFile(Server.MapPath("~/img/logo.png")))
-        using (System.Drawing.Graphics imageGraphics = System.Drawing.Graphics.FromImage(image))
-        using (TextureBrush watermarkBrush = new TextureBrush(watermarkImage))
-        {
-            int x = (image.Width / 2 - watermarkImage.Width / 2);
-            int y = (image.Height / 2 - watermarkImage.Height / 2);
-            watermarkBrush.TranslateTransform(x, y);
-            imageGraphics.FillRectangle(watermarkBrush, new System.Drawing.Rectangle(new System.Drawing.Point(x, y), new Size(watermarkImage.Width + 1, watermarkImage.Height)));
-            image.Save(Server.MapPath("~/Files/" + newFileName));
-        }
-        return newFileName;
     }
 
     protected void gvfiles_RowDeleting(object sender, GridViewDeleteEventArgs e)

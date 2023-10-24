@@ -24,6 +24,7 @@ public class MyDetail
 }
 public partial class RegisterFreelancer : System.Web.UI.Page
 {
+    private string id;
     SqlConnection con = new SqlConnection(Helper.GetConnection());
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -63,6 +64,7 @@ public partial class RegisterFreelancer : System.Web.UI.Page
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
+
         DateTime bday = DateTime.Parse(txtBD.Text);
         DateTime today = DateTime.Today;
 
@@ -149,6 +151,7 @@ public partial class RegisterFreelancer : System.Web.UI.Page
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
+
         DateTime bday = DateTime.Parse(txtBD.Text);
         DateTime today = DateTime.Today;
 
@@ -223,7 +226,7 @@ public partial class RegisterFreelancer : System.Web.UI.Page
             "@Password, @status,  @UserType,@aboutme,@image,@registerdate,@updatedate,@birthday,@gender,@Image1,@Image2)";
         //string SQL = "Insert into ";
         string fileExt = Path.GetExtension(fuImage.FileName);
-        string id = Guid.NewGuid().ToString();
+        id = Guid.NewGuid().ToString();
         cmd.Parameters.AddWithValue("@Image1", id + fileExt);
         fuImage.SaveAs(Server.MapPath("~/img/" + id + fileExt));
         string fileExt2 = Path.GetExtension(fuImage2.FileName);
@@ -248,22 +251,23 @@ public partial class RegisterFreelancer : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         con.Close();
 
-        //Helper.SendEmail(txtEmail.Text, "Registered as Freelancer", Mail_Body());
-        string asdasf = Helper.newAccount(txtEmail.Text, txtPassword.Text, txtFN.Text);
-        Page.Response.Write("<script>console.log('" + asdasf + "');</script>");
-        ShowPopUpMsg("Check email for verification");
+        if (preference1.Checked)
+            addPreference("1");
+        if (preference2.Checked)
+            addPreference("2");
+        if (preference3.Checked)
+            addPreference("3");
+        if (preference4.Checked)
+            addPreference("4");
 
+        Helper.SendEmail(txtEmail.Text, "Registered as Freelancer", Mail_Body());
+        ShowPopUpMsg("Check email for verification");
 
         //Helper.AddLog("1", "Add", "Added a user record");
         //string message = "<br /> From <br />" +
         //"<br /> Please Click link below to Verify Account <br />" +
         //"<br />" + Helper.GetURL() + "/VerifyUser.aspx?email=" + txtEmail.Text + " <br />";
         //Helper.SendEmail(txtEmail.Text, "Registered ", message);
-
-
-
-
-
 
         //MailMessage message = new MailMessage();
         //message.To.Add(txtEmail.Text);// Email-ID of Receiver  
@@ -337,5 +341,38 @@ public partial class RegisterFreelancer : System.Web.UI.Page
             return 1;
         return 0;
            
+    }
+
+    private void addPreference(string category_id)
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand();
+        cmd.Connection = con;
+        cmd.CommandText = "INSERT INTO preferences (user_id, category_id) VALUES (@user, @category)";
+        cmd.Parameters.AddWithValue("@user", getUserid());
+        cmd.Parameters.AddWithValue("@category", category_id);
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    private string getUserid()
+    {
+        SqlConnection con2 = new SqlConnection(Helper.GetConnection());
+        con2.Open();
+        SqlCommand cmd2 = new SqlCommand();
+        cmd2.Connection = con2;
+        cmd2.CommandText = "SELECT TOP(1) UserID FROM Users " +
+            "WHERE Email =@Email ";
+        cmd2.Parameters.AddWithValue("@Email", txtEmail.Text);
+        SqlDataReader data = cmd2.ExecuteReader();
+        while (data.Read())
+        {
+            if (data.HasRows)
+            {
+                return data["UserID"].ToString();
+            }
+        }
+            
+        return "";
     }
 }

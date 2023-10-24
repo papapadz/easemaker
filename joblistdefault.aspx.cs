@@ -15,19 +15,12 @@ public partial class joblistdefault : System.Web.UI.Page
 
     void Page_PreInit(Object sender, EventArgs e)
     {
-        if (Session["userid"] == null)
-        {
-            Session.Clear();
-            Response.Redirect("Login.aspx");
-        }
-        //if (Session["UserID"] == null || Session["UserLevel"].ToString() == "Customer")
-        //{
-        //    Response.Redirect("Login.aspx");
-
-        if (!IsPostBack)
+        if (Session["userid"] != null)
         {
             SetMasterPage(Session["userid"].ToString());
-        }
+        } 
+            
+     
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -49,7 +42,7 @@ public partial class joblistdefault : System.Web.UI.Page
                 {
                     //lblSL.Text = Request.QueryString["ST"].ToString();
                     getjobs2();
-                    lblresults.Text = Request.QueryString["ST"].ToString();
+                    //lblresults.Text = Request.QueryString["ST"].ToString();
                 }
 
                 //clear mycart
@@ -136,7 +129,7 @@ public partial class joblistdefault : System.Web.UI.Page
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Posted' and category =" + ddlCategory.SelectedValue + " and status='Posted'";
+        cmd.CommandText = "SELECT * FROM joblistview where jobtitle LIKE '%" + txtSearch.Text + "%' and status='Posted' and category ='" + ddlCategory.SelectedValue + "'";
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds, "joblistview");

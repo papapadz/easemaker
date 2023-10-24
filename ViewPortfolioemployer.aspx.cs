@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -92,13 +93,14 @@ public partial class ViewPortfolioemployer : System.Web.UI.Page
                 Response.Redirect("Login.aspx");
         }
     }
+   
     void GetInfo(int userID)
     {
 
         con.Open();
         SqlCommand cmd = new SqlCommand();
         cmd.Connection = con;
-        cmd.CommandText = "SELECT * FROM users WHERE userid=@userid ";
+        cmd.CommandText = "SELECT * FROM vw_portfolio WHERE userid=@userid ";
         cmd.Parameters.Add("@userid", SqlDbType.Int).Value = userID;
         SqlDataReader data = cmd.ExecuteReader();
         while (data.Read())
@@ -106,6 +108,8 @@ public partial class ViewPortfolioemployer : System.Web.UI.Page
             {
                 txtContactPerson.Text = data["personname"].ToString();
                 //imgApplicant.ImageUrl = string.Concat("img/", data["Image"].ToString());
+                if (data["Status"].ToString() == "Subscribed")
+                    Label1.Visible = true;
 
 
                 //txtaboutme.Text = data["aboutme"].ToString();

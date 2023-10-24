@@ -88,7 +88,7 @@
                                                                     runat="server"
                                                                     >
                                                                     <asp:Panel
-                                                                        Visible='<%# Eval("purpose").ToString() == "Service Fee"%>'
+                                                                        Visible='<%# Eval("purpose").ToString() == "Service Fee" ||  Eval("purpose").ToString() == "Subscription"%>'
                                                                         runat="server">
                                                                         <button class="btn btn-warning btn-xs" type="button" onclick='check("<%# Eval("checkoutid") %>")'>Pay Now</button>
                                                                     </asp:Panel> 

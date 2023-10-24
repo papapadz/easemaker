@@ -125,10 +125,10 @@ public partial class MyProfileApplicant : System.Web.UI.Page
             cmd.CommandText = "INSERT INTO portfolio (userid,image) VALUES (@userid,@image)";
             string fileExt = Path.GetExtension(fuImage.FileName);
             string id = Guid.NewGuid().ToString();
-            cmd.Parameters.AddWithValue("@Image", id + fileExt);
             fuImage.SaveAs(Server.MapPath("~/img/" + id + fileExt));
             cmd.Parameters.AddWithValue("@userid", Session["userid"].ToString());
             cmd.Parameters.AddWithValue("@categoryname", txtContactPerson.Text);
+            cmd.Parameters.AddWithValue("@Image", Helper.addWaterMark(id + fileExt));
             cmd.ExecuteNonQuery();
             con.Close();
             Helper.AddLog(Session["userid"].ToString(), "My Profile", "Applicant Profile Updated!");
